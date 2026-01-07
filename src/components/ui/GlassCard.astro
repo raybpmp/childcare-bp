@@ -1,0 +1,13 @@
+---
+interface Props {
+	title?: string;
+	className?: string;
+}
+
+const { title, className = "" } = Astro.props;
+---
+
+<div class:list={["glass-panel rounded-2xl p-6 transition-transform duration-300", className]}>
+	{title && <h3 class="mb-3 text-lg font-semibold text-gray-900">{title}</h3>}
+	<slot />
+</div>

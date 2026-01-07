@@ -1,0 +1,32 @@
+---
+interface Props {
+  value: number; // 0-100
+  color?: 'brand' | 'blue' | 'purple' | 'orange';
+  label?: string;
+  showValue?: boolean;
+}
+
+const { value, color = 'brand', label, showValue = false } = Astro.props;
+
+const colorStyles = {
+  brand: 'bg-brand-500',
+  blue: 'bg-blue-500',
+  purple: 'bg-purple-500',
+  orange: 'bg-orange-500',
+};
+---
+
+<div class="w-full">
+  {(label || showValue) && (
+    <div class="flex justify-between text-xs mb-1">
+      {label && <span class="font-medium text-gray-600">{label}</span>}
+      {showValue && <span class="text-gray-500">{value}%</span>}
+    </div>
+  )}
+  <div class="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
+    <div 
+      class={`h-full rounded-full ${colorStyles[color]} transition-all duration-1000 ease-out`} 
+      style={`width: ${value}%`}
+    ></div>
+  </div>
+</div>

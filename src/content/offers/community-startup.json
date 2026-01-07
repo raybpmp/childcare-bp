@@ -1,0 +1,14 @@
+{
+    "id": "community-startup",
+    "title": "Founder Community",
+    "price": "$99/mo",
+    "features": [
+        "Weekly Q&A",
+        "Template Library",
+        "Peer Support"
+    ],
+    "ctaLabel": "Join Now",
+    "link": "/checkout/community",
+    "funnel": "startup",
+    "recommended": false
+}

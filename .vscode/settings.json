@@ -1,0 +1,11 @@
+{
+    "css.validate": false,
+    "scss.validate": false,
+    "tailwindCSS.experimental.configFile": null,
+    "tailwindCSS.includeLanguages": {
+        "astro": "html"
+    },
+    "files.associations": {
+        "*.css": "tailwindcss"
+    }
+}

@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+import GlassCard from '../components/ui/GlassCard.astro';
+import CtaButton from '../components/CtaButton';
+import EmailCaptureModal from '../components/EmailCaptureModal';
+---
+
+<Layout title="Daycare Owner Growth Toolkit | ChildcareBusinessPlan.com">
+	<main class="min-h-screen p-4 md:p-8">
+		<div class="max-w-6xl mx-auto">
+			<!-- Hero -->
+			<div class="glass-panel rounded-3xl p-12 text-center mb-12">
+				<span class="inline-block px-4 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-semibold mb-6">For Daycare Owners</span>
+				<h1 class="text-5xl font-bold text-gray-900 mb-6">
+					Get the Free Daycare<br/>
+					<span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-800">Owner Growth Toolkit</span>
+				</h1>
+				<p class="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+					Enrollment forecasting, staff retention strategies, and systems checklists. Fix what's broken and scale what's working.
+				</p>
+				<CtaButton client:load funnel="consulting" size="lg">
+					Unlock My Growth Toolkit
+				</CtaButton>
+			</div>
+
+			<!-- What's Included -->
+			<h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">What's Inside</h2>
+			<div class="grid md:grid-cols-2 gap-6 mb-12">
+				<GlassCard>
+					<h3 class="text-xl font-bold text-gray-900 mb-3">📈 Enrollment Forecast Model</h3>
+					<p class="text-gray-600 mb-4">Project your capacity, waitlist, and revenue 12 months out.</p>
+					<ul class="space-y-2 text-sm text-gray-600">
+						<li>✓ Seasonal trends</li>
+						<li>✓ Marketing ROI</li>
+						<li>✓ Pricing scenarios</li>
+					</ul>
+				</GlassCard>
+
+				<GlassCard>
+					<h3 class="text-xl font-bold text-gray-900 mb-3">👥 Staffing Cost Estimator</h3>
+					<p class="text-gray-600 mb-4">Calculate true cost of turnover and optimize your team.</p>
+					<ul class="space-y-2 text-sm text-gray-600">
+						<li>✓ Turnover impact</li>
+						<li>✓ Retention strategies</li>
+						<li>✓ Benefits benchmarks</li>
+					</ul>
+				</GlassCard>
+
+				<GlassCard>
+					<h3 class="text-xl font-bold text-gray-900 mb-3">🎯 Marketing Checklist</h3>
+					<p class="text-gray-600 mb-4">Fill your waitlist without expensive ads.</p>
+				</GlassCard>
+
+				<GlassCard>
+					<h3 class="text-xl font-bold text-gray-900 mb-3">⚙️ Systems & Apps Guide</h3>
+					<p class="text-gray-600 mb-4">Tech stack to automate billing, attendance, and communication.</p>
+				</GlassCard>
+			</div>
+
+			<!-- CTA -->
+			<div class="glass-panel rounded-2xl p-8 text-center">
+				<h3 class="text-2xl font-bold text-gray-900 mb-4">Ready to Grow?</h3>
+				<CtaButton client:load funnel="consulting" size="lg">
+					Get the Toolkit Now
+				</CtaButton>
+			</div>
+		</div>
+
+		<EmailCaptureModal client:load />
+	</main>
+</Layout>

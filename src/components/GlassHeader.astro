@@ -1,0 +1,33 @@
+---
+import { Button } from '@/components/ui/button';
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 p-4">
+  <nav class="glass-header mx-auto max-w-7xl rounded-full px-6 py-3 flex items-center justify-between shadow-lg shadow-black/5">
+    
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2 group">
+      <div class="w-8 h-8 bg-gradient-to-br from-teal-400 to-teal-600 rounded-lg flex items-center justify-center text-white font-bold group-hover:scale-105 transition-transform">
+        C
+      </div>
+      <span class="font-bold text-gray-900 tracking-tight hidden sm:block group-hover:text-teal-700 transition-colors">
+        ChildcareBusinessPlan
+      </span>
+    </a>
+
+    <!-- Nav Links -->
+    <div class="hidden md:flex items-center gap-1">
+      <a href="/startup" class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-teal-600 hover:bg-white/50 rounded-full transition-all">
+        Startup
+      </a>
+      <a href="/consulting" class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-purple-600 hover:bg-white/50 rounded-full transition-all">
+        Consulting
+      </a>
+    </div>
+
+    <!-- CTA Button -->
+    <Button className="rounded-full bg-teal-600 hover:bg-teal-700 text-white shadow-lg shadow-teal-600/20">
+      Get the Toolkit
+    </Button>
+  </nav>
+</header>

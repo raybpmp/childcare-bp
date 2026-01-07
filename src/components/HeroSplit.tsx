@@ -1,35 +1,21 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRightIcon } from 'lucide-react';
+import { ArrowRightIcon, RocketIcon, TrendingUpIcon } from 'lucide-react';
 import { openModal } from '../store/modalStore';
-
-const container = {
-    hidden: { opacity: 0 },
-    show: {
-        opacity: 1,
-        transition: { staggerChildren: 0.15, delayChildren: 0.3 }
-    }
-};
-
-const item = {
-    hidden: { y: 30, opacity: 0 },
-    show: { y: 0, opacity: 1, transition: { type: "spring" as const, stiffness: 50, damping: 20 } }
-};
 
 export default function HeroSplit() {
     return (
-        <section className="min-h-screen flex flex-col justify-center px-4 pt-28 pb-16">
-            {/* Headline */}
-            <div className="text-center mb-12">
+        <section className="min-h-[85vh] flex flex-col justify-center px-4 pt-20 pb-12">
+            {/* Hero Statement */}
+            <div className="text-center mb-10 max-w-3xl mx-auto">
                 <motion.h1
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
-                    className="text-5xl md:text-7xl font-bold text-gray-900 tracking-tight mb-6"
+                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight mb-6 leading-tight"
                 >
-                    Launch & Grow<br />
+                    Launch & Grow{' '}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-purple-600">
                         Your Childcare Business
                     </span>
@@ -38,71 +24,52 @@ export default function HeroSplit() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3 }}
-                    className="text-xl text-gray-600 max-w-2xl mx-auto"
+                    className="text-base sm:text-lg md:text-xl text-gray-600"
                 >
                     The complete operating system for childcare founders and owners.
                 </motion.p>
             </div>
 
-            {/* Split Cards */}
+            {/* Funnel Selection Buttons */}
             <motion.div
-                variants={container}
-                initial="hidden"
-                animate="show"
-                className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto w-full"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-xl mx-auto w-full"
             >
-                {/* Startup Card */}
-                <motion.div variants={item}>
-                    <Card
-                        className="glass-panel cursor-pointer h-[420px] flex flex-col justify-between p-8 border-2 border-transparent hover:border-teal-200 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group"
-                        onClick={() => openModal('startup')}
-                    >
-                        <CardHeader className="p-0">
-                            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-100 text-teal-700 text-sm font-semibold w-fit mb-4">
-                                <span className="w-2 h-2 rounded-full bg-teal-600"></span>
-                                New Founders
-                            </span>
-                            <CardTitle className="text-4xl md:text-5xl font-bold text-gray-900">
-                                Start a<br />Daycare
-                            </CardTitle>
-                            <CardDescription className="text-lg text-gray-600 mt-4">
-                                Business plan, budget calculator, and 90-day launch checklist.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardFooter className="p-0">
-                            <Button variant="ghost" className="text-teal-700 font-bold text-lg group-hover:gap-4 transition-all p-0">
-                                Get Startup Toolkit <ArrowRightIcon className="w-5 h-5" />
-                            </Button>
-                        </CardFooter>
-                    </Card>
-                </motion.div>
+                {/* Startup Button */}
+                <Button
+                    size="lg"
+                    className="w-full sm:w-auto rounded-full bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-6 shadow-lg shadow-teal-600/30 transition-all hover:shadow-xl hover:scale-105"
+                    onClick={() => openModal('startup')}
+                >
+                    <RocketIcon className="mr-2 w-5 h-5" />
+                    I'm Starting a Daycare
+                    <ArrowRightIcon className="ml-2 w-4 h-4" />
+                </Button>
 
-                {/* Owner Card */}
-                <motion.div variants={item}>
-                    <Card
-                        className="glass-panel cursor-pointer h-[420px] flex flex-col justify-between p-8 border-2 border-transparent hover:border-purple-200 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group"
-                        onClick={() => openModal('consulting')}
-                    >
-                        <CardHeader className="p-0">
-                            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-sm font-semibold w-fit mb-4">
-                                <span className="w-2 h-2 rounded-full bg-purple-600"></span>
-                                Existing Owners
-                            </span>
-                            <CardTitle className="text-4xl md:text-5xl font-bold text-gray-900">
-                                Grow My<br />Daycare
-                            </CardTitle>
-                            <CardDescription className="text-lg text-gray-600 mt-4">
-                                Enrollment forecasting, staff retention, and systems automation.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardFooter className="p-0">
-                            <Button variant="ghost" className="text-purple-700 font-bold text-lg group-hover:gap-4 transition-all p-0">
-                                Get Growth Toolkit <ArrowRightIcon className="w-5 h-5" />
-                            </Button>
-                        </CardFooter>
-                    </Card>
-                </motion.div>
+                {/* Owner Button */}
+                <Button
+                    size="lg"
+                    variant="outline"
+                    className="w-full sm:w-auto rounded-full border-2 border-purple-300 hover:border-purple-500 hover:bg-purple-50 text-purple-700 font-semibold px-6 py-6 transition-all hover:scale-105"
+                    onClick={() => openModal('consulting')}
+                >
+                    <TrendingUpIcon className="mr-2 w-5 h-5" />
+                    I Own a Daycare
+                    <ArrowRightIcon className="ml-2 w-4 h-4" />
+                </Button>
             </motion.div>
+
+            {/* Trust indicator */}
+            <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6 }}
+                className="text-center text-sm text-gray-500 mt-8"
+            >
+                Trusted by 200+ childcare founders nationwide
+            </motion.p>
         </section>
     );
 }

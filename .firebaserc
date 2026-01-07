@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "childcare-biz-plan-2026"
-  }
+    "default": "childcare-bp"
+  },
+  "targets": {},
+  "etags": {}
 }

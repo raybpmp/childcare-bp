@@ -12,7 +12,7 @@ These are mandatory guidelines that ALL agents must follow when working on this 
 
 **Rule: Always default to well-known components and search for established solutions BEFORE writing custom code.**
 
-### Process (in order):
+### Process (in order)
 
 1. **Check existing project components first**
    - Review `src/components/` for reusable components
@@ -34,7 +34,8 @@ These are mandatory guidelines that ALL agents must follow when working on this 
    - Document WHY a custom solution was necessary
    - Ensure custom code follows project conventions
 
-### Anti-Patterns to Avoid:
+### Anti-Patterns to Avoid
+
 - ❌ Writing custom form validation when a library exists
 - ❌ Creating custom animation logic when Framer Motion is available
 - ❌ Building custom UI components when shadcn/ui components exist
@@ -46,7 +47,9 @@ These are mandatory guidelines that ALL agents must follow when working on this 
 
 **Rule: All website additions MUST be designed mobile-first.**
 
-### Implementation Requirements:
+> **REQUIRED READING:** Before writing ANY Tailwind classes, read [styling.md](./styling.md) for mandatory mobile-first rules.
+
+### Implementation Requirements
 
 1. **Start with mobile viewport**
    - Write base CSS/styles for mobile screens (< 640px) first
@@ -54,6 +57,7 @@ These are mandatory guidelines that ALL agents must follow when working on this 
    - Default styles = mobile styles
 
 2. **Breakpoint progression**
+
    ```css
    /* Mobile-first approach */
    .element {
@@ -83,7 +87,8 @@ These are mandatory guidelines that ALL agents must follow when working on this 
    - Lazy load below-the-fold content
    - Minimize JavaScript bundle size
 
-### Verification Checklist:
+### Verification Checklist
+
 - [ ] Component renders correctly at 320px width
 - [ ] Component renders correctly at 375px width (iPhone)
 - [ ] Component scales appropriately to tablet (768px)
@@ -108,6 +113,7 @@ Before making ANY changes, verify:
 ## 4. Project-Specific Conventions
 
 ### File Structure
+
 - Components: `src/components/`
 - Layouts: `src/layouts/`
 - Pages: `src/pages/`
@@ -115,11 +121,13 @@ Before making ANY changes, verify:
 - Styles: `src/styles/` (if applicable)
 
 ### Styling
+
 - Use Tailwind CSS utility classes
 - Follow mobile-first breakpoint pattern
 - Maintain consistency with existing component styles
 
 ### TypeScript
+
 - All components should be properly typed
 - Use interfaces for props definitions
 - Export types when reusable

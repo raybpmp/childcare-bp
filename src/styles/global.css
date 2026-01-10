@@ -35,6 +35,29 @@
   --animate-fade-in: fade-in 0.6s ease-out forwards;
   --animate-slide-up: slide-up 0.8s ease-out forwards;
 
+  /* Mobile-First Typography Scale */
+  --text-base-mobile: 1.125rem;
+  /* 18px for readability on mobile */
+  --text-base-desktop: 1rem;
+  /* 16px for desktop */
+  --line-height-relaxed: 1.75;
+  /* Easier reading for non-tech-savvy users */
+
+  /* Touch-Friendly Spacing */
+  --touch-target-min: 3rem;
+  /* 48px minimum touch target */
+  --spacing-section-mobile: 3rem;
+  /* 48px section spacing mobile */
+  --spacing-section-desktop: 5rem;
+  /* 80px section spacing desktop */
+  --spacing-component: 1.5rem;
+  /* 24px between components */
+
+  /* Glass Tokens for Warm Aesthetic */
+  --color-glass-warm: rgba(255, 250, 245, 0.7);
+  --color-glass-border-warm: rgba(209, 148, 116, 0.2);
+  --color-glass-accent-coral: rgba(255, 127, 80, 0.1);
+
   @keyframes fade-in {
     from {
       opacity: 0;
@@ -87,6 +110,14 @@
   box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
 }
 
+.glass-panel-warm {
+  background: var(--color-glass-warm);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--color-glass-border-warm);
+  box-shadow: 0 8px 32px 0 rgba(209, 148, 116, 0.1);
+}
+
 @keyframes float-blob {
   0% {
     transform: translate(0px, 0px) scale(1);
@@ -118,6 +149,14 @@ body {
   overflow-x: hidden;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  font-size: var(--text-base-mobile);
+  line-height: var(--line-height-relaxed);
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: var(--text-base-desktop);
+  }
 }
 
 @theme inline {

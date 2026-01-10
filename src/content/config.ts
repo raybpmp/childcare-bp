@@ -5,7 +5,7 @@ const toolsCollection = defineCollection({
     schema: z.object({
         title: z.string(),
         description: z.string(),
-        funnel: z.enum(['startup', 'consulting', 'both']),
+        funnel: z.enum(['startup', 'growth', 'both']),
         benefits: z.array(z.string()),
         downloadUrl: z.string().optional(),
         gated: z.boolean().default(true),
@@ -36,7 +36,7 @@ const offersCollection = defineCollection({
         features: z.array(z.string()),
         ctaLabel: z.string(),
         link: z.string(),
-        funnel: z.enum(['startup', 'consulting']),
+        funnel: z.enum(['startup', 'growth']),
         recommended: z.boolean().default(false),
     }),
 });

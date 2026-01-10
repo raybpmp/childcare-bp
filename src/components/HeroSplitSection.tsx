@@ -84,7 +84,7 @@ export default function HeroSplitSection() {
                 <motion.div
                     variants={item}
                     whileHover={{ y: -8, scale: 1.01 }}
-                    onClick={() => openModal('consulting')}
+                    onClick={() => openModal('growth')}
                     className="glass-panel group rounded-[32px] p-8 md:p-12 cursor-pointer relative overflow-hidden h-[400px] md:h-[500px] flex flex-col justify-between transition-all duration-300 border-2 border-transparent hover:border-purple-200"
                 >
                     <div className="absolute top-0 right-0 w-64 h-64 bg-purple-100/30 rounded-full blur-3xl -mr-16 -mt-16 transition-opacity group-hover:opacity-100 opacity-50"></div>

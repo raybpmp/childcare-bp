@@ -12,9 +12,7 @@ import {
 } from "@/components/ui/sheet";
 
 const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/startup", label: "Startup" },
-    { href: "/consulting", label: "Consulting" },
+    { href: "#calculator", label: "See What I Can Make Today" },
 ];
 
 export function MobileNav() {
@@ -37,7 +35,7 @@ export function MobileNav() {
                             <div className="w-8 h-8 bg-gradient-to-br from-teal-400 to-teal-600 rounded-lg flex items-center justify-center text-white font-bold">
                                 C
                             </div>
-                            <span className="font-bold text-gray-900">Menu</span>
+                            <span className="font-bold text-gray-900">Childcare Business Plan</span>
                         </div>
                     </SheetTitle>
                 </SheetHeader>
@@ -62,10 +60,10 @@ export function MobileNav() {
                 <SheetFooter className="border-t border-gray-200 pt-4">
                     <SheetClose asChild>
                         <a
-                            href="#toolkit"
+                            href="/login"
                             className="w-full inline-flex items-center justify-center rounded-full bg-teal-600 hover:bg-teal-700 text-white text-sm font-medium px-5 py-3 shadow-lg shadow-teal-600/20 transition-all"
                         >
-                            Get the Free Toolkit
+                            Login
                         </a>
                     </SheetClose>
                 </SheetFooter>

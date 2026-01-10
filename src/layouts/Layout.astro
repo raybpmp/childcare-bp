@@ -1,14 +1,17 @@
 ---
-import '../styles/global.css';
-import { Separator } from '@/components/ui/separator';
-import { MobileNav } from '@/components/MobileNav';
+import "../styles/global.css";
+import { Separator } from "@/components/ui/separator";
+import { MobileNav } from "@/components/MobileNav";
 
 interface Props {
 	title: string;
 	description?: string;
 }
 
-const { title, description = "Launch or fix your daycare business with a real plan." } = Astro.props;
+const {
+	title,
+	description = "Launch or fix your daycare business with a real plan.",
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -19,38 +22,50 @@ const { title, description = "Launch or fix your daycare business with a real pl
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		
+
 		<!-- Google Fonts -->
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
 
 		<title>{title}</title>
 	</head>
 	<body class="min-h-screen flex flex-col">
-		
 		<!-- GLOBAL HEADER -->
 		<header class="fixed top-0 left-0 right-0 z-50 p-4">
-			<nav class="glass-header mx-auto max-w-7xl rounded-full px-4 sm:px-6 py-3 flex items-center justify-between shadow-lg shadow-black/5">
+			<nav
+				class="glass-header mx-auto max-w-7xl rounded-full px-4 sm:px-6 py-3 flex items-center justify-between shadow-lg shadow-black/5"
+			>
 				<a href="/" class="flex items-center gap-2 group">
-					<div class="w-8 h-8 bg-gradient-to-br from-teal-400 to-teal-600 rounded-lg flex items-center justify-center text-white font-bold group-hover:scale-105 transition-transform">C</div>
-					<span class="font-bold text-gray-900 tracking-tight text-sm sm:text-base">Childcare Business Plan</span>
+					<div
+						class="w-8 h-8 bg-gradient-to-br from-teal-400 to-teal-600 rounded-lg flex items-center justify-center text-white font-bold group-hover:scale-105 transition-transform"
+					>
+						C
+					</div>
+					<span
+						class="font-bold text-gray-900 tracking-tight text-sm sm:text-base"
+						>Childcare Business Plan</span
+					>
 				</a>
-				
-				<!-- Desktop nav -->
-				<div class="hidden md:flex items-center gap-2">
-					<a href="/startup" class="inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-medium text-gray-700 hover:bg-white/60 hover:text-teal-700 transition-all">
-						Startup
+
+				<!-- Desktop Links -->
+				<div class="hidden md:flex items-center gap-6">
+					<a
+						href="#calculator"
+						class="text-sm font-medium text-gray-700 hover:text-teal-600 transition-colors"
+					>
+						See What I Can Make Today
 					</a>
-					<a href="/consulting" class="inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-medium text-gray-700 hover:bg-white/60 hover:text-purple-700 transition-all">
-						Consulting
+					<a
+						href="/login"
+						class="inline-flex items-center justify-center rounded-full bg-teal-600 hover:bg-teal-700 text-white text-sm font-medium px-5 py-2.5 shadow-lg shadow-teal-600/20 transition-all hover:shadow-xl hover:shadow-teal-600/30"
+					>
+						Login
 					</a>
 				</div>
-
-				<!-- Desktop CTA -->
-				<a href="#toolkit" class="hidden md:inline-flex items-center justify-center rounded-full bg-teal-600 hover:bg-teal-700 text-white text-sm font-medium px-5 py-2.5 shadow-lg shadow-teal-600/20 transition-all hover:shadow-xl hover:shadow-teal-600/30">
-					Get the Toolkit
-				</a>
 
 				<!-- Mobile nav -->
 				<MobileNav client:load />
@@ -68,37 +83,140 @@ const { title, description = "Launch or fix your daycare business with a real pl
 				<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
 					<div>
 						<div class="flex items-center gap-2 mb-4">
-							<div class="w-8 h-8 bg-gradient-to-br from-teal-400 to-teal-600 rounded-lg flex items-center justify-center text-white font-bold">C</div>
-							<span class="font-bold text-gray-900">Childcare Business Plan</span>
+							<div
+								class="w-8 h-8 bg-gradient-to-br from-teal-400 to-teal-600 rounded-lg flex items-center justify-center text-white font-bold"
+							>
+								C
+							</div>
+							<span class="font-bold text-gray-900"
+								>Childcare Business Plan</span
+							>
 						</div>
-						<p class="text-sm text-gray-600">The complete operating system for childcare founders and owners.</p>
+						<p class="text-sm text-gray-600">
+							The complete operating system for childcare founders
+							and owners.
+						</p>
 					</div>
 					<div>
-						<h4 class="font-semibold text-gray-900 mb-4">Resources</h4>
+						<h4 class="font-semibold text-gray-900 mb-4">
+							Startup
+						</h4>
 						<ul class="space-y-2 text-sm text-gray-600">
-							<li><a href="/startup" class="hover:text-teal-600">Startup Toolkit</a></li>
-							<li><a href="/consulting" class="hover:text-purple-600">Growth Toolkit</a></li>
+							<li>
+								<a
+									href="/starting-a-daycare"
+									class="hover:text-teal-600"
+									>Starting a Daycare</a
+								>
+							</li>
+							<li>
+								<a
+									href="/starting-a-daycare-at-home"
+									class="hover:text-teal-600"
+									>Starting a Daycare at Home</a
+								>
+							</li>
+							<li>
+								<a
+									href="/steps-to-opening-a-daycare"
+									class="hover:text-teal-600"
+									>Steps to Opening a Daycare</a
+								>
+							</li>
+							<li>
+								<a
+									href="/daycare-business-plan"
+									class="hover:text-teal-600"
+									>Daycare Business Plan</a
+								>
+							</li>
+							<li>
+								<a
+									href="/cost-of-starting-a-daycare"
+									class="hover:text-teal-600"
+									>Cost of Starting a Daycare</a
+								>
+							</li>
+							<li>
+								<a
+									href="/home-daycare-income"
+									class="hover:text-teal-600"
+									>Home Daycare Income</a
+								>
+							</li>
 						</ul>
 					</div>
 					<div>
-						<h4 class="font-semibold text-gray-900 mb-4">Company</h4>
+						<h4 class="font-semibold text-gray-900 mb-4">Growth</h4>
 						<ul class="space-y-2 text-sm text-gray-600">
-							<li><a href="/about" class="hover:text-gray-900">About</a></li>
-							<li><a href="/contact" class="hover:text-gray-900">Contact</a></li>
+							<li>
+								<a
+									href="/childcare-employee-benefits"
+									class="hover:text-purple-600"
+									>Employee Benefits</a
+								>
+							</li>
+							<li>
+								<a
+									href="/daycare-marketing"
+									class="hover:text-purple-600"
+									>Daycare Marketing</a
+								>
+							</li>
+							<li>
+								<a
+									href="/childcare-communication-apps"
+									class="hover:text-purple-600"
+									>Communication Apps</a
+								>
+							</li>
+							<li>
+								<a
+									href="/daycare-enrollment"
+									class="hover:text-purple-600"
+									>Daycare Enrollment</a
+								>
+							</li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="font-semibold text-gray-900 mb-4">
+							Company
+						</h4>
+						<ul class="space-y-2 text-sm text-gray-600">
+							<li>
+								<a href="/about" class="hover:text-gray-900"
+									>About</a
+								>
+							</li>
+							<li>
+								<a href="/contact" class="hover:text-gray-900"
+									>Contact</a
+								>
+							</li>
 						</ul>
 					</div>
 					<div>
 						<h4 class="font-semibold text-gray-900 mb-4">Legal</h4>
 						<ul class="space-y-2 text-sm text-gray-600">
-							<li><a href="/privacy" class="hover:text-gray-900">Privacy Policy</a></li>
-							<li><a href="/terms" class="hover:text-gray-900">Terms of Service</a></li>
+							<li>
+								<a href="/privacy" class="hover:text-gray-900"
+									>Privacy Policy</a
+								>
+							</li>
+							<li>
+								<a href="/terms" class="hover:text-gray-900"
+									>Terms of Service</a
+								>
+							</li>
 						</ul>
 					</div>
 				</div>
 				<Separator className="my-6" />
-				<p class="text-center text-sm text-gray-500">© 2026 ChildcareBusinessPlan.com. All rights reserved.</p>
+				<p class="text-center text-sm text-gray-500">
+					© 2026 ChildcareBusinessPlan.com. All rights reserved.
+				</p>
 			</div>
 		</footer>
-
 	</body>
 </html>

@@ -53,7 +53,7 @@ export default function HeroSplit() {
                     size="lg"
                     variant="outline"
                     className="w-full sm:w-auto rounded-full border-2 border-purple-300 hover:border-purple-500 hover:bg-purple-50 text-purple-700 font-semibold px-6 py-6 transition-all hover:scale-105"
-                    onClick={() => openModal('consulting')}
+                    onClick={() => openModal('growth')}
                 >
                     <TrendingUpIcon className="mr-2 w-5 h-5" />
                     I Own a Daycare

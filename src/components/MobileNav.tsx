@@ -12,9 +12,7 @@ import {
 } from "@/components/ui/sheet";
 
 const navLinks = [
-    { href: "#calculator", label: "Calculator Tool" },
-    { href: "/starting-a-daycare", label: "Startup Guide" },
-    { href: "/daycare-marketing", label: "Growth & Scaling" },
+    { href: "#calculator", label: "See What I Can Make Today" },
 ];
 
 export function MobileNav() {

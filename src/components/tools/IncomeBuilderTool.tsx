@@ -151,21 +151,21 @@ export default function IncomeBuilderTool() {
     if (!showResults) {
         return (
             <div className="max-w-md mx-auto px-4">
-                <Card>
+                <Card className="glass-panel">
                     <CardContent className="p-6 space-y-6">
                         {/* Business Type Selector */}
                         <div className="space-y-3">
                             <h1 className="text-xl font-bold text-center">
                                 {businessType === 'home' ? 'Home Daycare' : 'Childcare Center'} Income Builder
                             </h1>
-                            <div className="flex gap-2 p-1 bg-gray-100 rounded-lg">
+                            <div className="flex gap-2 p-1 glass-panel rounded-lg">
                                 <button
                                     onClick={() => {
                                         setBusinessType('home');
                                         setSelectedState('');
                                         setShowResults(false);
                                     }}
-                                    className={`flex-1 py-3 text-sm font-medium rounded-md transition-all ${businessType === 'home' ? 'bg-white text-teal-700 shadow-sm' : 'text-gray-600 hover:text-gray-900'}`}
+                                    className={`flex-1 py-3 text-sm font-medium rounded-md transition-all ${businessType === 'home' ? 'glass-panel text-teal-700 shadow-lg' : 'text-gray-600 hover:text-gray-900 hover:bg-white/40'}`}
                                 >
                                     🏠 Home-Based
                                 </button>
@@ -175,7 +175,7 @@ export default function IncomeBuilderTool() {
                                         setSelectedState('');
                                         setShowResults(false);
                                     }}
-                                    className={`flex-1 py-3 text-sm font-medium rounded-md transition-all ${businessType === 'center' ? 'bg-white text-teal-700 shadow-sm' : 'text-gray-600 hover:text-gray-900'}`}
+                                    className={`flex-1 py-3 text-sm font-medium rounded-md transition-all ${businessType === 'center' ? 'glass-panel text-teal-700 shadow-lg' : 'text-gray-600 hover:text-gray-900 hover:bg-white/40'}`}
                                 >
                                     🏢 Center-Based
                                 </button>
@@ -183,7 +183,7 @@ export default function IncomeBuilderTool() {
                             <p className="text-xs text-gray-500 text-center">
                                 {businessType === 'home' ? 'For new home-based daycares' : 'For childcare centers & preschools'}
                             </p>
-                            <div className="mt-3 p-3 bg-gradient-to-r from-teal-50 to-emerald-50 rounded-lg border border-teal-100">
+                            <div className="mt-3 p-3 glass-panel rounded-lg">
                                 <p className="text-sm text-center text-teal-800 font-medium">
                                     💰 See your potential revenue based on your state's rates
                                 </p>
@@ -210,18 +210,18 @@ export default function IncomeBuilderTool() {
                             </Select>
                             {/* Home-based license type */}
                             {businessType === 'home' && stateInfo && stateInfo.hasLargeLicense && (
-                                <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-100">
+                                <div className="mt-4 p-3 glass-panel rounded-lg">
                                     <Label className="mb-2 block text-blue-900">License Type</Label>
                                     <div className="flex gap-2">
                                         <button
                                             onClick={() => setLicenseType('small')}
-                                            className={`flex-1 py-2 text-sm rounded-md transition-colors ${licenseType === 'small' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white text-blue-700 hover:bg-blue-50'}`}
+                                            className={`flex-1 py-2 text-sm rounded-md transition-all ${licenseType === 'small' ? 'bg-blue-600 text-white shadow-lg' : 'glass-button text-blue-700'}`}
                                         >
                                             Small (Solo)
                                         </button>
                                         <button
                                             onClick={() => setLicenseType('large')}
-                                            className={`flex-1 py-2 text-sm rounded-md transition-colors ${licenseType === 'large' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white text-blue-700 hover:bg-blue-50'}`}
+                                            className={`flex-1 py-2 text-sm rounded-md transition-all ${licenseType === 'large' ? 'bg-blue-600 text-white shadow-lg' : 'glass-button text-blue-700'}`}
                                         >
                                             Large (Group)
                                         </button>
@@ -272,7 +272,7 @@ export default function IncomeBuilderTool() {
                                     <p className="text-xs text-gray-500 mt-1">Drag to quickly set enrollment size</p>
                                 </div>
 
-                                <div className="p-3 bg-blue-50 rounded-lg border border-blue-100 space-y-4">
+                                <div className="p-3 glass-panel rounded-lg space-y-4">
                                     <Label className="block text-blue-900 font-medium">Age Group Mix</Label>
 
                                     <div>
@@ -356,7 +356,7 @@ export default function IncomeBuilderTool() {
                                     </p>
                                 </div>
 
-                                <div className="p-3 bg-purple-50 rounded-lg border border-purple-100 space-y-4">
+                                <div className="p-3 glass-panel rounded-lg space-y-4">
                                     <Label className="block text-purple-900 font-medium">Age Group Mix</Label>
 
                                     <div>
@@ -416,7 +416,7 @@ export default function IncomeBuilderTool() {
                                     </div>
                                 </div>
 
-                                <div className="text-center py-2 bg-purple-50 rounded">
+                                <div className="text-center py-2 glass-panel rounded-lg">
                                     <span className="text-lg font-bold text-purple-700">{centerTotalKids}</span> total enrolled
                                 </div>
                             </div>
@@ -440,7 +440,7 @@ export default function IncomeBuilderTool() {
         // HOME-BASED RESULTS
         return (
             <div className="max-w-md mx-auto px-4">
-                <Card>
+                <Card className="glass-panel">
                     <CardContent className="p-6 space-y-6">
                         <div className="text-center">
                             <p className="text-sm text-gray-500 mb-1">{stateInfo?.name} • {totalKids} kids</p>
@@ -453,7 +453,7 @@ export default function IncomeBuilderTool() {
                             </p>
                         </div>
 
-                        <div className="bg-gray-50 rounded-lg p-4 text-center">
+                        <div className="glass-panel rounded-lg p-4 text-center">
                             <p className="text-sm text-gray-600 leading-relaxed">
                                 This range represents the difference between guaranteed minimum government subsidy rates and potential maximum private market rates. Both figures include your federal food program reimbursement.
                             </p>
@@ -494,7 +494,7 @@ export default function IncomeBuilderTool() {
     // CENTER-BASED RESULTS
     return (
         <div className="max-w-md mx-auto px-4">
-            <Card>
+            <Card className="glass-panel">
                 <CardContent className="p-6 space-y-6">
                     <div className="text-center">
                         <p className="text-sm text-gray-500 mb-1">{stateInfo?.name} • {centerTotalKids} enrolled</p>
@@ -507,7 +507,7 @@ export default function IncomeBuilderTool() {
                         </p>
                     </div>
 
-                    <div className="bg-purple-50 rounded-lg p-4 space-y-3">
+                    <div className="glass-panel rounded-lg p-4 space-y-3">
                         <h3 className="font-semibold text-purple-900 text-center">Revenue Breakdown</h3>
                         <div className="flex justify-between text-sm">
                             <span className="text-gray-600">Tuition Revenue</span>

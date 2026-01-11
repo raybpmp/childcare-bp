@@ -7,123 +7,14 @@ import { Container } from "../components/layout/Container";
 
 <Layout title="Daycare Business Plan & Revenue Calculator | Start Your Center">
 	<!-- HERO SECTION -->
-	<!-- Mobile: Clean hero with text on image (like reference) -->
-	<section class="md:hidden relative h-svh overflow-hidden">
-		<!-- Hero Image Background -->
-		<div class="absolute inset-0">
-			<img
-				src="/hero-woman.png"
-				alt="Childcare professional"
-				class="h-full w-full object-cover object-top"
-				loading="eager"
-			/>
-			<!-- Gradient for text readability -->
-			<div
-				class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent via-50% to-black/70"
-			>
-			</div>
-		</div>
-
-		<!-- Content with transparent glass (no blur) and separated text -->
-		<div
-			class="relative z-10 flex flex-col justify-between h-full px-6 pt-24 pb-8"
-		>
-			<!-- Top: Headline and subtext as separate elements -->
-			<div class="space-y-4">
-				<!-- Headline in transparent glass panel (no blur) -->
-				<div class="bg-white/10 rounded-3xl p-6 border border-white/20">
-					<h1 class="text-3xl font-bold leading-tight text-center">
-						<span class="text-white drop-shadow-lg"
-							>The Complete</span
-						><br />
-						<span
-							class="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-teal-100"
-						>
-							Daycare Business Plan
-						</span><br />
-						<span class="text-white drop-shadow-lg"
-							>& Startup Guide</span
-						>
-					</h1>
-				</div>
-
-				<!-- Subtext - separate, with breathing room -->
-				<p
-					class="text-base text-white/90 leading-relaxed text-center px-2 drop-shadow-md"
-				>
-					You've been thinking about this for a while. Let's find out
-					if the numbers work—together.
-				</p>
-			</div>
-
-			<!-- Bottom: CTAs -->
-			<div class="space-y-4">
-				<!-- Trust indicator - transparent glass pill (no blur) -->
-				<div class="flex justify-center">
-					<div
-						class="bg-black/30 rounded-full px-4 py-2 border border-white/10 inline-flex items-center gap-2"
-					>
-						<span class="text-amber-400">★★★★★</span>
-						<span class="text-sm text-white/90 font-medium"
-							>Trusted by 1,500+ providers</span
-						>
-					</div>
-				</div>
-
-				<!-- CTA with gradient and glow -->
-				<a
-					href="#calculator"
-					class="block w-full bg-gradient-to-r from-teal-500 to-teal-600 text-white text-center text-lg font-bold py-4 rounded-full shadow-xl shadow-teal-500/40 transition-all"
-				>
-					See What's Possible for Me
-				</a>
-
-				<!-- Co-founder -->
-				<p class="text-center text-white/50 text-xs font-medium">
-					Junya Herron – Co-Founder
-				</p>
-			</div>
-		</div>
-	</section>
-
-	<!-- Desktop: Side-by-side layout -->
-	<section class="hidden md:block py-0 min-h-[90vh]">
+	<section class="py-12 md:py-0 md:min-h-[90vh]">
 		<Container size="xl">
-			<div class="grid grid-cols-2 gap-12 items-center min-h-[90vh]">
-				<!-- Left Column: Content -->
-				<div class="py-8">
-					<h1
-						class="text-4xl lg:text-5xl font-bold mb-4 leading-tight text-gray-900"
-					>
-						The Complete Daycare Business Plan & Startup Guide
-					</h1>
-					<p class="text-lg text-gray-600 mb-8">
-						You've been thinking about this for a while. Maybe it's
-						been months, maybe years. Let's find out if the numbers
-						work—together.
-					</p>
-
-					<a
-						href="#calculator"
-						class="inline-block bg-teal-600 hover:bg-teal-700 text-white text-center text-lg font-semibold px-8 py-4 rounded-full shadow-xl shadow-teal-600/30 transition-all hover:shadow-2xl hover:-translate-y-1"
-					>
-						See What's Possible for Me
-					</a>
-
+			<div class="md:grid md:grid-cols-2 md:gap-12 md:items-center">
+				<!-- Mobile: Image container with overlaid text -->
+				<div class="mb-6 md:mb-0 md:order-2">
+					<!-- Image container -->
 					<div
-						class="flex items-center gap-3 text-base text-gray-700 mt-6"
-					>
-						<span class="text-amber-500 text-lg">★★★★★</span>
-						<span class="font-medium"
-							>Trusted by 1,500+ childcare providers</span
-						>
-					</div>
-				</div>
-
-				<!-- Right Column: Hero Image -->
-				<div>
-					<div
-						class="relative aspect-[3/4] max-h-[700px] mx-auto rounded-3xl overflow-hidden shadow-2xl"
+						class="relative aspect-[3/4] max-h-[500px] md:max-h-[700px] mx-auto md:rounded-3xl overflow-hidden md:shadow-2xl"
 					>
 						<img
 							src="/hero-woman.png"
@@ -131,13 +22,108 @@ import { Container } from "../components/layout/Container";
 							class="h-full w-full object-cover object-top"
 							loading="eager"
 						/>
-						<!-- Co-founder attribution -->
+
+						<!-- Gradient overlay for mobile text readability -->
 						<div
-							class="absolute bottom-4 right-4 bg-black/50 backdrop-blur-sm text-white text-sm font-medium px-4 py-2 rounded-full"
+							class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent via-50% to-black/70 md:hidden"
 						>
-							Junya Herron - Co-Founder
+						</div>
+
+						<!-- Overlaid text (mobile only - hidden on desktop) -->
+						<div
+							class="absolute inset-0 flex flex-col justify-between p-6 pt-8 pb-8 md:hidden"
+						>
+							<div class="space-y-4">
+								<!-- Glass panel headline -->
+								<div
+									class="bg-white/10 rounded-3xl p-6 border border-white/20"
+								>
+									<h1
+										class="text-3xl font-bold leading-tight text-center"
+									>
+										<span class="text-white drop-shadow-lg"
+											>The Complete</span
+										><br />
+										<span
+											class="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-teal-100"
+										>
+											Daycare Business Plan
+										</span><br />
+										<span class="text-white drop-shadow-lg"
+											>& Startup Guide</span
+										>
+									</h1>
+								</div>
+
+								<!-- Subtext -->
+								<p
+									class="text-base text-white/90 leading-relaxed text-center px-2 drop-shadow-md"
+								>
+									You've been thinking about this for a while.
+									Let's find out if the numbers work—together.
+								</p>
+							</div>
+
+							<!-- Trust indicator -->
+							<div class="flex justify-center">
+								<div
+									class="bg-black/30 rounded-full px-4 py-2 border border-white/10 inline-flex items-center gap-2"
+								>
+									<span class="text-amber-400">★★★★★</span>
+									<span
+										class="text-sm text-white/90 font-medium"
+										>Trusted by 1,500+ providers</span
+									>
+								</div>
+							</div>
+						</div>
+
+						<!-- Co-founder badge -->
+						<div
+							class="absolute bottom-3 right-3 md:bottom-4 md:right-4 bg-black/50 backdrop-blur-sm text-white text-xs md:text-sm font-medium px-3 py-1.5 md:px-4 md:py-2 rounded-full"
+						>
+							Junya Herron – Co-Founder
 						</div>
 					</div>
+				</div>
+
+				<!-- Text content (desktop left column, mobile below image) -->
+				<div class="md:order-1">
+					<!-- Desktop text (hidden on mobile since it's overlaid on image) -->
+					<div class="hidden md:block">
+						<h1
+							class="text-4xl lg:text-5xl font-bold leading-tight mb-4"
+						>
+							<span class="text-gray-900">The Complete</span><br
+							/>
+							<span
+								class="text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-teal-600"
+							>
+								Daycare Business Plan
+							</span><br />
+							<span class="text-gray-900">& Startup Guide</span>
+						</h1>
+
+						<p class="text-lg text-gray-600 leading-relaxed mb-6">
+							You've been thinking about this for a while. Let's
+							find out if the numbers work—together.
+						</p>
+
+						<div class="flex items-center gap-2 mb-6">
+							<span class="text-amber-500">★★★★★</span>
+							<span class="text-sm text-gray-700 font-medium"
+								>Trusted by 1,500+ providers</span
+							>
+						</div>
+					</div>
+
+					<!-- CTA button (both mobile and desktop) -->
+					<a
+						href="#calculator"
+						class="block md:inline-block w-full md:w-auto bg-gradient-to-r from-teal-500 to-teal-600 md:bg-teal-600 hover:from-teal-600 hover:to-teal-700 md:hover:bg-teal-700 text-white text-center text-lg font-bold md:font-semibold py-4 px-8 rounded-full shadow-xl shadow-teal-500/40 md:shadow-teal-600/30 transition-all md:hover:shadow-2xl md:hover:-translate-y-1"
+					>
+						See What's Possible for Me
+					</a>
 				</div>
 			</div>
 		</Container>

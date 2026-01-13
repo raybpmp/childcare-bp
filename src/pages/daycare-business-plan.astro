@@ -1,104 +1,136 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Container } from "@/components/layout/Container";
 ---
 
 <Layout
     title="Daycare Business Plan | Childcare Business Plan"
     description="Your daycare business plan needs accurate financial projections based on your state's regulations and local market conditions."
 >
-    <main class="max-w-4xl mx-auto py-16 px-4">
-        <!-- 1. OWNERSHIP FRAMING -->
-        <section class="text-center mb-16">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                YOUR Daycare Business Plan
-            </h1>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                A daycare business plan is only as good as the numbers behind
-                it. Generic templates can't account for your state's regulatory
-                environment, your local market rates, or your specific business
-                model.
-            </p>
-        </section>
-
-        <!-- 2. FACTORS THAT AFFECT OUTCOME -->
-        <section class="mb-16">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">
-                What Affects Your Projections
-            </h2>
-            <div class="prose prose-lg text-gray-600">
-                <p class="mb-4">
-                    Financial projections are the heart of any business plan,
-                    but daycare financials are unusually dependent on
-                    location-specific factors. Your state determines your
-                    maximum capacity, which caps your revenue potential. Your
-                    local market determines what rates parents will pay, which
-                    drives your income per child. Your licensing tier determines
-                    your staffing requirements, which affects your largest
-                    operating expense.
-                </p>
-                <p class="mb-4">
-                    Startup costs vary just as dramatically. A home daycare
-                    might require minimal renovations or extensive modifications
-                    depending on local health and safety codes. A center-based
-                    program faces completely different equipment, facility, and
-                    compliance costs that vary by state and municipality.
-                </p>
-                <p>
-                    Beyond hard costs, your business plan needs to account for
-                    realistic enrollment curves, seasonal attendance patterns,
-                    and the competitive landscape in your area. None of these
-                    factors can be accurately estimated using national averages
-                    or generic templates.
+    <!-- HERO SECTION -->
+    <section class="py-12 md:py-20">
+        <Container size="md">
+            <div class="text-center mb-8 md:mb-12">
+                <span
+                    class="inline-block px-3 py-1 rounded-full bg-teal-100 text-teal-700 text-xs font-semibold mb-3"
+                >
+                    Business Planning
+                </span>
+                <h1
+                    class="text-2xl md:text-5xl font-bold text-gray-900 mb-4 md:mb-6"
+                >
+                    YOUR Daycare Business Plan
+                </h1>
+                <p class="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">
+                    A daycare business plan is only as good as the numbers
+                    behind it. Generic templates can't account for your state's
+                    regulatory environment, your local market rates, or your
+                    specific business model.
                 </p>
             </div>
-        </section>
+        </Container>
+    </section>
 
-        <!-- 3. WHY GENERIC ADVICE FAILS -->
-        <section class="mb-16">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">
-                Why Online Advice Often Conflicts
-            </h2>
-            <div class="prose prose-lg text-gray-600">
-                <p class="mb-4">
-                    Download a daycare business plan template and you'll find
-                    placeholder numbers that might be completely wrong for your
-                    situation. Fill-in-the-blank financial projections can't
-                    account for the specific regulatory constraints and market
-                    conditions that will define your actual business
-                    performance.
-                </p>
-                <p class="mb-4">
-                    Investors, lenders, and partners don't want to see
-                    hypothetical numbers—they want to see projections grounded
-                    in your specific opportunity. That means starting with
-                    accurate data about what's actually possible in your state,
-                    with your license type, in your market.
-                </p>
-                <p>
-                    A business plan built on generic assumptions won't just be
-                    less useful—it could lead to catastrophic planning errors.
-                    Overestimating income or underestimating costs by even small
-                    percentages can mean the difference between viability and
-                    failure.
-                </p>
-            </div>
-        </section>
-
-        <!-- 4. CTA TO CALCULATOR -->
-        <section class="text-center py-12 px-8 glass-panel rounded-3xl">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">
-                See How Much YOU Could Make in Your State
-            </h2>
-            <p class="text-gray-600 mb-6">
-                Start your business plan with accurate income projections based
-                on your state's regulations.
-            </p>
-            <a
-                href="/tools/income-builder"
-                class="inline-flex items-center justify-center rounded-full bg-teal-600 hover:bg-teal-700 text-white font-medium px-8 py-4 shadow-lg transition-all"
+    <!-- FACTORS SECTION -->
+    <section class="py-8 md:py-16">
+        <Container size="md">
+            <div
+                class="glass-panel rounded-2xl md:rounded-3xl p-6 md:p-10 mb-6 md:mb-8"
             >
-                Use the Free Calculator →
-            </a>
-        </section>
-    </main>
+                <h2
+                    class="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6"
+                >
+                    What Affects Your Projections
+                </h2>
+                <div
+                    class="space-y-4 text-sm md:text-base text-gray-600 leading-relaxed"
+                >
+                    <p>
+                        Financial projections are the heart of any business
+                        plan, but daycare financials are unusually dependent on
+                        location-specific factors. Your state determines your
+                        maximum capacity, which caps your revenue potential.
+                        Your local market determines what rates parents will
+                        pay, which drives your income per child.
+                    </p>
+                    <p>
+                        Startup costs vary just as dramatically. A home daycare
+                        might require minimal renovations or extensive
+                        modifications depending on local health and safety
+                        codes. A center-based program faces completely different
+                        equipment, facility, and compliance costs that vary by
+                        state and municipality.
+                    </p>
+                    <p>
+                        Beyond hard costs, your business plan needs to account
+                        for realistic enrollment curves, seasonal attendance
+                        patterns, and the competitive landscape in your area.
+                    </p>
+                </div>
+            </div>
+        </Container>
+    </section>
+
+    <!-- WHY GENERIC FAILS SECTION -->
+    <section class="py-8 md:py-16">
+        <Container size="md">
+            <div class="glass-panel rounded-2xl md:rounded-3xl p-6 md:p-10">
+                <h2
+                    class="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6"
+                >
+                    Why Online Advice Often Conflicts
+                </h2>
+                <div
+                    class="space-y-4 text-sm md:text-base text-gray-600 leading-relaxed"
+                >
+                    <p>
+                        Download a daycare business plan template and you'll
+                        find placeholder numbers that might be completely wrong
+                        for your situation. Fill-in-the-blank financial
+                        projections can't account for the specific regulatory
+                        constraints and market conditions that will define your
+                        actual business performance.
+                    </p>
+                    <p>
+                        Investors, lenders, and partners don't want to see
+                        hypothetical numbers—they want to see projections
+                        grounded in your specific opportunity. That means
+                        starting with accurate data about what's actually
+                        possible in your state, with your license type, in your
+                        market.
+                    </p>
+                    <p>
+                        A business plan built on generic assumptions won't just
+                        be less useful—it could lead to catastrophic planning
+                        errors.
+                    </p>
+                </div>
+            </div>
+        </Container>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="py-12 md:py-20">
+        <Container size="md">
+            <div
+                class="glass-panel rounded-2xl md:rounded-3xl p-6 md:p-10 text-center border-2 border-teal-200/50 bg-gradient-to-br from-teal-50/50 to-white/50"
+            >
+                <h2
+                    class="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4"
+                >
+                    See How Much YOU Could Make in Your State
+                </h2>
+                <p class="text-sm md:text-base text-gray-600 mb-4 md:mb-6">
+                    Start your business plan with accurate income projections
+                    based on your state's regulations.
+                </p>
+                <a
+                    href="/#calculator"
+                    class="inline-flex items-center justify-center rounded-full bg-teal-600 hover:bg-teal-700 text-white font-medium px-6 py-3 md:px-8 md:py-4 shadow-lg transition-all text-sm md:text-base"
+                >
+                    Use the Free Calculator →
+                </a>
+            </div>
+        </Container>
+    </section>
 </Layout>

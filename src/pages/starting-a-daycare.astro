@@ -1,98 +1,132 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Container } from "@/components/layout/Container";
 ---
 
 <Layout
     title="Starting a Daycare | Childcare Business Plan"
     description="Your daycare business starts with understanding what makes your market unique. Get personalized insights based on your state's regulations and market conditions."
 >
-    <main class="max-w-4xl mx-auto py-16 px-4">
-        <!-- 1. OWNERSHIP FRAMING -->
-        <section class="text-center mb-16">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                YOUR Daycare Business
-            </h1>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                Starting a daycare isn't a one-size-fits-all journey. Your
-                state, your capacity, and your market create a unique
-                opportunity that generic advice can't capture.
-            </p>
-        </section>
-
-        <!-- 2. FACTORS THAT AFFECT OUTCOME -->
-        <section class="mb-16">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">
-                What Affects Your Success
-            </h2>
-            <div class="prose prose-lg text-gray-600">
-                <p class="mb-4">
-                    Every daycare operates under different conditions that
-                    dramatically impact both startup costs and income potential.
-                    Your state's licensing requirements might allow you to care
-                    for 6 children or 12. Your local regulations might require
-                    extensive renovations or minimal changes. Your market might
-                    support premium rates or demand budget-friendly options.
-                </p>
-                <p class="mb-4">
-                    These variables aren't just details—they're the foundation
-                    of your business model. A home daycare in Vermont operates
-                    under completely different constraints than a center in
-                    Texas. The path that works for one won't work for the other.
-                </p>
-                <p>
-                    Beyond regulations, your local competition, demographic
-                    composition, and even zoning laws create opportunities and
-                    limitations unique to your situation. Understanding your
-                    specific landscape is the first step to building a
-                    sustainable business.
+    <!-- HERO SECTION -->
+    <section class="py-12 md:py-20">
+        <Container size="md">
+            <div class="text-center mb-8 md:mb-12">
+                <span
+                    class="inline-block px-3 py-1 rounded-full bg-teal-100 text-teal-700 text-xs font-semibold mb-3"
+                >
+                    Getting Started
+                </span>
+                <h1
+                    class="text-2xl md:text-5xl font-bold text-gray-900 mb-4 md:mb-6"
+                >
+                    YOUR Daycare Business
+                </h1>
+                <p class="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">
+                    Starting a daycare isn't a one-size-fits-all journey. Your
+                    state, your capacity, and your market create a unique
+                    opportunity that generic advice can't capture.
                 </p>
             </div>
-        </section>
+        </Container>
+    </section>
 
-        <!-- 3. WHY GENERIC ADVICE FAILS -->
-        <section class="mb-16">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">
-                Why Online Advice Often Conflicts
-            </h2>
-            <div class="prose prose-lg text-gray-600">
-                <p class="mb-4">
-                    You've probably noticed that every article about starting a
-                    daycare tells a different story. One says you need $50,000
-                    to start, another says $5,000. One recommends starting small
-                    from home, another insists you need a commercial space from
-                    day one.
-                </p>
-                <p class="mb-4">
-                    They're both right—for someone. The problem is that generic
-                    advice assumes conditions that might be completely different
-                    from yours. What works in one regulatory environment becomes
-                    impossible in another. What's profitable in one market loses
-                    money in the next.
-                </p>
-                <p>
-                    This is why personalization isn't a luxury—it's a necessity.
-                    You need to see the numbers for your state, your capacity,
-                    and your market before you can make confident decisions
-                    about your business.
-                </p>
-            </div>
-        </section>
-
-        <!-- 4. CTA TO CALCULATOR -->
-        <section class="text-center py-12 px-8 glass-panel rounded-3xl">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">
-                See How Much YOU Could Make in Your State
-            </h2>
-            <p class="text-gray-600 mb-6">
-                Get your personalized income estimate based on your state's
-                regulations and your business model.
-            </p>
-            <a
-                href="/tools/income-builder"
-                class="inline-flex items-center justify-center rounded-full bg-teal-600 hover:bg-teal-700 text-white font-medium px-8 py-4 shadow-lg transition-all"
+    <!-- FACTORS SECTION -->
+    <section class="py-8 md:py-16">
+        <Container size="md">
+            <div
+                class="glass-panel rounded-2xl md:rounded-3xl p-6 md:p-10 mb-6 md:mb-8"
             >
-                Use the Free Calculator →
-            </a>
-        </section>
-    </main>
+                <h2
+                    class="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6"
+                >
+                    What Affects Your Success
+                </h2>
+                <div
+                    class="space-y-4 text-sm md:text-base text-gray-600 leading-relaxed"
+                >
+                    <p>
+                        Every daycare operates under different conditions that
+                        dramatically impact both startup costs and income
+                        potential. Your state's licensing requirements might
+                        allow you to care for 6 children or 12. Your local
+                        regulations might require extensive renovations or
+                        minimal changes.
+                    </p>
+                    <p>
+                        These variables aren't just details—they're the
+                        foundation of your business model. A home daycare in
+                        Vermont operates under completely different constraints
+                        than a center in Texas. The path that works for one
+                        won't work for the other.
+                    </p>
+                    <p>
+                        Beyond regulations, your local competition, demographic
+                        composition, and even zoning laws create opportunities
+                        and limitations unique to your situation.
+                    </p>
+                </div>
+            </div>
+        </Container>
+    </section>
+
+    <!-- WHY GENERIC FAILS SECTION -->
+    <section class="py-8 md:py-16">
+        <Container size="md">
+            <div class="glass-panel rounded-2xl md:rounded-3xl p-6 md:p-10">
+                <h2
+                    class="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6"
+                >
+                    Why Online Advice Often Conflicts
+                </h2>
+                <div
+                    class="space-y-4 text-sm md:text-base text-gray-600 leading-relaxed"
+                >
+                    <p>
+                        You've probably noticed that every article about
+                        starting a daycare tells a different story. One says you
+                        need $50,000 to start, another says $5,000. One
+                        recommends starting small from home, another insists you
+                        need a commercial space from day one.
+                    </p>
+                    <p>
+                        They're both right—for someone. The problem is that
+                        generic advice assumes conditions that might be
+                        completely different from yours. What works in one
+                        regulatory environment becomes impossible in another.
+                    </p>
+                    <p>
+                        This is why personalization isn't a luxury—it's a
+                        necessity. You need to see the numbers for your state,
+                        your capacity, and your market before you can make
+                        confident decisions.
+                    </p>
+                </div>
+            </div>
+        </Container>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="py-12 md:py-20">
+        <Container size="md">
+            <div
+                class="glass-panel rounded-2xl md:rounded-3xl p-6 md:p-10 text-center border-2 border-teal-200/50 bg-gradient-to-br from-teal-50/50 to-white/50"
+            >
+                <h2
+                    class="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4"
+                >
+                    See How Much YOU Could Make in Your State
+                </h2>
+                <p class="text-sm md:text-base text-gray-600 mb-4 md:mb-6">
+                    Get your personalized income estimate based on your state's
+                    regulations and your business model.
+                </p>
+                <a
+                    href="/#calculator"
+                    class="inline-flex items-center justify-center rounded-full bg-teal-600 hover:bg-teal-700 text-white font-medium px-6 py-3 md:px-8 md:py-4 shadow-lg transition-all text-sm md:text-base"
+                >
+                    Use the Free Calculator →
+                </a>
+            </div>
+        </Container>
+    </section>
 </Layout>

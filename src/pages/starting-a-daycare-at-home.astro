@@ -1,101 +1,134 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Container } from "@/components/layout/Container";
 ---
 
 <Layout
     title="Starting a Daycare at Home | Childcare Business Plan"
     description="Your home-based daycare opportunity depends on your state's regulations, zoning laws, and local market. Get personalized insights for your situation."
 >
-    <main class="max-w-4xl mx-auto py-16 px-4">
-        <!-- 1. OWNERSHIP FRAMING -->
-        <section class="text-center mb-16">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                YOUR Home-Based Daycare
-            </h1>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                Running a daycare from home offers flexibility and lower startup
-                costs, but your actual opportunity depends entirely on your
-                state's family childcare regulations and your local market.
-            </p>
-        </section>
-
-        <!-- 2. FACTORS THAT AFFECT OUTCOME -->
-        <section class="mb-16">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">
-                What Affects Your Home Daycare
-            </h2>
-            <div class="prose prose-lg text-gray-600">
-                <p class="mb-4">
-                    Home-based daycares operate under family childcare
-                    licensing, which varies dramatically by state. Some states
-                    allow you to care for up to 12 children with an assistant,
-                    while others cap you at 3 without one. These capacity limits
-                    directly determine your income ceiling.
-                </p>
-                <p class="mb-4">
-                    Your home's zoning classification matters too. Residential
-                    zoning might restrict business operations, require special
-                    permits, or limit the number of non-family members allowed
-                    on your property during business hours. Some neighborhoods
-                    have HOA restrictions that prohibit home-based businesses
-                    entirely.
-                </p>
-                <p>
-                    Beyond regulations, your home's layout, available outdoor
-                    space, and proximity to your target market all affect
-                    viability. The work-life boundaries you can maintain, the
-                    modifications your home requires, and the local demand for
-                    home-based care create a unique business equation for every
-                    provider.
+    <!-- HERO SECTION -->
+    <section class="py-12 md:py-20">
+        <Container size="md">
+            <div class="text-center mb-8 md:mb-12">
+                <span
+                    class="inline-block px-3 py-1 rounded-full bg-teal-100 text-teal-700 text-xs font-semibold mb-3"
+                >
+                    Home-Based Business
+                </span>
+                <h1
+                    class="text-2xl md:text-5xl font-bold text-gray-900 mb-4 md:mb-6"
+                >
+                    YOUR Home-Based Daycare
+                </h1>
+                <p class="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">
+                    Running a daycare from home offers flexibility and lower
+                    startup costs, but your actual opportunity depends entirely
+                    on your state's family childcare regulations and your local
+                    market.
                 </p>
             </div>
-        </section>
+        </Container>
+    </section>
 
-        <!-- 3. WHY GENERIC ADVICE FAILS -->
-        <section class="mb-16">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">
-                Why Online Advice Often Conflicts
-            </h2>
-            <div class="prose prose-lg text-gray-600">
-                <p class="mb-4">
-                    Search for "starting a home daycare" and you'll find wildly
-                    different estimates for income potential, startup costs, and
-                    viability. Some sources make it sound like easy money,
-                    others paint it as barely profitable. The truth is they're
-                    describing completely different regulatory and market
-                    environments.
-                </p>
-                <p class="mb-4">
-                    A family daycare that thrives in one state might be
-                    financially impossible in another due to capacity
-                    restrictions. A profitable model in a suburban area might
-                    fail in a rural community with different demographics and
-                    fewer dual-income families.
-                </p>
-                <p>
-                    You can't evaluate your opportunity using someone else's
-                    numbers. Your state's regulations, your local market rates,
-                    and your home's suitability create a combination that
-                    requires personalized analysis, not generic guidance.
-                </p>
-            </div>
-        </section>
-
-        <!-- 4. CTA TO CALCULATOR -->
-        <section class="text-center py-12 px-8 glass-panel rounded-3xl">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">
-                See How Much YOU Could Make in Your State
-            </h2>
-            <p class="text-gray-600 mb-6">
-                Get your personalized income estimate based on your state's
-                family childcare regulations.
-            </p>
-            <a
-                href="/tools/income-builder"
-                class="inline-flex items-center justify-center rounded-full bg-teal-600 hover:bg-teal-700 text-white font-medium px-8 py-4 shadow-lg transition-all"
+    <!-- FACTORS SECTION -->
+    <section class="py-8 md:py-16">
+        <Container size="md">
+            <div
+                class="glass-panel rounded-2xl md:rounded-3xl p-6 md:p-10 mb-6 md:mb-8"
             >
-                Use the Free Calculator →
-            </a>
-        </section>
-    </main>
+                <h2
+                    class="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6"
+                >
+                    What Affects Your Home Daycare
+                </h2>
+                <div
+                    class="space-y-4 text-sm md:text-base text-gray-600 leading-relaxed"
+                >
+                    <p>
+                        Home-based daycares operate under family childcare
+                        licensing, which varies dramatically by state. Some
+                        states allow you to care for up to 12 children with an
+                        assistant, while others cap you at 3 without one. These
+                        capacity limits directly determine your income ceiling.
+                    </p>
+                    <p>
+                        Your home's zoning classification matters too.
+                        Residential zoning might restrict business operations,
+                        require special permits, or limit the number of
+                        non-family members allowed on your property during
+                        business hours.
+                    </p>
+                    <p>
+                        Beyond regulations, your home's layout, available
+                        outdoor space, and proximity to your target market all
+                        affect viability. The work-life boundaries you can
+                        maintain create a unique business equation for every
+                        provider.
+                    </p>
+                </div>
+            </div>
+        </Container>
+    </section>
+
+    <!-- WHY GENERIC FAILS SECTION -->
+    <section class="py-8 md:py-16">
+        <Container size="md">
+            <div class="glass-panel rounded-2xl md:rounded-3xl p-6 md:p-10">
+                <h2
+                    class="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6"
+                >
+                    Why Online Advice Often Conflicts
+                </h2>
+                <div
+                    class="space-y-4 text-sm md:text-base text-gray-600 leading-relaxed"
+                >
+                    <p>
+                        Search for "starting a home daycare" and you'll find
+                        wildly different estimates for income potential, startup
+                        costs, and viability. Some sources make it sound like
+                        easy money, others paint it as barely profitable.
+                    </p>
+                    <p>
+                        A family daycare that thrives in one state might be
+                        financially impossible in another due to capacity
+                        restrictions. A profitable model in a suburban area
+                        might fail in a rural community with different
+                        demographics.
+                    </p>
+                    <p>
+                        You can't evaluate your opportunity using someone else's
+                        numbers. Your state's regulations, your local market
+                        rates, and your home's suitability require personalized
+                        analysis.
+                    </p>
+                </div>
+            </div>
+        </Container>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="py-12 md:py-20">
+        <Container size="md">
+            <div
+                class="glass-panel rounded-2xl md:rounded-3xl p-6 md:p-10 text-center border-2 border-teal-200/50 bg-gradient-to-br from-teal-50/50 to-white/50"
+            >
+                <h2
+                    class="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4"
+                >
+                    See How Much YOU Could Make in Your State
+                </h2>
+                <p class="text-sm md:text-base text-gray-600 mb-4 md:mb-6">
+                    Get your personalized income estimate based on your state's
+                    family childcare regulations.
+                </p>
+                <a
+                    href="/#calculator"
+                    class="inline-flex items-center justify-center rounded-full bg-teal-600 hover:bg-teal-700 text-white font-medium px-6 py-3 md:px-8 md:py-4 shadow-lg transition-all text-sm md:text-base"
+                >
+                    Use the Free Calculator →
+                </a>
+            </div>
+        </Container>
+    </section>
 </Layout>

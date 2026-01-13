@@ -1,68 +1,111 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Container } from "@/components/layout/Container";
 ---
 
 <Layout
     title="Childcare Communication Apps | Childcare Business Plan"
     description="Evaluate childcare communication apps based on staff adoption and parent expectations, not just features."
 >
-    <main class="max-w-4xl mx-auto py-16 px-4">
-        <!-- 1. OWNERSHIP FRAMING -->
-        <section class="text-center mb-16">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                YOUR parent communication
-            </h1>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                Great communication isn't about which app you use—it's about
-                building trust and transparency with the families you serve.
-            </p>
-        </section>
+    <!-- HERO SECTION -->
+    <section class="py-12 md:py-20">
+        <Container size="md">
+            <div class="text-center mb-8 md:mb-12">
+                <span
+                    class="inline-block px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-semibold mb-3"
+                >
+                    Operations
+                </span>
+                <h1
+                    class="text-2xl md:text-5xl font-bold text-gray-900 mb-4 md:mb-6"
+                >
+                    YOUR Parent Communication
+                </h1>
+                <p class="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">
+                    Great communication isn't about which app you use—it's about
+                    building trust and transparency with the families you serve.
+                </p>
+            </div>
+        </Container>
+    </section>
 
-        <!-- 2. FACTORS THAT AFFECT OUTCOME -->
-        <section class="mb-16">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">
-                What Affects App Success
-            </h2>
-            <p class="text-gray-600 mb-4">
-                The success of any communication tool depends entirely on your
-                staff's willingness to adopt it and your parents' expectations
-                for updates. A feature-rich app is useless if your team finds it
-                too cumbersome to use during a busy day.
-            </p>
-        </section>
-
-        <!-- 3. WHY GENERIC ADVICE FAILS -->
-        <section class="mb-16">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">
-                Why Online Advice Often Conflicts
-            </h2>
-            <p class="text-gray-600 mb-4">
-                Tech reviews often focus on feature lists rather than real-world
-                usability in a childcare setting. Your choice should be driven
-                by your specific workflow and the level of engagement your
-                parents actually want, not what a software salesperson says you
-                need.
-            </p>
-        </section>
-
-        <!-- 4. CTA TO CALCULATOR -->
-        <section
-            class="text-center py-12 px-8 glass-panel rounded-3xl border border-gray-200 shadow-sm bg-white/50 backdrop-blur-sm"
-        >
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">
-                See How Much YOU Could Make in Your State
-            </h2>
-            <p class="text-gray-600 mb-6">
-                Get your personalized income estimate based on your state's
-                regulations to see how technology investment impacts your bottom
-                line.
-            </p>
-            <a
-                href="/tools/income-builder"
-                class="inline-flex items-center justify-center rounded-full bg-teal-600 hover:bg-teal-700 text-white font-medium px-8 py-4 shadow-lg transition-all"
+    <!-- FACTORS SECTION -->
+    <section class="py-8 md:py-16">
+        <Container size="md">
+            <div
+                class="glass-panel rounded-2xl md:rounded-3xl p-6 md:p-10 mb-6 md:mb-8"
             >
-                Use the Free Calculator →
-            </a>
-        </section>
-    </main>
+                <h2
+                    class="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6"
+                >
+                    What Affects App Success
+                </h2>
+                <div
+                    class="space-y-4 text-sm md:text-base text-gray-600 leading-relaxed"
+                >
+                    <p>
+                        The success of any communication tool depends entirely
+                        on your staff's willingness to adopt it and your
+                        parents' expectations for updates.
+                    </p>
+                    <p>
+                        A feature-rich app is useless if your team finds it too
+                        cumbersome to use during a busy day. Simplicity often
+                        wins.
+                    </p>
+                </div>
+            </div>
+        </Container>
+    </section>
+
+    <!-- WHY GENERIC FAILS SECTION -->
+    <section class="py-8 md:py-16">
+        <Container size="md">
+            <div class="glass-panel rounded-2xl md:rounded-3xl p-6 md:p-10">
+                <h2
+                    class="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6"
+                >
+                    Why Online Advice Often Conflicts
+                </h2>
+                <div
+                    class="space-y-4 text-sm md:text-base text-gray-600 leading-relaxed"
+                >
+                    <p>
+                        Tech reviews often focus on feature lists rather than
+                        real-world usability in a childcare setting.
+                    </p>
+                    <p>
+                        Your choice should be driven by your specific workflow
+                        and the level of engagement your parents actually want,
+                        not what a software salesperson says you need.
+                    </p>
+                </div>
+            </div>
+        </Container>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="py-12 md:py-20">
+        <Container size="md">
+            <div
+                class="glass-panel rounded-2xl md:rounded-3xl p-6 md:p-10 text-center border-2 border-purple-200/50 bg-gradient-to-br from-purple-50/50 to-white/50"
+            >
+                <h2
+                    class="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4"
+                >
+                    See How Much YOU Could Make in Your State
+                </h2>
+                <p class="text-sm md:text-base text-gray-600 mb-4 md:mb-6">
+                    Get your personalized income estimate to see how technology
+                    investment impacts your bottom line.
+                </p>
+                <a
+                    href="/#calculator"
+                    class="inline-flex items-center justify-center rounded-full bg-purple-600 hover:bg-purple-700 text-white font-medium px-6 py-3 md:px-8 md:py-4 shadow-lg transition-all text-sm md:text-base"
+                >
+                    Use the Free Calculator →
+                </a>
+            </div>
+        </Container>
+    </section>
 </Layout>

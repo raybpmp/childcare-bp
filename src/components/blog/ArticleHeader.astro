@@ -1,0 +1,66 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+    post: CollectionEntry<"posts">;
+}
+
+const { post } = Astro.props;
+const { title, coverImage, category, date } = post.data;
+const cover = coverImage || "/images/blog/default-cover.png";
+
+const categoryColors: Record<string, string> = {
+    "Industry Trends": "bg-purple-100 text-purple-700",
+    "Startup Guides": "bg-teal-100 text-teal-700",
+    Operations: "bg-blue-100 text-blue-700",
+    Marketing: "bg-amber-100 text-amber-700",
+};
+const categoryClass =
+    categoryColors[category || ""] || "bg-gray-100 text-gray-700";
+---
+
+<div class="mb-6 md:mb-10">
+    <!-- Cover Image -->
+    <div
+        class="aspect-[3/2] md:aspect-[21/9] rounded-2xl md:rounded-3xl overflow-hidden mb-5 md:mb-6 bg-gray-100 shadow-lg"
+    >
+        <img
+            src={cover}
+            alt={title}
+            class="w-full h-full object-cover"
+            loading="eager"
+        />
+    </div>
+
+    <!-- Meta -->
+    <div class="px-4 md:px-0">
+        {
+            category && (
+                <span
+                    class={`inline-block px-3 py-1.5 md:px-4 md:py-2 rounded-full text-sm font-semibold mb-3 md:mb-4 ${categoryClass}`}
+                >
+                    {category}
+                </span>
+            )
+        }
+
+        <h1
+            class="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 md:mb-5 leading-tight"
+        >
+            {title}
+        </h1>
+
+        <div class="flex items-center gap-3 text-base text-gray-500">
+            <time datetime={date}>
+                {
+                    new Date(date).toLocaleDateString("en-US", {
+                        month: "long",
+                        day: "numeric",
+                        year: "numeric",
+                    })
+                }
+            </time>
+            <slot />
+        </div>
+    </div>
+</div>

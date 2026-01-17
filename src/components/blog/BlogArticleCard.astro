@@ -1,0 +1,84 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+    post: CollectionEntry<"posts">;
+    readTime?: string;
+}
+
+const { post, readTime } = Astro.props;
+const { title, excerpt, coverImage, category, date } = post.data;
+const cover = coverImage || "/images/blog/default-cover.png";
+
+const categoryColors: Record<string, string> = {
+    "Industry Trends": "bg-purple-100 text-purple-700",
+    "Startup Guides": "bg-teal-100 text-teal-700",
+    Operations: "bg-blue-100 text-blue-700",
+    Marketing: "bg-amber-100 text-amber-700",
+};
+const categoryClass =
+    categoryColors[category || ""] || "bg-gray-100 text-gray-700";
+---
+
+<article
+    class="glass-panel rounded-xl md:rounded-2xl overflow-hidden group hover:shadow-lg transition-all duration-300"
+>
+    <a href={`/blog/${post.slug}`} class="block">
+        <!-- Cover Image -->
+        <div class="aspect-[16/9] overflow-hidden bg-gray-100">
+            <img
+                src={cover}
+                alt={title}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+            />
+        </div>
+
+        <!-- Content -->
+        <div class="p-4 md:p-5">
+            <!-- Category Badge -->
+            {
+                category && (
+                    <span
+                        class={`inline-block px-3 py-1.5 rounded-full text-sm font-semibold mb-3 ${categoryClass}`}
+                    >
+                        {category}
+                    </span>
+                )
+            }
+
+            <!-- Title -->
+            <h3
+                class="text-lg md:text-xl font-bold text-gray-900 mb-2 group-hover:text-teal-600 transition-colors line-clamp-2"
+            >
+                {title}
+            </h3>
+
+            <!-- Excerpt -->
+            <p class="text-base text-gray-600 line-clamp-2 mb-3">
+                {excerpt}
+            </p>
+
+            <!-- Meta -->
+            <div class="flex items-center gap-2 text-base text-gray-500">
+                <time datetime={date}>
+                    {
+                        new Date(date).toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                        })
+                    }
+                </time>
+                {
+                    readTime && (
+                        <>
+                            <span>·</span>
+                            <span>{readTime}</span>
+                        </>
+                    )
+                }
+            </div>
+        </div>
+    </a>
+</article>

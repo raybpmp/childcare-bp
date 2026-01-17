@@ -1,0 +1,36 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getAuthor } from "@/lib/authors";
+
+interface Props {
+    post: CollectionEntry<"posts">;
+}
+
+const { post } = Astro.props;
+const author = getAuthor(post.data.author);
+---
+
+<div class="flex items-center gap-3 text-sm md:text-base">
+    {
+        author && (
+            <>
+                <a
+                    href={`/author/${author.slug}`}
+                    class="flex items-center gap-2 hover:text-teal-600 transition-colors"
+                >
+                    <img
+                        src={author.avatar}
+                        alt={author.name}
+                        class="w-8 h-8 md:w-10 md:h-10 rounded-full object-cover"
+                    />
+                    <div>
+                        <div class="font-semibold text-gray-900">
+                            {author.name}
+                        </div>
+                        <div class="text-xs text-gray-500">{author.role}</div>
+                    </div>
+                </a>
+            </>
+        )
+    }
+</div>

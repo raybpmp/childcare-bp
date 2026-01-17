@@ -41,8 +41,23 @@ const offersCollection = defineCollection({
     }),
 });
 
+const posts = defineCollection({
+    type: 'content',
+    schema: z.object({
+        title: z.string(),
+        date: z.string(),
+        excerpt: z.string(),
+        coverImage: z.string().optional(),
+        author: z.string().default('junya-herron'),
+        category: z.string().optional(),
+        tags: z.array(z.string()).optional(),
+        featured: z.boolean().optional().default(false),
+    }),
+});
+
 export const collections = {
     'tools': toolsCollection,
     'proof': proofCollection,
     'offers': offersCollection,
+    'posts': posts,
 };

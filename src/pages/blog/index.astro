@@ -1,0 +1,214 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Container } from "@/components/layout/Container";
+import BlogArticleCard from "@/components/blog/BlogArticleCard.astro";
+import { BlogCategoryPills } from "@/components/blog/BlogCategoryPills";
+import BlogCTA from "@/components/blog/BlogCTA.astro";
+import {
+    getAllPosts,
+    getAllCategories,
+    getFeaturedPost,
+    calculateReadTime,
+} from "@/lib/blog";
+
+const posts = await getAllPosts();
+const categories = await getAllCategories();
+const featured = await getFeaturedPost();
+
+const postsWithReadTime = posts.map((post) => ({
+    post,
+    readTime: calculateReadTime(post.body),
+}));
+
+const featuredCover =
+    featured?.data.coverImage || "/images/blog/default-cover.png";
+const featuredCategory = featured?.data.category || "";
+
+const categoryColors: Record<string, string> = {
+    "Industry Trends": "bg-purple-100 text-purple-700",
+    "Startup Guides": "bg-teal-100 text-teal-700",
+    Operations: "bg-blue-100 text-blue-700",
+    Marketing: "bg-amber-100 text-amber-700",
+};
+const featuredCategoryClass =
+    categoryColors[featuredCategory] || "bg-gray-100 text-gray-700";
+---
+
+<Layout
+    title="Blog | Childcare Business Plan"
+    description="Expert insights and strategies for childcare business owners"
+>
+    <!-- BLOG HERO SECTION -->
+    <section class="py-12 md:py-0 md:min-h-[60vh]">
+        <Container size="xl">
+            <div class="md:grid md:grid-cols-2 md:gap-12 md:items-center">
+                <!-- Mobile & Desktop: Image container -->
+                <div class="mb-6 md:mb-0 md:order-2">
+                    <!-- Image container -->
+                    <div
+                        class="relative aspect-[3/4] max-h-[500px] md:max-h-[500px] mx-auto md:rounded-3xl overflow-hidden md:shadow-2xl"
+                    >
+                        {
+                            featured ? (
+                                <a
+                                    href={`/blog/${featured.slug}`}
+                                    class="block h-full"
+                                >
+                                    <img
+                                        src={featuredCover}
+                                        alt={featured.data.title}
+                                        class="h-full w-full object-cover"
+                                        loading="eager"
+                                    />
+                                </a>
+                            ) : (
+                                <img
+                                    src="/images/blog/default-cover.png"
+                                    alt="Blog"
+                                    class="h-full w-full object-cover"
+                                    loading="eager"
+                                />
+                            )
+                        }
+
+                        <!-- Gradient overlay for mobile text readability -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent via-50% to-black/70 md:hidden pointer-events-none"
+                        >
+                        </div>
+
+                        <!-- Overlaid text (mobile only - hidden on desktop) -->
+                        <div
+                            class="absolute inset-0 flex flex-col justify-between p-6 pt-8 pb-8 md:hidden"
+                        >
+                            <div class="space-y-4">
+                                <!-- Glass panel headline -->
+                                <div
+                                    class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 border border-white/20"
+                                >
+                                    <span
+                                        class="block text-sm text-white/80 font-medium text-center mb-2"
+                                        >Resources</span
+                                    >
+                                    <h1
+                                        class="text-xl font-bold leading-tight text-center"
+                                    >
+                                        <span class="text-white drop-shadow-lg"
+                                            >Childcare Business</span
+                                        ><br />
+                                        <span
+                                            class="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-teal-100"
+                                        >
+                                            Insights & Guides
+                                        </span>
+                                    </h1>
+                                </div>
+
+                                <!-- Subtext -->
+                                <p
+                                    class="text-base text-white/90 leading-relaxed text-center px-2 drop-shadow-md"
+                                >
+                                    Expert strategies for building a profitable
+                                    childcare business.
+                                </p>
+                            </div>
+
+                            <!-- Featured post teaser at bottom -->
+                            {
+                                featured && (
+                                    <a
+                                        href={`/blog/${featured.slug}`}
+                                        class="block"
+                                    >
+                                        <div class="bg-black/40 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
+                                            <span class="text-teal-300 text-sm font-semibold mb-1 block">
+                                                Featured Article
+                                            </span>
+                                            <p class="text-white font-bold text-base line-clamp-2">
+                                                {featured.data.title}
+                                            </p>
+                                        </div>
+                                    </a>
+                                )
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text content (desktop left column) -->
+                <div class="md:order-1">
+                    <!-- Desktop text (hidden on mobile since it's overlaid on image) -->
+                    <div class="hidden md:block">
+                        <span
+                            class="inline-block px-4 py-2 rounded-full bg-teal-100 text-teal-700 text-sm font-semibold mb-4"
+                        >
+                            Resources
+                        </span>
+                        <h1
+                            class="text-4xl lg:text-5xl font-bold leading-tight mb-4"
+                        >
+                            <span class="text-gray-900">Childcare Business</span
+                            ><br />
+                            <span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-teal-600"
+                            >
+                                Insights & Guides
+                            </span>
+                        </h1>
+
+                        <p class="text-lg text-gray-600 leading-relaxed mb-6">
+                            Expert strategies for building, growing, and
+                            sustaining a profitable childcare business.
+                        </p>
+
+                        {
+                            featured && (
+                                <a
+                                    href={`/blog/${featured.slug}`}
+                                    class="group block glass-panel rounded-2xl p-6 border-2 border-teal-200/50 hover:border-teal-300 transition-all mb-6"
+                                >
+                                    <span class="text-teal-600 text-sm font-semibold mb-2 block">
+                                        Featured Article
+                                    </span>
+                                    <p class="text-xl font-bold text-gray-900 group-hover:text-teal-600 transition-colors mb-2">
+                                        {featured.data.title}
+                                    </p>
+                                    <p class="text-base text-gray-600 line-clamp-2">
+                                        {featured.data.excerpt}
+                                    </p>
+                                </a>
+                            )
+                        }
+                    </div>
+
+                    <!-- Browse button (both mobile and desktop) -->
+                    <a
+                        href="#posts"
+                        class="block md:inline-block w-full md:w-auto bg-gradient-to-r from-teal-500 to-teal-600 md:bg-teal-600 hover:from-teal-600 hover:to-teal-700 md:hover:bg-teal-700 text-white text-center text-lg font-bold md:font-semibold py-4 px-8 rounded-full shadow-xl shadow-teal-500/40 md:shadow-teal-600/30 transition-all md:hover:shadow-2xl md:hover:-translate-y-1"
+                    >
+                        Browse All Articles
+                    </a>
+                </div>
+            </div>
+        </Container>
+    </section>
+
+    <!-- POSTS SECTION -->
+    <section id="posts" class="py-8 md:py-16">
+        <Container size="lg">
+            <BlogCategoryPills client:load categories={categories} />
+
+            <div
+                class="space-y-4 md:space-y-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 mb-8 md:mb-12"
+            >
+                {
+                    postsWithReadTime.map(({ post, readTime }) => (
+                        <BlogArticleCard post={post} readTime={readTime} />
+                    ))
+                }
+            </div>
+
+            <BlogCTA />
+        </Container>
+    </section>
+</Layout>

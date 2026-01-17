@@ -24,7 +24,7 @@ const posts = await getPostsByAuthor(author.slug);
             <!-- Back link -->
             <a
                 href="/blog"
-                class="inline-flex items-center gap-2 text-teal-600 font-semibold mb-6 text-base min-h-[48px]"
+                class="inline-flex items-center gap-2 text-teal-600 font-semibold mb-6 text-sm md:text-base min-h-[44px]"
             >
                 <svg
                     class="w-5 h-5"
@@ -53,7 +53,7 @@ const posts = await getPostsByAuthor(author.slug);
                     />
                     <div class="flex-1 text-center md:text-left">
                         <span
-                            class="inline-block px-3 py-1.5 rounded-full bg-teal-100 text-teal-700 text-sm font-semibold mb-2"
+                            class="inline-block px-3 py-1.5 rounded-full bg-teal-100 text-teal-700 text-xs font-semibold mb-2"
                         >
                             Author
                         </span>
@@ -62,10 +62,12 @@ const posts = await getPostsByAuthor(author.slug);
                         >
                             {author.name}
                         </h1>
-                        <p class="text-base text-gray-600 mb-2">
+                        <p class="text-sm md:text-base text-gray-600 mb-2">
                             {author.role}
                         </p>
-                        <p class="text-base text-gray-600">{author.bio}</p>
+                        <p class="text-sm md:text-base text-gray-600">
+                            {author.bio}
+                        </p>
 
                         {
                             author.social && (
@@ -75,7 +77,7 @@ const posts = await getPostsByAuthor(author.slug);
                                             href={author.social.linkedin}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            class="px-4 py-3 rounded-full bg-blue-600 text-white hover:bg-blue-700 text-base font-semibold min-h-[48px]"
+                                            class="px-4 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 text-sm md:text-base font-semibold min-h-[44px]"
                                         >
                                             LinkedIn
                                         </a>
@@ -85,7 +87,7 @@ const posts = await getPostsByAuthor(author.slug);
                                             href={author.social.twitter}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            class="px-4 py-3 rounded-full bg-sky-500 text-white hover:bg-sky-600 text-base font-semibold min-h-[48px]"
+                                            class="px-4 py-2 rounded-full bg-sky-500 text-white hover:bg-sky-600 text-sm md:text-base font-semibold min-h-[44px]"
                                         >
                                             Twitter
                                         </a>
@@ -102,7 +104,7 @@ const posts = await getPostsByAuthor(author.slug);
                 <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
                     Articles by {author.name}
                 </h2>
-                <p class="text-base text-gray-600">
+                <p class="text-sm md:text-base text-gray-600">
                     {posts.length}
                     {posts.length === 1 ? "article" : "articles"} published
                 </p>

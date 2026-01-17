@@ -16,7 +16,7 @@ export const authors: Record<string, Author> = {
         name: 'Junya Herron',
         role: 'Co-Founder',
         bio: 'Childcare industry expert helping owners build sustainable, profitable centers.',
-        avatar: '/images/authors/junya-herron.webp',
+        avatar: '/hero-woman.webp',
     },
 };
 

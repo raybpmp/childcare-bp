@@ -14,6 +14,8 @@ export const getStaticPaths = (async () => {
     }));
 }) satisfies GetStaticPaths;
 
+import GlassParagraph from "@/components/blog/GlassParagraph.astro";
+
 const { post } = Astro.props;
 const { title, excerpt, coverImage, category, date } = post.data;
 const { Content } = await post.render();
@@ -37,7 +39,7 @@ const categoryClass =
             <!-- Back Link -->
             <a
                 href="/blog"
-                class="inline-flex items-center gap-2 text-teal-600 hover:text-teal-700 font-semibold mb-6 text-base min-h-[48px]"
+                class="inline-flex items-center gap-2 text-teal-600 hover:text-teal-700 font-semibold mb-6 text-sm md:text-base min-h-[44px]"
             >
                 <svg
                     class="w-5 h-5"
@@ -79,7 +81,9 @@ const categoryClass =
                 <h1 class="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
                     {title}
                 </h1>
-                <div class="flex items-center gap-3 text-base text-gray-500">
+                <div
+                    class="flex items-center gap-3 text-xs md:text-sm text-gray-500"
+                >
                     <AuthorCard post={post} />
                     <span>·</span>
                     <time datetime={date}>
@@ -98,9 +102,9 @@ const categoryClass =
 
             <!-- Content -->
             <article
-                class="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-a:text-teal-600 prose-img:rounded-xl mb-8 md:mb-12"
+                class="prose max-w-none prose-p:text-sm md:prose-p:text-base prose-headings:font-bold prose-headings:text-gray-900 prose-a:text-teal-600 prose-img:rounded-xl mb-8 md:mb-12"
             >
-                <Content />
+                <Content components={{ p: GlassParagraph }} />
             </article>
 
             <!-- CTA -->

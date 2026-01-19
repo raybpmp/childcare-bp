@@ -14,7 +14,7 @@ import {
 const navLinks = [
     { href: "/pricing", label: "Plans" },
     { href: "/blog", label: "Blog" },
-    { href: "/portal", label: "Login" },
+    { href: "https://portal.childcarebusinessplan.com", label: "Login" },
 ];
 
 export function MobileNav() {

@@ -30,6 +30,7 @@ const {
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
 			rel="stylesheet"
 		/>
+		<link rel="preload" as="image" href="/background.webp" />
 
 		<title>{title}</title>
 	</head>
@@ -54,22 +55,28 @@ const {
 				<!-- Desktop Links -->
 				<div class="hidden md:flex items-center gap-6">
 					<a
+						href="/pricing"
+						class="text-sm font-medium text-gray-700 hover:text-teal-600 transition-colors"
+					>
+						Plans
+					</a>
+					<a
 						href="/blog"
 						class="text-sm font-medium text-gray-700 hover:text-teal-600 transition-colors"
 					>
 						Blog
 					</a>
 					<a
-						href="#calculator"
+						href="/portal"
 						class="text-sm font-medium text-gray-700 hover:text-teal-600 transition-colors"
 					>
-						See What I Can Make Today
+						Login
 					</a>
 					<a
-						href="/login"
+						href="#calculator"
 						class="inline-flex items-center justify-center rounded-full bg-teal-600 hover:bg-teal-700 text-white text-sm font-medium px-5 py-2.5 shadow-lg shadow-teal-600/20 transition-all hover:shadow-xl hover:shadow-teal-600/30"
 					>
-						Login
+						See What I Can Make Today
 					</a>
 				</div>
 

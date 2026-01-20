@@ -119,6 +119,16 @@
   box-shadow: 0 8px 32px 0 rgba(209, 148, 116, 0.1);
 }
 
+/* Scrollbar Hide Utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 @keyframes float-blob {
   0% {
     transform: translate(0px, 0px) scale(1);

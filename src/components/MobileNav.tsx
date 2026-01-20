@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/sheet";
 
 const navLinks = [
-    { href: "/pricing", label: "Plans" },
+    { href: "/childcarebusinessplans", label: "Plans" },
     { href: "/blog", label: "Blog" },
     { href: "https://portal.childcarebusinessplan.com", label: "Login" },
 ];

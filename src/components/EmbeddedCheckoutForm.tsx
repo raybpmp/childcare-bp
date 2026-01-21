@@ -6,7 +6,7 @@ import {
 } from '@stripe/react-stripe-js';
 
 const stripePromise = loadStripe(
-    import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY || 'pk_test_YOUR_KEY_HERE'
+    import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY
 );
 
 interface CheckoutFormProps {
@@ -26,15 +26,24 @@ export default function EmbeddedCheckoutForm({ tier, billing, onClose }: Checkou
                 body: JSON.stringify({ tier, billing }),
             });
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || 'Failed to create checkout session');
+            const text = await response.text();
+            let data;
+
+            try {
+                data = JSON.parse(text);
+            } catch (e) {
+                console.error("Invalid JSON response from server:", text);
+                throw new Error("The payment server is momentarily unavailable. Please try again or contact support.");
             }
 
-            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to create checkout session');
+            }
+
             return data.clientSecret;
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'An error occurred');
+            console.error("Checkout creation error:", err);
+            setError(err instanceof Error ? err.message : 'An error occurred initializing checkout');
             throw err;
         }
     }, [tier, billing]);

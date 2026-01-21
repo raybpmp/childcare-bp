@@ -9,7 +9,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: '2025-12-15.clover' as any,
+    apiVersion: '2024-06-20' as any,
 });
 
 const FRAPPE_URL = process.env.FRAPPE_URL || 'http://frappe_docker-frontend-1:8080';

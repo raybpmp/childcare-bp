@@ -11,16 +11,16 @@ const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY || process.env.STRIP
 // Price IDs mapped to tiers and billing periods
 const PRICE_MAP: Record<string, Record<string, string>> = {
     launchpad: {
-        monthly: 'price_1SrQQ9EHjJWPrvSl1Mb9f1B4',
-        yearly: 'price_1SrQQAEHjJWPrvSlA8aGsaqH',
+        monthly: 'price_1Ss4VfJD1n5R7a8mlgezlXoS',
+        yearly: 'price_1Ss4VgJD1n5R7a8m6qHrn435',
     },
     director: {
-        monthly: 'price_1SrQQBEHjJWPrvSlMKs3OoQv',
-        yearly: 'price_1SrQQBEHjJWPrvSlF0ENokAQ',
+        monthly: 'price_1Ss4VgJD1n5R7a8mSPQ9nAyu',
+        yearly: 'price_1Ss4VhJD1n5R7a8ms1mezfi0',
     },
     ceo: {
-        monthly: 'price_1SrQQCEHjJWPrvSlRgoPzOBt',
-        yearly: 'price_1SrQQCEHjJWPrvSlK6f4JX8c',
+        monthly: 'price_1Ss4VhJD1n5R7a8mpsxEyHFj',
+        yearly: 'price_1Ss4ViJD1n5R7a8mfeZsiSIP',
     },
 };
 
@@ -54,7 +54,11 @@ export const POST: APIRoute = async ({ request }) => {
                     quantity: 1,
                 },
             ],
-            mode: 'payment', // or 'subscription' if you want recurring
+            mode: 'payment',
+            metadata: {
+                tier: tier,
+                billing: billing
+            },
             return_url: `${new URL(request.url).origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
         });
 

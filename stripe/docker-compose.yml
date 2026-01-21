@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  webhook:
+    build: .
+    container_name: ccbp-stripe-webhook
+    restart: always
+    environment:
+      - PORT=3000
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
+      - FRAPPE_URL=http://frappe_docker-frontend-1:8080
+      - FRAPPE_API_KEY=${FRAPPE_API_KEY}
+      - FRAPPE_API_SECRET=${FRAPPE_API_SECRET}
+    networks:
+      - frappe_docker_default
+
+networks:
+  frappe_docker_default:
+    external: true

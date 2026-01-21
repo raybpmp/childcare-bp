@@ -107,14 +107,15 @@ export default function PricingSection() {
         setCheckoutTier(null);
     };
 
-    // Card renderer for mobile StackedTabs - returns full card with wrapper
-    const renderMobileCard = (tier: PricingTier, _index: number, _isActive: boolean) => (
+    const renderMobileCard = (tier: PricingTier, _index: number, isActive: boolean) => (
         <div
             className={`
                 relative flex flex-col rounded-2xl overflow-hidden
                 ${tier.featured
                     ? 'bg-gray-900 text-white shadow-2xl'
-                    : 'glass-panel'
+                    : isActive
+                        ? 'bg-white text-gray-900 shadow-xl border border-gray-100'
+                        : 'glass-panel'
                 }
             `}
         >

@@ -82,7 +82,7 @@ export function StackedTabs<T>({
                                 key={idx}
                                 className={cn(
                                     "transition-all duration-500 ease-out w-full max-w-xl",
-                                    isActive ? "relative z-20" : "absolute top-8 z-10 cursor-pointer hover:brightness-95"
+                                    isActive ? "relative z-30" : "absolute top-8 z-10 cursor-pointer hover:brightness-95"
                                 )}
                                 onClick={() => setActiveIndex(idx)}
                                 style={{

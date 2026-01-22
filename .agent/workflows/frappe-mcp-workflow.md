@@ -12,6 +12,57 @@ This workflow defines how AI agents should interact with the Frappe/ERPNext ecos
 2.  **Meta-DocTypes are Key:** To modify the system structure (add fields, change permissions), you typically create records in Meta-DocTypes like `Custom Field`, `Property Setter`, or `DocType`.
 3.  **Discovery before Action:** Never attempt to write data without first validating the target structure.
 
+## Understanding Frappe's Schema-First Architecture
+
+Frappe's "schema-first" architecture, centered on the **DocType**, is a metadata-driven approach where data models are defined as configurations rather than written as code (like Django models or SQLAlchemy ORMs).
+
+### 1. The Core Concept: DocType as Meta-Data
+
+In Frappe, you do not write Python or SQL to define a table. Instead, you create a **DocType** (Document Type) file. This JSON file acts as a definition for your data structure (schema).
+
+- **What it includes:** Fields (fieldname, type, length), Permissions (who can read/write), Layouts (how it looks in the desk), and Link fields (relationships).
+- **Self-Describing:** Because the DocType definition is itself a document stored in the database, the system is self-describing.
+
+### 2. Field Types and Master Data Pattern
+
+**Critical Understanding:** Link fields reference OTHER DocTypes (master data).
+
+**Field Types:**
+- `Data`: Simple text field
+- `Int`, `Currency`, `Float`: Numeric fields
+- `Select`: Dropdown with predefined options
+- `Link`: **References another DocType** - requires existing records in that DocType
+- `Long Text`, `Text Editor`: Large text content
+
+**Schema-First Debugging Pattern:**
+1. Get field schema: `get_doctype_fields("Lead")`
+2. Check field type - if `Link`, check `options` field to see what DocType it links to
+3. Query that DocType: `get_documents("CRM Lead Source")` to see what records exist
+4. Ensure data you're sending matches existing records
+
+**Example:**
+```
+Field: "source"
+Type: "Link"
+Options: "CRM Lead Source"
+→ This means you MUST send a value that exists in the "CRM Lead Source" DocType
+```
+
+### 3. Automatic Schema Generation
+
+When a developer saves a DocType, Frappe's backend automatically synchronizes with the database:
+- No SQL/Migrations: You do not write ALTER TABLE. Frappe runs `bench migrate`.
+- Table Creation: If you create a "Property" DocType, Frappe creates `tabProperty` in the database.
+
+### 4. Automatic UI & API Generation
+
+Once the schema is defined, Frappe immediately provides:
+- **Web Form/Desk:** A functional form for data entry
+- **List View:** A table view with sorting, filtering, pagination
+- **REST/RPC API:** Complete REST API endpoint (`/api/resource/DocType`)
+
+
+
 ## Workflow Steps
 
 ### 1. Discovery (Understanding the Context)

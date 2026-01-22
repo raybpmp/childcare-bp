@@ -16,32 +16,48 @@ const stripe = new Stripe(STRIPE_SECRET_KEY!, {
 });
 
 // Product ID to Program mapping
+// IMPORTANT: These are actual Stripe Price IDs. If you recreate prices in Stripe, update these!
+// See /stripe/PRICE_ID_MANAGEMENT.md for details
 const PRODUCT_TO_PROGRAM: Record<string, string> = {
-    'price_launchpad_monthly': 'Launchpad Program',
-    'price_launchpad_yearly': 'Launchpad Program',
-    'price_director_monthly': 'Director Program',
-    'price_director_yearly': 'Director Program',
-    'price_ceo_monthly': 'CEO Program',
-    'price_ceo_yearly': 'CEO Program',
+    // Launchpad - $99/mo, $499/yr
+    'price_1Ss4VfJD1n5R7a8mlgezlXoS': 'Launchpad Program',  // Monthly
+    'price_1Ss4VgJD1n5R7a8m6qHrn435': 'Launchpad Program',  // Yearly
+
+    // Director - $349/mo, $2,499/yr
+    'price_1Ss4VgJD1n5R7a8mSPQ9nAyu': 'Director Program',   // Monthly
+    'price_1Ss4VhJD1n5R7a8ms1mezfi0': 'Director Program',   // Yearly
+
+    // CEO Circle - $749/mo, $5,500/yr
+    'price_1Ss4VhJD1n5R7a8mpsxEyHFj': 'CEO Program',        // Monthly
+    'price_1Ss4ViJD1n5R7a8mfeZsiSIP': 'CEO Program',        // Yearly
 };
 
 // Product ID to Project Template mapping (only for high-touch tiers)
 const PRODUCT_TO_PROJECT_TEMPLATE: Record<string, string | undefined> = {
-    'price_director_monthly': 'Director Onboarding',
-    'price_director_yearly': 'Director Onboarding',
-    'price_ceo_monthly': 'CEO Onboarding',
-    'price_ceo_yearly': 'CEO Onboarding',
+    // Director - Gets onboarding project
+    'price_1Ss4VgJD1n5R7a8mSPQ9nAyu': 'Director Onboarding',  // Monthly
+    'price_1Ss4VhJD1n5R7a8ms1mezfi0': 'Director Onboarding',  // Yearly
+
+    // CEO Circle - Gets onboarding project
+    'price_1Ss4VhJD1n5R7a8mpsxEyHFj': 'CEO Onboarding',       // Monthly
+    'price_1Ss4ViJD1n5R7a8mfeZsiSIP': 'CEO Onboarding',       // Yearly
+
     // Launchpad: No project (self-serve tier)
 };
 
 // Product ID to Welcome Email Template mapping
 const PRODUCT_TO_EMAIL_TEMPLATE: Record<string, string> = {
-    'price_launchpad_monthly': 'Welcome - Launchpad',
-    'price_launchpad_yearly': 'Welcome - Launchpad',
-    'price_director_monthly': 'Welcome - Director',
-    'price_director_yearly': 'Welcome - Director',
-    'price_ceo_monthly': 'Welcome - CEO',
-    'price_ceo_yearly': 'Welcome - CEO',
+    // Launchpad
+    'price_1Ss4VfJD1n5R7a8mlgezlXoS': 'Welcome - Launchpad',
+    'price_1Ss4VgJD1n5R7a8m6qHrn435': 'Welcome - Launchpad',
+
+    // Director
+    'price_1Ss4VgJD1n5R7a8mSPQ9nAyu': 'Welcome - Director',
+    'price_1Ss4VhJD1n5R7a8ms1mezfi0': 'Welcome - Director',
+
+    // CEO Circle
+    'price_1Ss4VhJD1n5R7a8mpsxEyHFj': 'Welcome - CEO',
+    'price_1Ss4ViJD1n5R7a8mfeZsiSIP': 'Welcome - CEO',
 };
 
 interface OnboardingResult {

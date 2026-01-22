@@ -8,7 +8,11 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-    origin: ['https://www.childcarebusinessplan.com', 'http://localhost:4321'],
+    origin: [
+        'https://www.childcarebusinessplan.com',
+        'https://childcarebusinessplan.com',
+        'http://localhost:4321'
+    ],
     methods: ['POST', 'GET', 'OPTIONS'],
     allowedHeaders: ['Content-Type']
 }));

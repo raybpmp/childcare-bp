@@ -6,7 +6,7 @@ import {
 } from '@stripe/react-stripe-js';
 
 const stripePromise = loadStripe(
-    import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY
+    import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY || 'pk_test_51RwF9UJD1n5R7a8mMF3ASRY3VDnXrH679Rshiw9AsnhFqABOsTppv80EKaC9cXnit6pTlgB8xu55sQxYft1dmmsR00bXcZsYHb'
 );
 
 interface CheckoutFormProps {

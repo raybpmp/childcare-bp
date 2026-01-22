@@ -20,7 +20,7 @@ export default function EmbeddedCheckoutForm({ tier, billing, onClose }: Checkou
 
     const fetchClientSecret = useCallback(async () => {
         try {
-            const response = await fetch('https://webhook.childcarebusinessplan.com/v1/create-session', {
+            const response = await fetch('https://portal.childcarebusinessplan.com/stripe/v1/create-session', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ tier, billing }),

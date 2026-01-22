@@ -7,7 +7,7 @@ This standalone Node.js microservice bridges the Astro website (Frontend) with E
 - **Logic**: Built with Node.js, Express, and Stripe SDK.
 - **Deployment**: Runs in a standalone Docker container (`ccbusinessplan-stripe-webhook`) on the production VPS.
 - **Networking**: Joined to the `frappe_docker_default` bridge network to communicate securely with the ERP API at `http://frappe_docker-frontend-1:8080`.
-- **Ingress**: Publicly exposed via the global Caddy proxy at `https://webhook.childcarebusinessplan.com/v1/stripe`.
+- **Ingress**: Publicly exposed via path-based routing at `https://portal.childcarebusinessplan.com/stripe/v1/stripe`.
 
 ## The Onboarding Flow (6 Steps)
 

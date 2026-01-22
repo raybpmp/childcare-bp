@@ -2,10 +2,16 @@ import express from 'express';
 import Stripe from 'stripe';
 import dotenv from 'dotenv';
 import axios from 'axios';
+import cors from 'cors';
 
 dotenv.config();
 
 const app = express();
+app.use(cors({
+    origin: ['https://www.childcarebusinessplan.com', 'http://localhost:4321'],
+    methods: ['POST', 'GET', 'OPTIONS'],
+    allowedHeaders: ['Content-Type']
+}));
 const port = process.env.PORT || 3000;
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -42,12 +48,55 @@ const PRODUCT_TO_EMAIL_TEMPLATE: Record<string, string> = {
     'price_1Ss4ViJD1n5R7a8mfeZsiSIP': 'Welcome - CEO',
 };
 
+const PRICE_MAP: Record<string, Record<string, string>> = {
+    launchpad: {
+        monthly: 'price_1Ss4VfJD1n5R7a8mlgezlXoS',
+        yearly: 'price_1Ss4VgJD1n5R7a8m6qHrn435',
+    },
+    director: {
+        monthly: 'price_1Ss4VgJD1n5R7a8mSPQ9nAyu',
+        yearly: 'price_1Ss4VhJD1n5R7a8ms1mezfi0',
+    },
+    ceo: {
+        monthly: 'price_1Ss4VhJD1n5R7a8mpsxEyHFj',
+        yearly: 'price_1Ss4ViJD1n5R7a8mfeZsiSIP',
+    },
+};
+
 const frappe = axios.create({
     baseURL: FRAPPE_URL,
     headers: {
         'Authorization': `token ${FRAPPE_API_KEY}:${FRAPPE_API_SECRET}`,
         'Content-Type': 'application/json',
     },
+});
+
+// Create Stripe Checkout Session (for frontend inline checkout)
+app.post('/v1/create-session', express.json(), async (req: express.Request, res: express.Response) => {
+    try {
+        const { tier, billing } = req.body;
+
+        if (!tier || !billing) {
+            return res.status(400).json({ error: 'Missing tier or billing' });
+        }
+
+        const priceId = PRICE_MAP[tier]?.[billing];
+        if (!priceId) {
+            return res.status(400).json({ error: 'Invalid plan selected' });
+        }
+
+        const session = await stripe.checkout.sessions.create({
+            ui_mode: 'embedded',
+            line_items: [{ price: priceId, quantity: 1 }],
+            mode: 'subscription',
+            return_url: `https://www.childcarebusinessplan.com/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+        });
+
+        res.json({ clientSecret: session.client_secret });
+    } catch (err: any) {
+        console.error('Session Creation Error:', err.message);
+        res.status(500).json({ error: err.message });
+    }
 });
 
 // Use raw body for Stripe signature verification

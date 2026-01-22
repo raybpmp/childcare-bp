@@ -1,0 +1,36 @@
+---
+interface Props {
+    src: string;
+    alt: string;
+    className?: string;
+}
+
+const { src, alt, className = "" } = Astro.props;
+---
+
+<div
+    class={`relative w-full overflow-hidden rounded-2xl md:rounded-3xl shadow-xl shadow-teal-500/10 ${className}`}
+>
+    <img
+        src={src}
+        alt={alt}
+        fetchpriority="high"
+        loading="eager"
+        decoding="async"
+        class="w-full h-auto object-cover aspect-[16/9] md:aspect-[21/9]"
+        width="1200"
+        height="675"
+    />
+    <div
+        class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"
+    >
+    </div>
+</div>
+
+<style>
+    img {
+        /* Mobile-first: Ensure it looks crisp on small screens */
+        max-width: 100%;
+        height: auto;
+    }
+</style>

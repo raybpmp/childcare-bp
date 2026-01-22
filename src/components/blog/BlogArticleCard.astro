@@ -8,7 +8,7 @@ interface Props {
 
 const { post, readTime } = Astro.props;
 const { title, excerpt, coverImage, category, date } = post.data;
-const cover = coverImage || "/images/blog/default-cover.png";
+const cover = coverImage || "/images/blog/default-cover.webp";
 
 const categoryColors: Record<string, string> = {
     "Industry Trends": "bg-purple-100 text-purple-700",
@@ -16,6 +16,22 @@ const categoryColors: Record<string, string> = {
     Operations: "bg-blue-100 text-blue-700",
     Marketing: "bg-amber-100 text-amber-700",
 };
+
+const getSeoAlt = (title: string, category: string) => {
+    switch (category) {
+        case "Marketing":
+            return `Strategist planning childcare advertising: ${title}`;
+        case "Startup Guides":
+            return `Essential starting a daycare center checklist item: ${title}`;
+        case "Operations":
+            return `Modern childcare management software interface for: ${title}`;
+        case "Industry Trends":
+            return `Analysis of the Daycare Business Plan landscape: ${title}`;
+        default:
+            return `B2B Childcare Business Strategy: ${title}`;
+    }
+};
+
 const categoryClass =
     categoryColors[category || ""] || "bg-gray-100 text-gray-700";
 ---
@@ -28,7 +44,7 @@ const categoryClass =
         <div class="aspect-[16/9] overflow-hidden bg-gray-100">
             <img
                 src={cover}
-                alt={title}
+                alt={getSeoAlt(title, category || "")}
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 loading="lazy"
             />

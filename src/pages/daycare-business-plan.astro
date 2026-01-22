@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Container } from "@/components/layout/Container";
+import HeroImage from "../components/ui/HeroImage.astro";
 ---
 
 <Layout
@@ -8,8 +9,13 @@ import { Container } from "@/components/layout/Container";
     description="Your daycare business plan needs accurate financial projections based on your state's regulations and local market conditions."
 >
     <!-- HERO SECTION -->
-    <section class="py-12 md:py-20">
+    <section class="pt-8 pb-12 md:pt-12 md:pb-20">
         <Container size="md">
+            <HeroImage
+                src="/images/startup/daycare-business-plan.webp"
+                alt="Visual breakdown of a professional Daycare Business Plan showing financial projections and growth milestones"
+                className="mb-8 md:mb-12"
+            />
             <div class="text-center mb-8 md:mb-12">
                 <span
                     class="inline-block px-3 py-1 rounded-full bg-teal-100 text-teal-700 text-xs font-semibold mb-3"

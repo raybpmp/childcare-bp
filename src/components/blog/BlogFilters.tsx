@@ -92,8 +92,8 @@ export function BlogFilters({ posts: initialPosts, categories }: Props) {
                             {/* Cover Image */}
                             <div className="aspect-[16/9] overflow-hidden bg-gray-100">
                                 <img
-                                    src={post.coverImage || '/images/blog/default-cover.png'}
-                                    alt={post.title}
+                                    src={post.coverImage || '/images/blog/default-cover.webp'}
+                                    alt={`B2B Childcare Business Strategy: ${post.title}`}
                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                     loading="lazy"
                                 />

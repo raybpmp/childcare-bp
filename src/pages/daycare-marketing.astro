@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Container } from "@/components/layout/Container";
+import HeroImage from "../components/ui/HeroImage.astro";
 ---
 
 <Layout
@@ -8,8 +9,13 @@ import { Container } from "@/components/layout/Container";
     description="Discover effective daycare marketing strategies tailored to your local market competition and saturation levels."
 >
     <!-- HERO SECTION -->
-    <section class="py-12 md:py-20">
+    <section class="pt-8 pb-12 md:pt-12 md:pb-20">
         <Container size="md">
+            <HeroImage
+                src="/images/growth/daycare-marketing.webp"
+                alt="Digital analytics screen showing enrollment growth metrics driven by effective daycare marketing strategies"
+                className="mb-8 md:mb-12"
+            />
             <div class="text-center mb-8 md:mb-12">
                 <span
                     class="inline-block px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-semibold mb-3"

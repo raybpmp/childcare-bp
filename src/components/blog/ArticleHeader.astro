@@ -7,7 +7,7 @@ interface Props {
 
 const { post } = Astro.props;
 const { title, coverImage, category, date } = post.data;
-const cover = coverImage || "/images/blog/default-cover.png";
+const cover = coverImage || "/images/blog/default-cover.webp";
 
 const categoryColors: Record<string, string> = {
     "Industry Trends": "bg-purple-100 text-purple-700",

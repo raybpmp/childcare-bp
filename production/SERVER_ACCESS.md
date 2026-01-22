@@ -23,7 +23,7 @@ The new Triple Stack (ERPNext + CRM + LMS) is managed via Docker Compose in the 
 
 ### Location on Server
 We will deploy the `production_launch` files to:
-`/opt/ccbusinessplan/`
+`/opt/ccbusinessplan/frappe_docker`
 
 ### Credentials
 
@@ -49,7 +49,7 @@ docker compose logs -f backend
 
 **Enter Bench Console**:
 ```bash
-docker compose exec backend bench --site portal.childcarebusinessplan.com console
+sudo docker compose exec backend bench --site portal.childcarebusinessplan.com console
 ```
 
 ## 3. Maintenance

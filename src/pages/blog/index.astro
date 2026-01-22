@@ -21,7 +21,7 @@ const postsWithReadTime = posts.map((post) => ({
 }));
 
 const featuredCover =
-    featured?.data.coverImage || "/images/blog/default-cover.png";
+    featured?.data.coverImage || "/images/blog/default-cover.webp";
 const featuredCategory = featured?.data.category || "";
 
 const categoryColors: Record<string, string> = {
@@ -56,15 +56,15 @@ const featuredCategoryClass =
                                 >
                                     <img
                                         src={featuredCover}
-                                        alt={featured.data.title}
+                                        alt={`B2B Childcare Business Strategy: ${featured.data.title}`}
                                         class="h-full w-full object-cover"
                                         loading="eager"
                                     />
                                 </a>
                             ) : (
                                 <img
-                                    src="/images/blog/default-cover.png"
-                                    alt="Blog"
+                                    src="/images/blog/default-cover.webp"
+                                    alt="B2B Childcare Business Strategy and Industry Resources"
                                     class="h-full w-full object-cover"
                                     loading="eager"
                                 />

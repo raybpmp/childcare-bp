@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Container } from "@/components/layout/Container";
+import HeroImage from "../components/ui/HeroImage.astro";
 ---
 
 <Layout
@@ -8,8 +9,13 @@ import { Container } from "@/components/layout/Container";
     description="Your home-based daycare opportunity depends on your state's regulations, zoning laws, and local market. Get personalized insights for your situation."
 >
     <!-- HERO SECTION -->
-    <section class="py-12 md:py-20">
+    <section class="pt-8 pb-12 md:pt-12 md:pb-20">
         <Container size="md">
+            <HeroImage
+                src="/images/startup/starting-a-daycare-at-home.webp"
+                alt="Home office setup with licensing documents, essential for the starting a daycare center checklist phase"
+                className="mb-8 md:mb-12"
+            />
             <div class="text-center mb-8 md:mb-12">
                 <span
                     class="inline-block px-3 py-1 rounded-full bg-teal-100 text-teal-700 text-xs font-semibold mb-3"

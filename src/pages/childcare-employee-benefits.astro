@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Container } from "@/components/layout/Container";
+import HeroImage from "../components/ui/HeroImage.astro";
 ---
 
 <Layout
@@ -8,8 +9,13 @@ import { Container } from "@/components/layout/Container";
     description="Learn how offering the right employee benefits can improve retention and ROI for your childcare business."
 >
     <!-- HERO SECTION -->
-    <section class="py-12 md:py-20">
+    <section class="pt-8 pb-12 md:pt-12 md:pb-20">
         <Container size="md">
+            <HeroImage
+                src="/images/growth/childcare-employee-benefits.webp"
+                alt="Professional staff training session demonstrating high-value childcare employee benefits for team retention"
+                className="mb-8 md:mb-12"
+            />
             <div class="text-center mb-8 md:mb-12">
                 <span
                     class="inline-block px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-semibold mb-3"

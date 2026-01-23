@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import Stripe from 'stripe';
+import { sendEmail } from '@/lib/mailer';
 
 export const prerender = false;
 
@@ -343,6 +344,36 @@ export const POST: APIRoute = async ({ request }) => {
             result.step = 'email';
             result.emailSent = await sendWelcomeEmail(result.userId, priceId);
             console.log(`✓ Step 6 complete: Email sent = ${result.emailSent}`);
+
+            // PART 7: Team Sale Alert (SMTP)
+            try {
+                const programName = PRODUCT_TO_PROGRAM[priceId] || 'Unknown Program';
+                await sendEmail({
+                    subject: `💰 [SALE] ${customerEmail} purchased ${programName}`,
+                    text: `
+                        A new sale has been completed on the website!
+                        
+                        Customer Details:
+                        - Name: ${customerName}
+                        - Email: ${customerEmail}
+                        
+                        Purchase Details:
+                        - Program: ${programName}
+                        - Amount: $${(amount / 100).toFixed(2)}
+                        - Stripe Session: ${session.id}
+                        
+                        Onboarding Status:
+                        - Frappe User: ${result.userId}
+                        - Frappe Customer: ${result.customerId}
+                        - Enrollment: ${result.enrollmentId}
+                        - Project: ${result.projectId || 'N/A'}
+                        
+                        The customer has been added to ERPNext and enrolled in the LMS.
+                    `
+                });
+            } catch (mailError) {
+                console.error('Sale SMTP alert failed:', mailError);
+            }
 
             result.success = true;
             result.step = 'completed';

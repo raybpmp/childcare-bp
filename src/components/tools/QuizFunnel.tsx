@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -95,8 +95,19 @@ interface QuizAnswers {
 }
 
 // Internal component for the stable quiz container
-const QuizCard = ({ children, containerClassName = "p-6 flex flex-col" }: { children: React.ReactNode, containerClassName?: string }) => (
-    <Card className="glass-panel w-full max-w-md mx-auto border-0 h-[600px] md:h-[650px] overflow-hidden">
+const QuizCard = ({
+    children,
+    containerClassName = "p-6 flex flex-col",
+    height
+}: {
+    children: React.ReactNode,
+    containerClassName?: string,
+    height?: number
+}) => (
+    <Card
+        className="glass-panel w-full max-w-md mx-auto border-0 overflow-hidden transition-[height] duration-300 ease-in-out"
+        style={height ? { height: `${height}px` } : { minHeight: '600px' }}
+    >
         <CardContent className="h-full p-0">
             <div className={`h-full overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] ${containerClassName}`}>
                 {children}
@@ -113,10 +124,43 @@ export default function QuizFunnel() {
     const [showCalculating, setShowCalculating] = useState(false);
     const [showResults, setShowResults] = useState(false);
     const [submitting, setSubmitting] = useState(false);
+    const [calculatedHeight, setCalculatedHeight] = useState<number>(0);
+    const measureRef = useRef<HTMLDivElement>(null);
+
+    // Dynamic height calculation based on tallest potential card (Step 2/3)
+    useLayoutEffect(() => {
+        const measure = () => {
+            if (measureRef.current) {
+                const height = measureRef.current.offsetHeight;
+                if (height > 0) {
+                    setCalculatedHeight(height);
+                }
+            }
+        };
+
+        measure();
+
+        // Handle window resizing
+        const observer = new ResizeObserver(measure);
+        if (measureRef.current) observer.observe(measureRef.current);
+
+        return () => observer.disconnect();
+    }, []);
 
     const stateInfo = answers.state ? STATE_DATA[answers.state] : null;
 
     // Calculate which step number shows email gate based on path
+    // Sequence Controller: Anticipation -> Email Gate
+    useEffect(() => {
+        if (showCalculating && !showEmailGate && !showResults) {
+            const timer = setTimeout(() => {
+                setShowCalculating(false);
+                setShowEmailGate(true);
+            }, 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [showCalculating, showEmailGate, showResults]);
+
     const getEmailGateStep = () => {
         if (answers.businessType === 'home' && stateInfo?.hasLargeLicense) {
             return 10; // Home with large license: 0-9 questions, step 10 = email
@@ -143,10 +187,10 @@ export default function QuizFunnel() {
                 }
             }
 
-            // Check if we should show email gate
+            // Check if we should show anticipation screen (Calculating)
             const emailStep = getEmailGateStep();
             if (nextStep === emailStep) {
-                setShowEmailGate(true);
+                setShowCalculating(true);
             } else {
                 setStep(nextStep);
             }
@@ -183,12 +227,7 @@ export default function QuizFunnel() {
 
         setAnswers(prev => ({ ...prev, email }));
         setShowEmailGate(false);
-        setShowCalculating(true);
         setSubmitting(false);
-
-        // Show calculating animation for 5 seconds
-        await new Promise(resolve => setTimeout(resolve, 5000));
-        setShowCalculating(false);
         setShowResults(true);
     };
 
@@ -298,7 +337,7 @@ export default function QuizFunnel() {
 
         return (
             <div className="max-w-md mx-auto px-4">
-                <QuizCard containerClassName="p-6 flex flex-col justify-center">
+                <QuizCard height={calculatedHeight} containerClassName="p-6 flex flex-col justify-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -365,7 +404,7 @@ export default function QuizFunnel() {
 
         return (
             <div className="max-w-md mx-auto px-4">
-                <QuizCard containerClassName="p-8 flex flex-col items-center justify-center">
+                <QuizCard height={calculatedHeight} containerClassName="p-8 flex flex-col items-center justify-center">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -482,7 +521,7 @@ export default function QuizFunnel() {
     // QUIZ QUESTIONS
     return (
         <div className="max-w-md mx-auto px-4">
-            <QuizCard>
+            <QuizCard height={calculatedHeight}>
                 <ProgressBar />
 
                 <AnimatePresence mode="wait">
@@ -789,6 +828,36 @@ export default function QuizFunnel() {
                     </button>
                 </div>
             </QuizCard>
+
+            {/* Invisible Measurement Layer */}
+            <div
+                ref={measureRef}
+                className="absolute opacity-0 pointer-events-none -z-10 w-full max-w-md px-4 left-1/2 -translate-x-1/2"
+                aria-hidden="true"
+                style={{ visibility: 'hidden', top: '-9999px' }}
+            >
+                <Card className="glass-panel p-6 border-0">
+                    <div className="space-y-6">
+                        <div className="h-2 bg-gray-100 rounded-full w-full mb-6" /> {/* Progress bar proxy */}
+                        <h2 className="text-xl font-bold text-gray-900 text-center">
+                            What's your biggest hurdle in starting your business?
+                        </h2>
+                        <div className="space-y-3">
+                            {[1, 2, 3, 4].map((i) => (
+                                <div key={i} className="w-full p-4 rounded-xl flex items-center gap-3 bg-white/60 border border-gray-200">
+                                    <span className="text-2xl">💸</span>
+                                    <span className="font-medium">
+                                        {i === 1 && "Not sure if the money is there or if it's worth the investment"}
+                                        {i === 2 && "Licensing feels overwhelming and I don't know where to start"}
+                                        {i === 3 && "Getting families to enroll and trust me with their kids"}
+                                        {i === 4 && "Finding time to figure it out while working a full time job"}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </Card>
+            </div>
         </div>
     );
 }

@@ -94,6 +94,17 @@ interface QuizAnswers {
     email?: string;
 }
 
+// Internal component for the stable quiz container
+const QuizCard = ({ children, containerClassName = "p-6 flex flex-col" }: { children: React.ReactNode, containerClassName?: string }) => (
+    <Card className="glass-panel w-full max-w-md mx-auto border-0 h-[600px] md:h-[650px] overflow-hidden">
+        <CardContent className="h-full p-0">
+            <div className={`h-full overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] ${containerClassName}`}>
+                {children}
+            </div>
+        </CardContent>
+    </Card>
+);
+
 export default function QuizFunnel() {
     const [step, setStep] = useState(0);
     const [answers, setAnswers] = useState<QuizAnswers>({});
@@ -287,61 +298,57 @@ export default function QuizFunnel() {
 
         return (
             <div className="max-w-md mx-auto px-4">
-                <Card className="glass-panel aspect-[3/4] max-h-[600px] md:max-h-[700px] overflow-hidden border-0 w-full mx-auto">
-                    <CardContent className="h-full p-0">
-                        <div className="h-full overflow-y-auto p-6 flex flex-col justify-center [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="text-center"
-                            >
-                                <span className="text-5xl mb-4 block">🎉</span>
-                                <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                                    Your Revenue Report is Ready!
-                                </h2>
-                                <p className="text-gray-600">
-                                    We've calculated your personalized potential...
-                                </p>
-                            </motion.div>
+                <QuizCard containerClassName="p-6 flex flex-col justify-center">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-center"
+                    >
+                        <span className="text-5xl mb-4 block">🎉</span>
+                        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                            Your Revenue Report is Ready!
+                        </h2>
+                        <p className="text-gray-600">
+                            We've calculated your personalized potential...
+                        </p>
+                    </motion.div>
 
-                            <div className="relative p-6 rounded-xl bg-gradient-to-br from-teal-50 to-emerald-50 text-center">
-                                <p className="text-sm text-gray-500 mb-2">YOUR POTENTIAL</p>
-                                <div className="text-3xl font-bold text-gray-400 blur-sm select-none">
-                                    ${min.toLocaleString()} - ${max.toLocaleString()}/year
-                                </div>
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <span className="text-lg font-medium text-teal-700">🔒 Enter email to unlock</span>
-                                </div>
-                            </div>
-
-                            <form onSubmit={handleEmailSubmit} className="space-y-4">
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        Where should we send your breakdown?
-                                    </label>
-                                    <input
-                                        type="email"
-                                        required
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        placeholder="you@email.com"
-                                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 outline-none transition-all"
-                                    />
-                                </div>
-                                <Button
-                                    type="submit"
-                                    disabled={submitting}
-                                    className="w-full bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white py-6 text-lg font-semibold rounded-xl"
-                                >
-                                    {submitting ? '✨ Calculating...' : '🚀 Reveal My Results'}
-                                </Button>
-                                <p className="text-xs text-center text-gray-400">
-                                    Join 10,000+ childcare owners. No spam.
-                                </p>
-                            </form>
+                    <div className="relative p-6 rounded-xl bg-gradient-to-br from-teal-50 to-emerald-50 text-center">
+                        <p className="text-sm text-gray-500 mb-2">YOUR POTENTIAL</p>
+                        <div className="text-3xl font-bold text-gray-400 blur-sm select-none">
+                            ${min.toLocaleString()} - ${max.toLocaleString()}/year
                         </div>
-                    </CardContent>
-                </Card>
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <span className="text-lg font-medium text-teal-700">🔒 Enter email to unlock</span>
+                        </div>
+                    </div>
+
+                    <form onSubmit={handleEmailSubmit} className="space-y-4">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Where should we send your breakdown?
+                            </label>
+                            <input
+                                type="email"
+                                required
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="you@email.com"
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 outline-none transition-all"
+                            />
+                        </div>
+                        <Button
+                            type="submit"
+                            disabled={submitting}
+                            className="w-full bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white py-6 text-lg font-semibold rounded-xl"
+                        >
+                            {submitting ? '✨ Calculating...' : '🚀 Reveal My Results'}
+                        </Button>
+                        <p className="text-xs text-center text-gray-400">
+                            Join 10,000+ childcare owners. No spam.
+                        </p>
+                    </form>
+                </QuizCard>
             </div>
         );
     }
@@ -358,85 +365,81 @@ export default function QuizFunnel() {
 
         return (
             <div className="max-w-md mx-auto px-4">
-                <Card className="glass-panel aspect-[3/4] max-h-[600px] md:max-h-[700px] overflow-hidden border-0 w-full mx-auto">
-                    <CardContent className="h-full p-0">
-                        <div className="h-full overflow-y-auto p-8 flex flex-col items-center justify-center [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                className="text-center space-y-8"
-                            >
-                                {/* Animated calculator icon */}
-                                <motion.div
-                                    animate={{
-                                        rotate: [0, 10, -10, 10, 0],
-                                        scale: [1, 1.1, 1, 1.1, 1]
-                                    }}
-                                    transition={{
-                                        duration: 2,
-                                        repeat: Infinity,
-                                        ease: "easeInOut"
-                                    }}
-                                    className="text-6xl"
-                                >
-                                    🧮
-                                </motion.div>
+                <QuizCard containerClassName="p-8 flex flex-col items-center justify-center">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="text-center space-y-8"
+                    >
+                        {/* Animated calculator icon */}
+                        <motion.div
+                            animate={{
+                                rotate: [0, 10, -10, 10, 0],
+                                scale: [1, 1.1, 1, 1.1, 1]
+                            }}
+                            transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                            className="text-6xl"
+                        >
+                            🧮
+                        </motion.div>
 
-                                <div>
-                                    <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                                        Crunching Your Numbers...
-                                    </h2>
-                                    <p className="text-gray-500">
-                                        Building your personalized revenue report
-                                    </p>
-                                </div>
-
-                                {/* Animated progress steps */}
-                                <div className="space-y-3 w-full max-w-xs mx-auto">
-                                    {calculatingSteps.map((step, index) => (
-                                        <motion.div
-                                            key={index}
-                                            initial={{ opacity: 0, x: -20 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: index * 0.9 }}
-                                            className="flex items-center gap-3 text-left"
-                                        >
-                                            <motion.span
-                                                initial={{ scale: 0 }}
-                                                animate={{ scale: 1 }}
-                                                transition={{ delay: index * 0.9 + 0.2 }}
-                                                className="text-xl"
-                                            >
-                                                {step.icon}
-                                            </motion.span>
-                                            <span className="text-sm text-gray-600">{step.text}</span>
-                                            <motion.span
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                                transition={{ delay: index * 0.9 + 0.5 }}
-                                                className="ml-auto text-teal-500"
-                                            >
-                                                ✓
-                                            </motion.span>
-                                        </motion.div>
-                                    ))}
-                                </div>
-
-                                {/* Progress bar */}
-                                <div className="w-full max-w-xs mx-auto">
-                                    <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                        <motion.div
-                                            className="h-full bg-gradient-to-r from-teal-500 to-emerald-500"
-                                            initial={{ width: '0%' }}
-                                            animate={{ width: '100%' }}
-                                            transition={{ duration: 4.5, ease: "easeInOut" }}
-                                        />
-                                    </div>
-                                </div>
-                            </motion.div>
+                        <div>
+                            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                                Crunching Your Numbers...
+                            </h2>
+                            <p className="text-gray-500">
+                                Building your personalized revenue report
+                            </p>
                         </div>
-                    </CardContent>
-                </Card>
+
+                        {/* Animated progress steps */}
+                        <div className="space-y-3 w-full max-w-xs mx-auto">
+                            {calculatingSteps.map((step, index) => (
+                                <motion.div
+                                    key={index}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: index * 0.9 }}
+                                    className="flex items-center gap-3 text-left"
+                                >
+                                    <motion.span
+                                        initial={{ scale: 0 }}
+                                        animate={{ scale: 1 }}
+                                        transition={{ delay: index * 0.9 + 0.2 }}
+                                        className="text-xl"
+                                    >
+                                        {step.icon}
+                                    </motion.span>
+                                    <span className="text-sm text-gray-600">{step.text}</span>
+                                    <motion.span
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ delay: index * 0.9 + 0.5 }}
+                                        className="ml-auto text-teal-500"
+                                    >
+                                        ✓
+                                    </motion.span>
+                                </motion.div>
+                            ))}
+                        </div>
+
+                        {/* Progress bar */}
+                        <div className="w-full max-w-xs mx-auto">
+                            <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                                <motion.div
+                                    className="h-full bg-gradient-to-r from-teal-500 to-emerald-500"
+                                    initial={{ width: '0%' }}
+                                    animate={{ width: '100%' }}
+                                    transition={{ duration: 4.5, ease: "easeInOut" }}
+                                />
+                            </div>
+                        </div>
+                    </motion.div>
+                </QuizCard>
             </div>
         );
     }
@@ -479,317 +482,313 @@ export default function QuizFunnel() {
     // QUIZ QUESTIONS
     return (
         <div className="max-w-md mx-auto px-4">
-            <Card className="glass-panel aspect-[3/4] max-h-[600px] md:max-h-[700px] overflow-hidden border-0 w-full mx-auto">
-                <CardContent className="h-full p-0">
-                    <div className="h-full overflow-y-auto p-6 flex flex-col [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
-                        <ProgressBar />
+            <QuizCard>
+                <ProgressBar />
 
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={step}
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -20 }}
-                                transition={{ duration: 0.2 }}
-                                className="flex-1 flex flex-col justify-center"
-                            >
-                                {/* Q1: Vision - UNIVERSAL WORDING */}
-                                {step === 0 && (
-                                    <div className="space-y-6">
-                                        <h2 className="text-xl font-bold text-gray-900 text-center">
-                                            What type of childcare business interests you?
-                                        </h2>
-                                        <div className="space-y-3">
-                                            <OptionButton emoji="🏡" label="Home-based daycare" value="home" selectedValue={answers.vision} onSelect={() => handleAnswer('vision', 'home')} />
-                                            <OptionButton emoji="🏢" label="Professional childcare center" value="center" selectedValue={answers.vision} onSelect={() => handleAnswer('vision', 'center')} />
-                                            <OptionButton emoji="💭" label="Still figuring it out" value="unsure" selectedValue={answers.vision} onSelect={() => handleAnswer('vision', 'unsure')} />
-                                        </div>
-                                    </div>
-                                )}
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={step}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.2 }}
+                        className="flex-1 flex flex-col justify-center"
+                    >
+                        {/* Q1: Vision - UNIVERSAL WORDING */}
+                        {step === 0 && (
+                            <div className="space-y-6">
+                                <h2 className="text-xl font-bold text-gray-900 text-center">
+                                    What type of childcare business interests you?
+                                </h2>
+                                <div className="space-y-3">
+                                    <OptionButton emoji="🏡" label="Home-based daycare" value="home" selectedValue={answers.vision} onSelect={() => handleAnswer('vision', 'home')} />
+                                    <OptionButton emoji="🏢" label="Professional childcare center" value="center" selectedValue={answers.vision} onSelect={() => handleAnswer('vision', 'center')} />
+                                    <OptionButton emoji="💭" label="Still figuring it out" value="unsure" selectedValue={answers.vision} onSelect={() => handleAnswer('vision', 'unsure')} />
+                                </div>
+                            </div>
+                        )}
 
-                                {/* Q2: Situation */}
-                                {step === 1 && (
-                                    <div className="space-y-6">
-                                        <h2 className="text-xl font-bold text-gray-900 text-center">
-                                            Where are you in your journey?
-                                        </h2>
-                                        <div className="space-y-3">
-                                            <OptionButton emoji="🌱" label="Just exploring the idea" value="exploring" selectedValue={answers.situation} onSelect={() => handleAnswer('situation', 'exploring')} />
-                                            <OptionButton emoji="📋" label="Planning to launch soon" value="planning" selectedValue={answers.situation} onSelect={() => handleAnswer('situation', 'planning')} />
-                                            <OptionButton emoji="🏠" label="Already running a home daycare" value="running-home" selectedValue={answers.situation} onSelect={() => handleAnswer('situation', 'running-home')} />
-                                            <OptionButton emoji="🏢" label="Already running a center" value="running-center" selectedValue={answers.situation} onSelect={() => handleAnswer('situation', 'running-center')} />
-                                        </div>
-                                    </div>
-                                )}
+                        {/* Q2: Situation */}
+                        {step === 1 && (
+                            <div className="space-y-6">
+                                <h2 className="text-xl font-bold text-gray-900 text-center">
+                                    Where are you in your journey?
+                                </h2>
+                                <div className="space-y-3">
+                                    <OptionButton emoji="🌱" label="Just exploring the idea" value="exploring" selectedValue={answers.situation} onSelect={() => handleAnswer('situation', 'exploring')} />
+                                    <OptionButton emoji="📋" label="Planning to launch soon" value="planning" selectedValue={answers.situation} onSelect={() => handleAnswer('situation', 'planning')} />
+                                    <OptionButton emoji="🏠" label="Already running a home daycare" value="running-home" selectedValue={answers.situation} onSelect={() => handleAnswer('situation', 'running-home')} />
+                                    <OptionButton emoji="🏢" label="Already running a center" value="running-center" selectedValue={answers.situation} onSelect={() => handleAnswer('situation', 'running-center')} />
+                                </div>
+                            </div>
+                        )}
 
-                                {/* Q3: Challenge - CONTEXTUAL OPTIONS */}
-                                {step === 2 && (
-                                    <div className="space-y-6">
-                                        <h2 className="text-xl font-bold text-gray-900 text-center">
-                                            {answers.situation === 'running-home' || answers.situation === 'running-center'
-                                                ? "What's holding your business back?"
-                                                : "What's your biggest hurdle?"}
-                                        </h2>
-                                        <div className="space-y-3">
-                                            {answers.situation === 'running-home' || answers.situation === 'running-center' ? (
-                                                <>
-                                                    <OptionButton emoji="💸" label="Not making enough profit" value="money" selectedValue={answers.challenge} onSelect={() => handleAnswer('challenge', 'money')} />
-                                                    <OptionButton emoji="👥" label="Filling empty spots" value="enrollment" selectedValue={answers.challenge} onSelect={() => handleAnswer('challenge', 'enrollment')} />
-                                                    <OptionButton emoji="📈" label="Ready to grow but unsure how" value="growth" selectedValue={answers.challenge} onSelect={() => handleAnswer('challenge', 'growth')} />
-                                                    <OptionButton emoji="⏰" label="Overwhelmed and burned out" value="time" selectedValue={answers.challenge} onSelect={() => handleAnswer('challenge', 'time')} />
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <OptionButton emoji="💸" label="Not sure if the money is there" value="money" selectedValue={answers.challenge} onSelect={() => handleAnswer('challenge', 'money')} />
-                                                    <OptionButton emoji="📜" label="Licensing feels overwhelming" value="licensing" selectedValue={answers.challenge} onSelect={() => handleAnswer('challenge', 'licensing')} />
-                                                    <OptionButton emoji="👥" label="Getting families to enroll" value="enrollment" selectedValue={answers.challenge} onSelect={() => handleAnswer('challenge', 'enrollment')} />
-                                                    <OptionButton emoji="⏰" label="Finding time to figure it out" value="time" selectedValue={answers.challenge} onSelect={() => handleAnswer('challenge', 'time')} />
-                                                </>
-                                            )}
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* Q4: State - CONTEXTUAL WORDING */}
-                                {step === 3 && (
-                                    <div className="space-y-8">
-                                        <div className="text-center">
-                                            <span className="text-4xl mb-4 block">🗺️</span>
-                                            <h2 className="text-xl font-bold text-gray-900">
-                                                {answers.situation === 'running-home' || answers.situation === 'running-center'
-                                                    ? 'Where is your business located?'
-                                                    : 'Where will your business be?'}
-                                            </h2>
-                                            <p className="text-gray-500 text-sm mt-2">
-                                                We'll use local market rates for your calculation
-                                            </p>
-                                        </div>
-                                        <Select value={answers.state || ''} onValueChange={(val) => handleAnswer('state', val)}>
-                                            <SelectTrigger className="w-full py-6 text-lg border-2 border-gray-200 hover:border-teal-400 transition-colors">
-                                                <SelectValue placeholder="Select your state..." />
-                                            </SelectTrigger>
-                                            <SelectContent className="max-h-[300px]">
-                                                {Object.entries(STATE_DATA).map(([code, info]) => (
-                                                    <SelectItem key={code} value={code} className="py-3 text-base">
-                                                        {info.name}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
-                                        {answers.state && (
-                                            <motion.div
-                                                initial={{ opacity: 0, y: 10 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                className="p-4 rounded-xl bg-gradient-to-r from-teal-50 to-emerald-50 text-center"
-                                            >
-                                                <p className="text-teal-700 font-medium">
-                                                    📈 {STATE_DATA[answers.state].name} — we have your local market rates!
-                                                </p>
-                                            </motion.div>
-                                        )}
-                                    </div>
-                                )}
-
-                                {/* Q5: Success Vision - UNIVERSAL WORDING */}
-                                {step === 4 && (
-                                    <div className="space-y-6">
-                                        <h2 className="text-xl font-bold text-gray-900 text-center">
-                                            What matters most to you?
-                                        </h2>
-                                        <div className="space-y-3">
-                                            <OptionButton emoji="💰" label="Maximizing my income" value="financial" selectedValue={answers.successVision} onSelect={() => handleAnswer('successVision', 'financial')} />
-                                            <OptionButton emoji="🏠" label="Flexibility and work-life balance" value="flexibility" selectedValue={answers.successVision} onSelect={() => handleAnswer('successVision', 'flexibility')} />
-                                            <OptionButton emoji="👨‍👩‍👧" label="More time with my family" value="family" selectedValue={answers.successVision} onSelect={() => handleAnswer('successVision', 'family')} />
-                                            <OptionButton emoji="❤️" label="Making a difference for kids" value="impact" selectedValue={answers.successVision} onSelect={() => handleAnswer('successVision', 'impact')} />
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* Q6: Business Type (FORK POINT) - CONTEXTUAL WORDING */}
-                                {step === 5 && (
-                                    <div className="space-y-6">
-                                        <h2 className="text-xl font-bold text-gray-900 text-center">
-                                            {answers.situation === 'running-home' || answers.situation === 'running-center'
-                                                ? 'What type of business do you run?'
-                                                : 'Which path are you taking?'}
-                                        </h2>
-                                        <div className="space-y-3">
-                                            <OptionButton emoji="🏡" label="Home-based daycare" value="home" selectedValue={answers.businessType} onSelect={() => handleAnswer('businessType', 'home')} />
-                                            <OptionButton emoji="🏢" label="Childcare center" value="center" selectedValue={answers.businessType} onSelect={() => handleAnswer('businessType', 'center')} />
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* HOME PATH: Q7H - License Type (ONLY if hasLargeLicense) */}
-                                {step === 6 && answers.businessType === 'home' && stateInfo?.hasLargeLicense && (
-                                    <div>
-                                        <h2 className="text-xl font-bold text-gray-900 mb-6 text-center">
-                                            How big do you want to go?
-                                        </h2>
-                                        <div className="space-y-3">
-                                            <OptionButton
-                                                emoji="🤱"
-                                                label={`Solo provider (up to ${stateInfo.smallCap} kids)`}
-                                                value="small"
-                                                selectedValue={answers.licenseType}
-                                                onSelect={() => handleAnswer('licenseType', 'small')}
-                                            />
-                                            <OptionButton
-                                                emoji="👥"
-                                                label={`With help (up to ${stateInfo.largeCap} kids)`}
-                                                value="large"
-                                                selectedValue={answers.licenseType}
-                                                onSelect={() => handleAnswer('licenseType', 'large')}
-                                            />
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* HOME PATH: Capacity Slider (Step 6 for small-only states, Step 7 for large license states) */}
-                                {step === 6 && answers.businessType === 'home' && !stateInfo?.hasLargeLicense && (
-                                    <div>
-                                        <h2 className="text-xl font-bold text-gray-900 mb-4 text-center">
-                                            How many children total?
-                                        </h2>
-                                        <div className="space-y-4">
-                                            <div className="flex justify-between text-sm">
-                                                <span className="text-gray-600">Total Children</span>
-                                                <span className="font-bold text-teal-700 text-lg">{answers.totalKids || 0}</span>
-                                            </div>
-                                            <Slider
-                                                value={[answers.totalKids || 0]}
-                                                onValueChange={(val) => setAnswers(prev => ({ ...prev, totalKids: val[0] }))}
-                                                min={0}
-                                                max={stateInfo!.smallCap}
-                                                step={1}
-                                                className="w-full"
-                                            />
-                                            <p className="text-xs text-gray-500 text-center">
-                                                Drag to set your target enrollment
-                                            </p>
-                                            {answers.totalKids && answers.totalKids > 0 && (
-                                                <Button
-                                                    onClick={() => setStep(step + 1)}
-                                                    className="w-full bg-teal-600 hover:bg-teal-700 mt-4"
-                                                >
-                                                    Continue →
-                                                </Button>
-                                            )}
-                                        </div>
-                                    </div>
-                                )}
-
-                                {step === 7 && answers.businessType === 'home' && stateInfo?.hasLargeLicense && (
-                                    <div>
-                                        <h2 className="text-xl font-bold text-gray-900 mb-4 text-center">
-                                            How many children total?
-                                        </h2>
-                                        <div className="space-y-4">
-                                            <div className="flex justify-between text-sm">
-                                                <span className="text-gray-600">Total Children</span>
-                                                <span className="font-bold text-teal-700 text-lg">{answers.totalKids || 0}</span>
-                                            </div>
-                                            <Slider
-                                                value={[answers.totalKids || 0]}
-                                                onValueChange={(val) => setAnswers(prev => ({ ...prev, totalKids: val[0] }))}
-                                                min={0}
-                                                max={answers.licenseType === 'large' ? stateInfo!.largeCap : stateInfo!.smallCap}
-                                                step={1}
-                                                className="w-full"
-                                            />
-                                            <p className="text-xs text-gray-500 text-center">
-                                                Drag to set your target enrollment
-                                            </p>
-                                            {answers.totalKids && answers.totalKids > 0 && (
-                                                <Button
-                                                    onClick={() => setStep(step + 1)}
-                                                    className="w-full bg-teal-600 hover:bg-teal-700 mt-4"
-                                                >
-                                                    Continue →
-                                                </Button>
-                                            )}
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* CENTER PATH: Q7C - Capacity Slider */}
-                                {step === 6 && answers.businessType === 'center' && (
-                                    <div>
-                                        <h2 className="text-xl font-bold text-gray-900 mb-4 text-center">
-                                            What's your target capacity?
-                                        </h2>
-                                        <div className="space-y-4">
-                                            <div className="flex justify-between text-sm">
-                                                <span className="text-gray-600">Total Capacity</span>
-                                                <span className="font-bold text-teal-700 text-lg">{answers.centerCapacity || 50}</span>
-                                            </div>
-                                            <Slider
-                                                value={[answers.centerCapacity || 50]}
-                                                onValueChange={(val) => setAnswers(prev => ({ ...prev, centerCapacity: val[0] }))}
-                                                min={20}
-                                                max={Math.min(150, stateInfo?.centerMaxCapacity || 150)}
-                                                step={5}
-                                                className="w-full"
-                                            />
-                                            <p className="text-xs text-gray-500 text-center">
-                                                Drag to set your target enrollment
-                                            </p>
-                                            <Button
-                                                onClick={() => setStep(step + 1)}
-                                                className="w-full bg-teal-600 hover:bg-teal-700 mt-4"
-                                            >
-                                                Continue →
-                                            </Button>
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* Q9: Learning Style (Step 7 for center/home-small, Step 8 for home-large) */}
-                                {((step === 7 && (answers.businessType === 'center' || !stateInfo?.hasLargeLicense)) ||
-                                    (step === 8 && answers.businessType === 'home' && stateInfo?.hasLargeLicense)) && (
-                                        <div>
-                                            <h2 className="text-xl font-bold text-gray-900 mb-6 text-center">
-                                                How do you prefer support?
-                                            </h2>
-                                            <div className="space-y-3">
-                                                <OptionButton emoji="📚" label="DIY resources" value="diy" selectedValue={answers.learningStyle} onSelect={() => handleAnswer('learningStyle', 'diy')} />
-                                                <OptionButton emoji="👥" label="Community" value="community" selectedValue={answers.learningStyle} onSelect={() => handleAnswer('learningStyle', 'community')} />
-                                                <OptionButton emoji="🎯" label="One-on-one" value="guided" selectedValue={answers.learningStyle} onSelect={() => handleAnswer('learningStyle', 'guided')} />
-                                                <OptionButton emoji="✅" label="Done-for-you" value="done-for-you" selectedValue={answers.learningStyle} onSelect={() => handleAnswer('learningStyle', 'done-for-you')} />
-                                            </div>
-                                        </div>
+                        {/* Q3: Challenge - CONTEXTUAL OPTIONS */}
+                        {step === 2 && (
+                            <div className="space-y-6">
+                                <h2 className="text-xl font-bold text-gray-900 text-center">
+                                    {answers.situation === 'running-home' || answers.situation === 'running-center'
+                                        ? "What's holding your business back?"
+                                        : "What's your biggest hurdle?"}
+                                </h2>
+                                <div className="space-y-3">
+                                    {answers.situation === 'running-home' || answers.situation === 'running-center' ? (
+                                        <>
+                                            <OptionButton emoji="💸" label="Not making enough profit" value="money" selectedValue={answers.challenge} onSelect={() => handleAnswer('challenge', 'money')} />
+                                            <OptionButton emoji="👥" label="Filling empty spots" value="enrollment" selectedValue={answers.challenge} onSelect={() => handleAnswer('challenge', 'enrollment')} />
+                                            <OptionButton emoji="📈" label="Ready to grow but unsure how" value="growth" selectedValue={answers.challenge} onSelect={() => handleAnswer('challenge', 'growth')} />
+                                            <OptionButton emoji="⏰" label="Overwhelmed and burned out" value="time" selectedValue={answers.challenge} onSelect={() => handleAnswer('challenge', 'time')} />
+                                        </>
+                                    ) : (
+                                        <>
+                                            <OptionButton emoji="💸" label="Not sure if the money is there" value="money" selectedValue={answers.challenge} onSelect={() => handleAnswer('challenge', 'money')} />
+                                            <OptionButton emoji="📜" label="Licensing feels overwhelming" value="licensing" selectedValue={answers.challenge} onSelect={() => handleAnswer('challenge', 'licensing')} />
+                                            <OptionButton emoji="👥" label="Getting families to enroll" value="enrollment" selectedValue={answers.challenge} onSelect={() => handleAnswer('challenge', 'enrollment')} />
+                                            <OptionButton emoji="⏰" label="Finding time to figure it out" value="time" selectedValue={answers.challenge} onSelect={() => handleAnswer('challenge', 'time')} />
+                                        </>
                                     )}
+                                </div>
+                            </div>
+                        )}
 
-                                {/* Q10: Timeline (Step 8 for center/home-small, Step 9 for home-large) */}
-                                {((step === 8 && (answers.businessType === 'center' || !stateInfo?.hasLargeLicense)) ||
-                                    (step === 9 && answers.businessType === 'home' && stateInfo?.hasLargeLicense)) && (
-                                        <div>
-                                            <h2 className="text-xl font-bold text-gray-900 mb-6 text-center">
-                                                When do you want to launch?
-                                            </h2>
-                                            <div className="space-y-3">
-                                                <OptionButton emoji="⚡" label="ASAP" value="asap" selectedValue={answers.timeline} onSelect={() => handleAnswer('timeline', 'asap')} />
-                                                <OptionButton emoji="📅" label="Next 6 months" value="6months" selectedValue={answers.timeline} onSelect={() => handleAnswer('timeline', '6months')} />
-                                                <OptionButton emoji="🗓️" label="Within a year" value="year" selectedValue={answers.timeline} onSelect={() => handleAnswer('timeline', 'year')} />
-                                                <OptionButton emoji="💭" label="Just exploring" value="exploring" selectedValue={answers.timeline} onSelect={() => handleAnswer('timeline', 'exploring')} />
-                                            </div>
-                                        </div>
+                        {/* Q4: State - CONTEXTUAL WORDING */}
+                        {step === 3 && (
+                            <div className="space-y-8">
+                                <div className="text-center">
+                                    <span className="text-4xl mb-4 block">🗺️</span>
+                                    <h2 className="text-xl font-bold text-gray-900">
+                                        {answers.situation === 'running-home' || answers.situation === 'running-center'
+                                            ? 'Where is your business located?'
+                                            : 'Where will your business be?'}
+                                    </h2>
+                                    <p className="text-gray-500 text-sm mt-2">
+                                        We'll use local market rates for your calculation
+                                    </p>
+                                </div>
+                                <Select value={answers.state || ''} onValueChange={(val) => handleAnswer('state', val)}>
+                                    <SelectTrigger className="w-full py-6 text-lg border-2 border-gray-200 hover:border-teal-400 transition-colors">
+                                        <SelectValue placeholder="Select your state..." />
+                                    </SelectTrigger>
+                                    <SelectContent className="max-h-[300px]">
+                                        {Object.entries(STATE_DATA).map(([code, info]) => (
+                                            <SelectItem key={code} value={code} className="py-3 text-base">
+                                                {info.name}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                {answers.state && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        className="p-4 rounded-xl bg-gradient-to-r from-teal-50 to-emerald-50 text-center"
+                                    >
+                                        <p className="text-teal-700 font-medium">
+                                            📈 {STATE_DATA[answers.state].name} — we have your local market rates!
+                                        </p>
+                                    </motion.div>
+                                )}
+                            </div>
+                        )}
+
+                        {/* Q5: Success Vision - UNIVERSAL WORDING */}
+                        {step === 4 && (
+                            <div className="space-y-6">
+                                <h2 className="text-xl font-bold text-gray-900 text-center">
+                                    What matters most to you?
+                                </h2>
+                                <div className="space-y-3">
+                                    <OptionButton emoji="💰" label="Maximizing my income" value="financial" selectedValue={answers.successVision} onSelect={() => handleAnswer('successVision', 'financial')} />
+                                    <OptionButton emoji="🏠" label="Flexibility and work-life balance" value="flexibility" selectedValue={answers.successVision} onSelect={() => handleAnswer('successVision', 'flexibility')} />
+                                    <OptionButton emoji="👨‍👩‍👧" label="More time with my family" value="family" selectedValue={answers.successVision} onSelect={() => handleAnswer('successVision', 'family')} />
+                                    <OptionButton emoji="❤️" label="Making a difference for kids" value="impact" selectedValue={answers.successVision} onSelect={() => handleAnswer('successVision', 'impact')} />
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Q6: Business Type (FORK POINT) - CONTEXTUAL WORDING */}
+                        {step === 5 && (
+                            <div className="space-y-6">
+                                <h2 className="text-xl font-bold text-gray-900 text-center">
+                                    {answers.situation === 'running-home' || answers.situation === 'running-center'
+                                        ? 'What type of business do you run?'
+                                        : 'Which path are you taking?'}
+                                </h2>
+                                <div className="space-y-3">
+                                    <OptionButton emoji="🏡" label="Home-based daycare" value="home" selectedValue={answers.businessType} onSelect={() => handleAnswer('businessType', 'home')} />
+                                    <OptionButton emoji="🏢" label="Childcare center" value="center" selectedValue={answers.businessType} onSelect={() => handleAnswer('businessType', 'center')} />
+                                </div>
+                            </div>
+                        )}
+
+                        {/* HOME PATH: Q7H - License Type (ONLY if hasLargeLicense) */}
+                        {step === 6 && answers.businessType === 'home' && stateInfo?.hasLargeLicense && (
+                            <div>
+                                <h2 className="text-xl font-bold text-gray-900 mb-6 text-center">
+                                    How big do you want to go?
+                                </h2>
+                                <div className="space-y-3">
+                                    <OptionButton
+                                        emoji="🤱"
+                                        label={`Solo provider (up to ${stateInfo.smallCap} kids)`}
+                                        value="small"
+                                        selectedValue={answers.licenseType}
+                                        onSelect={() => handleAnswer('licenseType', 'small')}
+                                    />
+                                    <OptionButton
+                                        emoji="👥"
+                                        label={`With help (up to ${stateInfo.largeCap} kids)`}
+                                        value="large"
+                                        selectedValue={answers.licenseType}
+                                        onSelect={() => handleAnswer('licenseType', 'large')}
+                                    />
+                                </div>
+                            </div>
+                        )}
+
+                        {/* HOME PATH: Capacity Slider (Step 6 for small-only states, Step 7 for large license states) */}
+                        {step === 6 && answers.businessType === 'home' && !stateInfo?.hasLargeLicense && (
+                            <div>
+                                <h2 className="text-xl font-bold text-gray-900 mb-4 text-center">
+                                    How many children total?
+                                </h2>
+                                <div className="space-y-4">
+                                    <div className="flex justify-between text-sm">
+                                        <span className="text-gray-600">Total Children</span>
+                                        <span className="font-bold text-teal-700 text-lg">{answers.totalKids || 0}</span>
+                                    </div>
+                                    <Slider
+                                        value={[answers.totalKids || 0]}
+                                        onValueChange={(val) => setAnswers(prev => ({ ...prev, totalKids: val[0] }))}
+                                        min={0}
+                                        max={stateInfo!.smallCap}
+                                        step={1}
+                                        className="w-full"
+                                    />
+                                    <p className="text-xs text-gray-500 text-center">
+                                        Drag to set your target enrollment
+                                    </p>
+                                    {answers.totalKids && answers.totalKids > 0 && (
+                                        <Button
+                                            onClick={() => setStep(step + 1)}
+                                            className="w-full bg-teal-600 hover:bg-teal-700 mt-4"
+                                        >
+                                            Continue →
+                                        </Button>
                                     )}
-                            </motion.div>
-                        </AnimatePresence>
+                                </div>
+                            </div>
+                        )}
 
-                        {/* Navigation */}
-                        <div className="flex justify-between pt-4">
-                            <button
-                                onClick={() => step > 0 && setStep(step - 1)}
-                                className={`text-gray-500 hover:text-gray-700 ${step === 0 ? 'invisible' : ''}`}
-                            >
-                                ← Back
-                            </button>
-                        </div>
-                    </div>
-                </CardContent>
-            </Card>
+                        {step === 7 && answers.businessType === 'home' && stateInfo?.hasLargeLicense && (
+                            <div>
+                                <h2 className="text-xl font-bold text-gray-900 mb-4 text-center">
+                                    How many children total?
+                                </h2>
+                                <div className="space-y-4">
+                                    <div className="flex justify-between text-sm">
+                                        <span className="text-gray-600">Total Children</span>
+                                        <span className="font-bold text-teal-700 text-lg">{answers.totalKids || 0}</span>
+                                    </div>
+                                    <Slider
+                                        value={[answers.totalKids || 0]}
+                                        onValueChange={(val) => setAnswers(prev => ({ ...prev, totalKids: val[0] }))}
+                                        min={0}
+                                        max={answers.licenseType === 'large' ? stateInfo!.largeCap : stateInfo!.smallCap}
+                                        step={1}
+                                        className="w-full"
+                                    />
+                                    <p className="text-xs text-gray-500 text-center">
+                                        Drag to set your target enrollment
+                                    </p>
+                                    {answers.totalKids && answers.totalKids > 0 && (
+                                        <Button
+                                            onClick={() => setStep(step + 1)}
+                                            className="w-full bg-teal-600 hover:bg-teal-700 mt-4"
+                                        >
+                                            Continue →
+                                        </Button>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* CENTER PATH: Q7C - Capacity Slider */}
+                        {step === 6 && answers.businessType === 'center' && (
+                            <div>
+                                <h2 className="text-xl font-bold text-gray-900 mb-4 text-center">
+                                    What's your target capacity?
+                                </h2>
+                                <div className="space-y-4">
+                                    <div className="flex justify-between text-sm">
+                                        <span className="text-gray-600">Total Capacity</span>
+                                        <span className="font-bold text-teal-700 text-lg">{answers.centerCapacity || 50}</span>
+                                    </div>
+                                    <Slider
+                                        value={[answers.centerCapacity || 50]}
+                                        onValueChange={(val) => setAnswers(prev => ({ ...prev, centerCapacity: val[0] }))}
+                                        min={20}
+                                        max={Math.min(150, stateInfo?.centerMaxCapacity || 150)}
+                                        step={5}
+                                        className="w-full"
+                                    />
+                                    <p className="text-xs text-gray-500 text-center">
+                                        Drag to set your target enrollment
+                                    </p>
+                                    <Button
+                                        onClick={() => setStep(step + 1)}
+                                        className="w-full bg-teal-600 hover:bg-teal-700 mt-4"
+                                    >
+                                        Continue →
+                                    </Button>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Q9: Learning Style (Step 7 for center/home-small, Step 8 for home-large) */}
+                        {((step === 7 && (answers.businessType === 'center' || !stateInfo?.hasLargeLicense)) ||
+                            (step === 8 && answers.businessType === 'home' && stateInfo?.hasLargeLicense)) && (
+                                <div>
+                                    <h2 className="text-xl font-bold text-gray-900 mb-6 text-center">
+                                        How do you prefer support?
+                                    </h2>
+                                    <div className="space-y-3">
+                                        <OptionButton emoji="📚" label="DIY resources" value="diy" selectedValue={answers.learningStyle} onSelect={() => handleAnswer('learningStyle', 'diy')} />
+                                        <OptionButton emoji="👥" label="Community" value="community" selectedValue={answers.learningStyle} onSelect={() => handleAnswer('learningStyle', 'community')} />
+                                        <OptionButton emoji="🎯" label="One-on-one" value="guided" selectedValue={answers.learningStyle} onSelect={() => handleAnswer('learningStyle', 'guided')} />
+                                        <OptionButton emoji="✅" label="Done-for-you" value="done-for-you" selectedValue={answers.learningStyle} onSelect={() => handleAnswer('learningStyle', 'done-for-you')} />
+                                    </div>
+                                </div>
+                            )}
+
+                        {/* Q10: Timeline (Step 8 for center/home-small, Step 9 for home-large) */}
+                        {((step === 8 && (answers.businessType === 'center' || !stateInfo?.hasLargeLicense)) ||
+                            (step === 9 && answers.businessType === 'home' && stateInfo?.hasLargeLicense)) && (
+                                <div>
+                                    <h2 className="text-xl font-bold text-gray-900 mb-6 text-center">
+                                        When do you want to launch?
+                                    </h2>
+                                    <div className="space-y-3">
+                                        <OptionButton emoji="⚡" label="ASAP" value="asap" selectedValue={answers.timeline} onSelect={() => handleAnswer('timeline', 'asap')} />
+                                        <OptionButton emoji="📅" label="Next 6 months" value="6months" selectedValue={answers.timeline} onSelect={() => handleAnswer('timeline', '6months')} />
+                                        <OptionButton emoji="🗓️" label="Within a year" value="year" selectedValue={answers.timeline} onSelect={() => handleAnswer('timeline', 'year')} />
+                                        <OptionButton emoji="💭" label="Just exploring" value="exploring" selectedValue={answers.timeline} onSelect={() => handleAnswer('timeline', 'exploring')} />
+                                    </div>
+                                </div>
+                            )}
+                    </motion.div>
+                </AnimatePresence>
+
+                {/* Navigation */}
+                <div className="flex justify-between pt-4">
+                    <button
+                        onClick={() => step > 0 && setStep(step - 1)}
+                        className={`text-gray-500 hover:text-gray-700 ${step === 0 ? 'invisible' : ''}`}
+                    >
+                        ← Back
+                    </button>
+                </div>
+            </QuizCard>
         </div>
     );
 }

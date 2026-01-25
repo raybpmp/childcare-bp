@@ -1,4 +1,7 @@
 import nodemailer from 'nodemailer';
+import { saleAlertTemplate, type SaleAlertData } from './email/templates/alerts/sale';
+
+// ... existing code ...
 
 /**
  * ARCHITECTURAL RULE: This is the ONLY module allowed to send emails.
@@ -204,6 +207,20 @@ export const EmailService = {
             subject: `📧 [CONTACT] ${data.subject} from ${data.name}`,
             text: `Contact from ${data.name} (${data.email}): ${data.message}`,
             html: html
+        });
+    },
+
+    /**
+     * Sends a premium sale alert when a purchase is completed.
+     * Renders ALL provided data without filtering.
+     */
+    async processSaleCapture(data: SaleAlertData) {
+        const template = saleAlertTemplate(data);
+        return this._send({
+            to: INTERNAL_RECIPIENT,
+            subject: template.subject,
+            text: template.text,
+            html: template.html
         });
     },
 

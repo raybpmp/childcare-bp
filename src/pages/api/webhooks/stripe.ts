@@ -1,6 +1,8 @@
 import type { APIRoute } from 'astro';
 import Stripe from 'stripe';
 import { EmailService } from '@/lib/EmailService';
+import { db } from '@/lib/firebase-admin';
+
 
 export const prerender = false;
 
@@ -345,31 +347,49 @@ export const POST: APIRoute = async ({ request }) => {
             result.emailSent = await sendWelcomeEmail(result.userId, priceId);
             console.log(`✓ Step 6 complete: Email sent = ${result.emailSent}`);
 
-            // PART 7: Team Sale Alert (SMTP)
+            // PART 6b: Save to Firestore (The Database Pillar)
+            try {
+                await db.collection('sales').add({
+                    email: customerEmail,
+                    name: customerName,
+                    program: PRODUCT_TO_PROGRAM[priceId] || 'Unknown',
+                    amount: amount,
+                    stripeSessionId: session.id,
+                    stripePaymentIntentId: paymentIntentId,
+                    frappeUserId: result.userId,
+                    frappeCustomerId: result.customerId,
+                    frappeInvoiceId: result.invoiceId,
+                    frappeEnrollmentId: result.enrollmentId,
+                    frappeProjectId: result.projectId,
+                    createdAt: new Date().toISOString(),
+                    rawStripeData: {
+                        customer: session.customer,
+                        payment_status: session.payment_status,
+                        subscription: session.subscription,
+                    }
+                });
+                console.log('✓ Sale saved to Firestore');
+            } catch (dbError) {
+                console.error('Firestore sale save error:', dbError);
+            }
+
+            // PART 7: Team Sale Alert (The Email Pillar)
             try {
                 const programName = PRODUCT_TO_PROGRAM[priceId] || 'Unknown Program';
-                await EmailService.sendSystemAlert({
-                    subject: `💰 [SALE] ${customerEmail} purchased ${programName}`,
-                    text: `
-                        A new sale has been completed on the website!
-                        
-                        Customer Details:
-                        - Name: ${customerName}
-                        - Email: ${customerEmail}
-                        
-                        Purchase Details:
-                        - Program: ${programName}
-                        - Amount: $${(amount / 100).toFixed(2)}
-                        - Stripe Session: ${session.id}
-                        
-                        Onboarding Status:
-                        - Frappe User: ${result.userId}
-                        - Frappe Customer: ${result.customerId}
-                        - Enrollment: ${result.enrollmentId}
-                        - Project: ${result.projectId || 'N/A'}
-                        
-                        The customer has been added to ERPNext and enrolled in the LMS.
-                    `
+                await EmailService.processSaleCapture({
+                    email: customerEmail,
+                    program: programName,
+                    amount: amount,
+                    // Additional Raw Data for the Table
+                    'Customer Name': customerName,
+                    'Stripe Session ID': session.id,
+                    'Payment Intent': paymentIntentId,
+                    'Frappe User ID': result.userId,
+                    'Frappe Customer ID': result.customerId,
+                    'Frappe Invoice ID': result.invoiceId,
+                    'LMS Enrollment ID': result.enrollmentId,
+                    'Project ID': result.projectId || 'N/A',
+                    'Welcome Email Status': result.emailSent ? 'SENT' : 'FAILED'
                 });
             } catch (mailError) {
                 console.error('Sale SMTP alert failed:', mailError);

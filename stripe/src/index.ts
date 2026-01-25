@@ -3,6 +3,15 @@ import Stripe from 'stripe';
 import dotenv from 'dotenv';
 import axios from 'axios';
 import cors from 'cors';
+import * as admin from 'firebase-admin';
+
+// Initialize Firebase (Expects Request Default Credentials or GOOGLE_APPLICATION_CREDENTIALS)
+// Use standard default init which works on GCP automatically, or looks for key locally
+if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+    admin.initializeApp();
+} else {
+    console.warn("⚠️ No Google Credentials found. functionality may be limited.");
+}
 
 dotenv.config();
 
@@ -233,6 +242,51 @@ async function onboardCustomer(session: Stripe.Checkout.Session) {
         name: userId,
     });
     console.log(`- Welcome Email Sent via Template: ${templateName}`);
+
+    // --- PILLAR 1: FIREBASE DATABASE ---
+    try {
+        const db = admin.firestore();
+        await db.collection('sales').add({
+            email,
+            name,
+            program,
+            amount: session.amount_total || 0,
+            stripeSessionId: session.id,
+            stripePaymentIntentId: session.payment_intent,
+            frappeUserId: userId,
+            frappeCustomerId: customerId,
+            frappeInvoiceId: invoiceRes.data.data.name,
+            frappeEnrollmentId: enrollRes.data.data.name,
+            createdAt: new Date().toISOString(),
+        });
+        console.log(`- Saved to Firestore`);
+    } catch (e: any) {
+        console.error(`! Firestore Save Failed: ${e.message}`);
+    }
+
+    // --- PILLAR 3: EMAIL ALERT (VIA WEBSITE BRIDGE) ---
+    try {
+        const websiteUrl = process.env.WEBSITE_URL || 'https://www.childcarebusinessplan.com';
+        await axios.post(`${websiteUrl}/api/internal/sale-alert`, {
+            email,
+            program,
+            amount: session.amount_total || 0,
+            // Additional Data
+            'Customer Name': name,
+            'Stripe Session': session.id,
+            'Frappe User': userId,
+            'Frappe Customer': customerId,
+            'Frappe Invoice': invoiceRes.data.data.name,
+            'Enrollment': enrollRes.data.data.name,
+        }, {
+            headers: {
+                'Authorization': `Bearer ${process.env.FRAPPE_API_SECRET}` // Shared Secret
+            }
+        });
+        console.log(`- Triggered Website Email Alert`);
+    } catch (e: any) {
+        console.error(`! Email Bridge Failed: ${e.message}`);
+    }
 }
 
 app.listen(port, () => {

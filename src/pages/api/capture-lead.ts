@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { db } from '@/lib/firebase-admin';
-import { sendEmail } from '@/lib/mailer';
+import { EmailService } from '@/lib/EmailService';
 
 export const prerender = false;
 
@@ -44,23 +44,7 @@ export const POST: APIRoute = async ({ request }) => {
 
         // PART 2: Send SMTP Email Alert (Team Visibility)
         try {
-            await sendEmail({
-                subject: `🚀 [NEW LEAD] ${body.email} - $${body.quizData?.revenuePotential?.toLocaleString()}/yr`,
-                text: `
-                    A new lead has been captured via the Website Calculator.
-                    
-                    Details:
-                    - Email: ${body.email}
-                    - State: ${body.quizData?.state || 'Unknown'}
-                    - Revenue Potential: $${body.quizData?.revenuePotential?.toLocaleString()}/yr
-                    - Funnel Segment: ${body.funnelSegment}
-                    - UTM Source: ${body.utmSource || 'direct'}
-                    - Date: ${timestamp}
-                    
-                    Full Quiz Data:
-                    ${JSON.stringify(body.quizData?.payload || {}, null, 2)}
-                `
-            });
+            await EmailService.processLeadCapture(body);
         } catch (mailError) {
             console.error('SMTP notification error:', mailError);
             // Non-blocking for the user

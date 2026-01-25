@@ -24,21 +24,39 @@ export default function EmailModal() {
         if ($isOpen) setActiveTab($funnel);
     }, [$isOpen, $funnel]);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setStatus('loading');
 
-        // Simulate API call (Firebase integration to be added later)
-        setTimeout(() => {
-            console.log('Lead submitted:', { email, funnel: activeTab });
-            setStatus('success');
-            setTimeout(() => {
-                closeModal();
-                setStatus('idle');
-                setEmail('');
-                window.location.href = `/thank-you?funnel=${activeTab}`;
-            }, 1500);
-        }, 1000);
+        try {
+            const response = await fetch('/api/capture-lead', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email,
+                    funnelSegment: activeTab === 'startup' ? 'Startup' : 'Growth',
+                    utmSource: new URLSearchParams(window.location.search).get('utm_source') || 'direct'
+                }),
+            });
+
+            if (response.ok) {
+                setStatus('success');
+                setTimeout(() => {
+                    closeModal();
+                    setStatus('idle');
+                    setEmail('');
+                    window.location.href = `/thank-you?funnel=${activeTab}`;
+                }, 1500);
+            } else {
+                throw new Error('Failed to submit lead');
+            }
+        } catch (error) {
+            console.error('Lead submission error:', error);
+            alert('There was an error saving your request. Please try again.');
+            setStatus('idle');
+        }
     };
 
     return (

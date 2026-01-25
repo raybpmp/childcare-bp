@@ -314,18 +314,41 @@ import GlassCard from "../components/ui/GlassCard.astro";
     const successMessage = document.getElementById("success-message");
 
     if (form && successMessage) {
-        form.addEventListener("submit", (e) => {
+        form.addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            // In a real implementation, you would send this to your backend
-            // For now, just show the success message
-            form.classList.add("hidden");
-            successMessage.classList.remove("hidden");
+            const button = form.querySelector(
+                'button[type="submit"]',
+            ) as HTMLButtonElement;
+            const originalText = button.innerText;
+            button.disabled = true;
+            button.innerText = "Sending...";
 
-            // Reset form after delay (in case user wants to send another message)
-            setTimeout(() => {
-                form.reset();
-            }, 1000);
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch("/api/contact-submit", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data),
+                });
+
+                if (response.ok) {
+                    form.classList.add("hidden");
+                    successMessage.classList.remove("hidden");
+                    form.reset();
+                } else {
+                    throw new Error("Failed to send message");
+                }
+            } catch (error) {
+                console.error("Submission error:", error);
+                alert(
+                    "Sorry, there was an error sending your message. Please try again.",
+                );
+                button.disabled = false;
+                button.innerText = originalText;
+            }
         });
     }
 </script>

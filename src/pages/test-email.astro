@@ -1,0 +1,43 @@
+---
+import { emailService } from "../lib/mailer";
+
+export const prerender = false;
+
+let result = null;
+let error = null;
+
+try {
+    result = await emailService.send(
+        "raybpmp@gmail.com",
+        "test-page",
+        {
+            subject: "🚀 Site-Centric Email Test",
+            text: "Testing the centralized EmailService from an Astro page component.",
+            html: "<h1>Centralized Email Service</h1><p>This test was triggered from a <b>.astro</b> page.</p>",
+        },
+        { source: "test-page" },
+    );
+} catch (e: any) {
+    error = e.message;
+}
+---
+
+<html>
+    <head><title>Email Service Test</title></head>
+    <body>
+        <h1>Email Service Test Results</h1>
+        {
+            error ? (
+                <div style="color: red;">
+                    <h2>Error</h2>
+                    <pre>{error}</pre>
+                </div>
+            ) : (
+                <div>
+                    <h2>Success: {result?.success ? "YES" : "NO"}</h2>
+                    <pre>{JSON.stringify(result, null, 2)}</pre>
+                </div>
+            )
+        }
+    </body>
+</html>

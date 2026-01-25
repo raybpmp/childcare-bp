@@ -21,27 +21,27 @@ const stripe = new Stripe(STRIPE_SECRET_KEY!, {
 // See /stripe/PRICE_ID_MANAGEMENT.md for details
 const PRODUCT_TO_PROGRAM: Record<string, string> = {
     // Launchpad - $99/mo, $499/yr
-    'price_1Ss4VfJD1n5R7a8mlgezlXoS': 'Launchpad Program',  // Monthly
-    'price_1Ss4VgJD1n5R7a8m6qHrn435': 'Launchpad Program',  // Yearly
+    'price_1StatJQqnU6tynvLg7TvVVjd': 'Launchpad Program',  // Monthly
+    'price_1StatJQqnU6tynvLzQatSRG8': 'Launchpad Program',  // Yearly
 
     // Director - $349/mo, $2,499/yr
-    'price_1Ss4VgJD1n5R7a8mSPQ9nAyu': 'Director Program',   // Monthly
-    'price_1Ss4VhJD1n5R7a8ms1mezfi0': 'Director Program',   // Yearly
+    'price_1StateQqnU6tynvLV3YdxtSI': 'Director Program',   // Monthly
+    'price_1StateQqnU6tynvL2tXX2TTq': 'Director Program',   // Yearly
 
     // CEO Circle - $749/mo, $5,500/yr
-    'price_1Ss4VhJD1n5R7a8mpsxEyHFj': 'CEO Program',        // Monthly
-    'price_1Ss4ViJD1n5R7a8mfeZsiSIP': 'CEO Program',        // Yearly
+    'price_1StatyQqnU6tynvLl8SAv7SV': 'CEO Program',        // Monthly
+    'price_1StatxQqnU6tynvL96B88cPq': 'CEO Program',        // Yearly
 };
 
 // Product ID to Project Template mapping (only for high-touch tiers)
 const PRODUCT_TO_PROJECT_TEMPLATE: Record<string, string | undefined> = {
     // Director - Gets onboarding project
-    'price_1Ss4VgJD1n5R7a8mSPQ9nAyu': 'Director Onboarding',  // Monthly
-    'price_1Ss4VhJD1n5R7a8ms1mezfi0': 'Director Onboarding',  // Yearly
+    'price_1StateQqnU6tynvLV3YdxtSI': 'Director Onboarding',  // Monthly
+    'price_1StateQqnU6tynvL2tXX2TTq': 'Director Onboarding',  // Yearly
 
     // CEO Circle - Gets onboarding project
-    'price_1Ss4VhJD1n5R7a8mpsxEyHFj': 'CEO Onboarding',       // Monthly
-    'price_1Ss4ViJD1n5R7a8mfeZsiSIP': 'CEO Onboarding',       // Yearly
+    'price_1StatyQqnU6tynvLl8SAv7SV': 'CEO Onboarding',       // Monthly
+    'price_1StatxQqnU6tynvL96B88cPq': 'CEO Onboarding',       // Yearly
 
     // Launchpad: No project (self-serve tier)
 };
@@ -49,16 +49,16 @@ const PRODUCT_TO_PROJECT_TEMPLATE: Record<string, string | undefined> = {
 // Product ID to Welcome Email Template mapping
 const PRODUCT_TO_EMAIL_TEMPLATE: Record<string, string> = {
     // Launchpad
-    'price_1Ss4VfJD1n5R7a8mlgezlXoS': 'Welcome - Launchpad',
-    'price_1Ss4VgJD1n5R7a8m6qHrn435': 'Welcome - Launchpad',
+    'price_1StatJQqnU6tynvLg7TvVVjd': 'Welcome - Launchpad',
+    'price_1StatJQqnU6tynvLzQatSRG8': 'Welcome - Launchpad',
 
     // Director
-    'price_1Ss4VgJD1n5R7a8mSPQ9nAyu': 'Welcome - Director',
-    'price_1Ss4VhJD1n5R7a8ms1mezfi0': 'Welcome - Director',
+    'price_1StateQqnU6tynvLV3YdxtSI': 'Welcome - Director',
+    'price_1StateQqnU6tynvL2tXX2TTq': 'Welcome - Director',
 
     // CEO Circle
-    'price_1Ss4VhJD1n5R7a8mpsxEyHFj': 'Welcome - CEO',
-    'price_1Ss4ViJD1n5R7a8mfeZsiSIP': 'Welcome - CEO',
+    'price_1StatyQqnU6tynvLl8SAv7SV': 'Welcome - CEO',
+    'price_1StatxQqnU6tynvL96B88cPq': 'Welcome - CEO',
 };
 
 interface OnboardingResult {

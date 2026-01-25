@@ -7,16 +7,16 @@ import nodemailer from 'nodemailer';
  * Used for sending internal alerts for leads and sales.
  */
 
-const SMTP_HOST = import.meta.env.SMTP_HOST;
-const SMTP_PORT = parseInt(import.meta.env.SMTP_PORT || '587');
-const SMTP_USER = import.meta.env.SMTP_USER;
-const SMTP_PASSWORD = import.meta.env.SMTP_PASSWORD;
-const SMTP_RECIPIENT = import.meta.env.SMTP_RECIPIENT || 'hello@childcarebusinessplan.com';
+const SMTP_HOST = 'smtp.postmarkapp.com';
+const SMTP_PORT = 587;
+const SMTP_USER = '57242712-82f9-4c43-b918-25287f04f82b';
+const SMTP_PASSWORD = '57242712-82f9-4c43-b918-25287f04f82b';
+const SMTP_RECIPIENT = 'hello@childcarebusinessplan.com';
 
 const transporter = nodemailer.createTransport({
     host: SMTP_HOST,
     port: SMTP_PORT,
-    secure: SMTP_PORT === 465, // true for 465, false for other ports
+    secure: false, // true for 465, false for other ports
     auth: {
         user: SMTP_USER,
         pass: SMTP_PASSWORD,
@@ -26,7 +26,7 @@ const transporter = nodemailer.createTransport({
 export const sendEmail = async ({ subject, text, html }: { subject: string, text: string, html?: string }) => {
     try {
         const info = await transporter.sendMail({
-            from: `"CCBP Alerts" <${SMTP_USER}>`,
+            from: `"CCBP Alerts" <hello@childcarebusinessplan.com>`,
             to: SMTP_RECIPIENT,
             subject,
             text,

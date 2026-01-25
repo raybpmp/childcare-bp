@@ -10,16 +10,16 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || import.meta.env.STRIP
 
 const PRICE_MAP: Record<string, Record<string, string>> = {
     launchpad: {
-        monthly: 'price_1Ss4VfJD1n5R7a8mlgezlXoS',
-        yearly: 'price_1Ss4VgJD1n5R7a8m6qHrn435',
+        monthly: 'price_1StatJQqnU6tynvLg7TvVVjd',
+        yearly: 'price_1StatJQqnU6tynvLzQatSRG8',
     },
     director: {
-        monthly: 'price_1Ss4VgJD1n5R7a8mSPQ9nAyu',
-        yearly: 'price_1Ss4VhJD1n5R7a8ms1mezfi0',
+        monthly: 'price_1StateQqnU6tynvLV3YdxtSI',
+        yearly: 'price_1StateQqnU6tynvL2tXX2TTq',
     },
     ceo: {
-        monthly: 'price_1Ss4VhJD1n5R7a8mpsxEyHFj',
-        yearly: 'price_1Ss4ViJD1n5R7a8mfeZsiSIP',
+        monthly: 'price_1StatyQqnU6tynvLl8SAv7SV',
+        yearly: 'price_1StatxQqnU6tynvL96B88cPq',
     },
 };
 

@@ -28,42 +28,42 @@ const FRAPPE_API_SECRET = process.env.FRAPPE_API_SECRET;
 
 // Mapping
 const PRODUCT_TO_PROGRAM: Record<string, string> = {
-    'price_1Ss4VfJD1n5R7a8mlgezlXoS': 'Launchpad Program',
-    'price_1Ss4VgJD1n5R7a8m6qHrn435': 'Launchpad Program',
-    'price_1Ss4VgJD1n5R7a8mSPQ9nAyu': 'Director Program',
-    'price_1Ss4VhJD1n5R7a8ms1mezfi0': 'Director Program',
-    'price_1Ss4VhJD1n5R7a8mpsxEyHFj': 'CEO Program',
-    'price_1Ss4ViJD1n5R7a8mfeZsiSIP': 'CEO Program',
+    'price_1StatJQqnU6tynvLg7TvVVjd': 'Launchpad Program',
+    'price_1StatJQqnU6tynvLzQatSRG8': 'Launchpad Program',
+    'price_1StateQqnU6tynvLV3YdxtSI': 'Director Program',
+    'price_1StateQqnU6tynvL2tXX2TTq': 'Director Program',
+    'price_1StatyQqnU6tynvLl8SAv7SV': 'CEO Program',
+    'price_1StatxQqnU6tynvL96B88cPq': 'CEO Program',
 };
 
 const PRODUCT_TO_PROJECT_TEMPLATE: Record<string, string | undefined> = {
-    'price_1Ss4VgJD1n5R7a8mSPQ9nAyu': 'Director Onboarding',
-    'price_1Ss4VhJD1n5R7a8ms1mezfi0': 'Director Onboarding',
-    'price_1Ss4VhJD1n5R7a8mpsxEyHFj': 'CEO Onboarding',
-    'price_1Ss4ViJD1n5R7a8mfeZsiSIP': 'CEO Onboarding',
+    'price_1StateQqnU6tynvLV3YdxtSI': 'Director Onboarding',
+    'price_1StateQqnU6tynvL2tXX2TTq': 'Director Onboarding',
+    'price_1StatyQqnU6tynvLl8SAv7SV': 'CEO Onboarding',
+    'price_1StatxQqnU6tynvL96B88cPq': 'CEO Onboarding',
 };
 
 const PRODUCT_TO_EMAIL_TEMPLATE: Record<string, string> = {
-    'price_1Ss4VfJD1n5R7a8mlgezlXoS': 'Welcome - Launchpad',
-    'price_1Ss4VgJD1n5R7a8m6qHrn435': 'Welcome - Launchpad',
-    'price_1Ss4VgJD1n5R7a8mSPQ9nAyu': 'Welcome - Director',
-    'price_1Ss4VhJD1n5R7a8ms1mezfi0': 'Welcome - Director',
-    'price_1Ss4VhJD1n5R7a8mpsxEyHFj': 'Welcome - CEO',
-    'price_1Ss4ViJD1n5R7a8mfeZsiSIP': 'Welcome - CEO',
+    'price_1StatJQqnU6tynvLg7TvVVjd': 'Welcome - Launchpad',
+    'price_1StatJQqnU6tynvLzQatSRG8': 'Welcome - Launchpad',
+    'price_1StateQqnU6tynvLV3YdxtSI': 'Welcome - Director',
+    'price_1StateQqnU6tynvL2tXX2TTq': 'Welcome - Director',
+    'price_1StatyQqnU6tynvLl8SAv7SV': 'Welcome - CEO',
+    'price_1StatxQqnU6tynvL96B88cPq': 'Welcome - CEO',
 };
 
 const PRICE_MAP: Record<string, Record<string, string>> = {
     launchpad: {
-        monthly: 'price_1Ss4VfJD1n5R7a8mlgezlXoS',
-        yearly: 'price_1Ss4VgJD1n5R7a8m6qHrn435',
+        monthly: 'price_1StatJQqnU6tynvLg7TvVVjd',
+        yearly: 'price_1StatJQqnU6tynvLzQatSRG8',
     },
     director: {
-        monthly: 'price_1Ss4VgJD1n5R7a8mSPQ9nAyu',
-        yearly: 'price_1Ss4VhJD1n5R7a8ms1mezfi0',
+        monthly: 'price_1StateQqnU6tynvLV3YdxtSI',
+        yearly: 'price_1StateQqnU6tynvL2tXX2TTq',
     },
     ceo: {
-        monthly: 'price_1Ss4VhJD1n5R7a8mpsxEyHFj',
-        yearly: 'price_1Ss4ViJD1n5R7a8mfeZsiSIP',
+        monthly: 'price_1StatyQqnU6tynvLl8SAv7SV',
+        yearly: 'price_1StatxQqnU6tynvL96B88cPq',
     },
 };
 

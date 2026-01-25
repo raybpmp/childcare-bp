@@ -1,5 +1,5 @@
 ---
-import { emailService } from "../lib/mailer";
+import { EmailService } from "../lib/EmailService";
 
 export const prerender = false;
 
@@ -7,16 +7,11 @@ let result = null;
 let error = null;
 
 try {
-    result = await emailService.send(
-        "raybpmp@gmail.com",
-        "test-page",
-        {
-            subject: "🚀 Site-Centric Email Test",
-            text: "Testing the centralized EmailService from an Astro page component.",
-            html: "<h1>Centralized Email Service</h1><p>This test was triggered from a <b>.astro</b> page.</p>",
-        },
-        { source: "test-page" },
-    );
+    result = await EmailService.sendSystemAlert({
+        subject: "🚀 Site-Centric Email Test",
+        text: "Testing the centralized EmailService from an Astro page component.",
+        html: "<h1>Centralized Email Service</h1><p>This test was triggered from a <b>.astro</b> page.</p>",
+    });
 } catch (e: any) {
     error = e.message;
 }

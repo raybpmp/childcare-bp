@@ -207,6 +207,18 @@ export const EmailService = {
         });
     },
 
+    /**
+     * Sends a generic system alert (e.g. Stripe sales, errors).
+     */
+    async sendSystemAlert({ subject, text, html }: { subject: string, text: string, html?: string }) {
+        return this._send({
+            to: INTERNAL_RECIPIENT,
+            subject,
+            text,
+            html: html || text.replace(/\n/g, '<br>')
+        });
+    },
+
     // Internal low-level transport method
     async _send({ to, subject, text, html }: { to: string, subject: string, text: string, html: string }) {
         try {

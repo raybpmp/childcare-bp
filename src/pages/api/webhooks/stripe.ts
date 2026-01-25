@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import Stripe from 'stripe';
-import { sendEmail } from '@/lib/mailer';
+import { EmailService } from '@/lib/EmailService';
 
 export const prerender = false;
 
@@ -46,7 +46,7 @@ const PRODUCT_TO_PROJECT_TEMPLATE: Record<string, string | undefined> = {
     // Launchpad: No project (self-serve tier)
 };
 
-// Product ID to Welcome Email Template mapping
+// Product ID to Email Template mapping
 const PRODUCT_TO_EMAIL_TEMPLATE: Record<string, string> = {
     // Launchpad
     'price_1StatJQqnU6tynvLg7TvVVjd': 'Welcome - Launchpad',
@@ -348,7 +348,7 @@ export const POST: APIRoute = async ({ request }) => {
             // PART 7: Team Sale Alert (SMTP)
             try {
                 const programName = PRODUCT_TO_PROGRAM[priceId] || 'Unknown Program';
-                await sendEmail({
+                await EmailService.sendSystemAlert({
                     subject: `💰 [SALE] ${customerEmail} purchased ${programName}`,
                     text: `
                         A new sale has been completed on the website!

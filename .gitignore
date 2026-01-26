@@ -26,3 +26,7 @@ service-account.json
 
 # firebase
 .firebase/
+
+# Temporary debug files
+server.log
+debug-payload.json

@@ -40,7 +40,7 @@ export const renderBaseLayout = (title: string, content: string) => `
             <!-- Footer -->
             <div style="background-color: #f8fafc; padding: 25px; text-align: center; border-top: 1px solid ${COLORS.border};">
                 <p style="margin: 0; font-size: 13px; color: #94a3b8; line-height: 1.5;">
-                    &copy; ${new Date().getFullYear()} Childcare Business Plan Engine. All rights reserved.<br>
+                    &copy; ${new Date().getFullYear()} Childcare Businessplan. All rights reserved.<br>
                     Excellence in Childcare Management & Strategy.
                 </p>
             </div>

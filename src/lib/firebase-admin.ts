@@ -9,10 +9,13 @@ import admin from 'firebase-admin';
 
 if (!admin.apps.length) {
     try {
-        // In production (Firebase/Google Cloud), applicationDefault() handles everything
-        // In development, you should have GOOGLE_APPLICATION_CREDENTIALS set
+        // Use service account if path is provided in .env, otherwise fall back to applicationDefault()
+        const serviceAccountPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+
         admin.initializeApp({
-            credential: admin.credential.applicationDefault(),
+            credential: serviceAccountPath
+                ? admin.credential.cert(serviceAccountPath)
+                : admin.credential.applicationDefault(),
             projectId: 'childcare-bp'
         });
         console.log('Firebase Admin initialized successfully');
@@ -20,6 +23,7 @@ if (!admin.apps.length) {
         console.error('Firebase Admin initialization error:', error);
     }
 }
+
 
 import { getFirestore } from 'firebase-admin/firestore';
 

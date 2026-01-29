@@ -5,11 +5,9 @@ import {
     EmbeddedCheckout,
 } from '@stripe/react-stripe-js';
 
-const publishableKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY;
-if (!publishableKey) {
-    console.error("Missing PUBLIC_STRIPE_PUBLISHABLE_KEY");
-}
-const stripePromise = publishableKey ? loadStripe(publishableKey) : Promise.resolve(null);
+const stripePromise = loadStripe(
+    import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY || 'pk_live_51RwF9EQqnU6tynvLpDDufqfwNxrmOYM6K6TBi19GBq7qC60FSvUPZvURcxoyEZr93Xl7IOwhP0a4RkQ16JeWSmqI00oAUA0kV9'
+);
 
 interface CheckoutFormProps {
     tier: 'launchpad' | 'director' | 'ceo';

@@ -1,8 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { Container } from "@/components/layout/Container";
-import BlogArticleCard from "@/components/blog/BlogArticleCard.astro";
-import { BlogCategoryPills } from "@/components/blog/BlogCategoryPills";
+import { BlogFilters } from "@/components/blog/BlogFilters";
 import BlogCTA from "@/components/blog/BlogCTA.astro";
 import {
     getAllPosts,
@@ -15,23 +14,22 @@ const posts = await getAllPosts();
 const categories = await getAllCategories();
 const featured = await getFeaturedPost();
 
-const postsWithReadTime = posts.map((post) => ({
-    post,
+// Prepare posts for client-side filtering
+const postsForFilters = posts.map((post) => ({
+    slug: post.slug,
+    title: post.data.title,
+    excerpt: post.data.excerpt,
+    coverImage: post.data.coverImage,
+    category: post.data.category,
+    date:
+        post.data.date instanceof Date
+            ? post.data.date.toISOString()
+            : new Date(post.data.date).toISOString(),
     readTime: calculateReadTime(post.body),
 }));
 
 const featuredCover =
     featured?.data.coverImage || "/images/blog/default-cover.webp";
-const featuredCategory = featured?.data.category || "";
-
-const categoryColors: Record<string, string> = {
-    "Industry Trends": "bg-purple-100 text-purple-700",
-    "Startup Guides": "bg-teal-100 text-teal-700",
-    Operations: "bg-blue-100 text-blue-700",
-    Marketing: "bg-amber-100 text-amber-700",
-};
-const featuredCategoryClass =
-    categoryColors[featuredCategory] || "bg-gray-100 text-gray-700";
 ---
 
 <Layout
@@ -196,19 +194,15 @@ const featuredCategoryClass =
     <!-- POSTS SECTION -->
     <section id="posts" class="py-8 md:py-16">
         <Container size="lg">
-            <BlogCategoryPills client:load categories={categories} />
+            <BlogFilters
+                client:load
+                posts={postsForFilters}
+                categories={categories}
+            />
 
-            <div
-                class="space-y-4 md:space-y-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 mb-8 md:mb-12"
-            >
-                {
-                    postsWithReadTime.map(({ post, readTime }) => (
-                        <BlogArticleCard post={post} readTime={readTime} />
-                    ))
-                }
+            <div class="mt-12 md:mt-20">
+                <BlogCTA />
             </div>
-
-            <BlogCTA />
         </Container>
     </section>
 </Layout>

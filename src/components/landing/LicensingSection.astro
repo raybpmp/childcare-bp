@@ -1,0 +1,135 @@
+---
+import { Container } from "../layout/Container";
+---
+
+<!-- SEO SECTION 2: Licensing & Costs -->
+<section class="py-12 md:py-20 bg-gradient-to-b from-white/30 to-transparent">
+    <Container size="lg">
+        <!-- Mobile: Stacked layout -->
+        <div class="md:hidden">
+            <span
+                class="inline-block px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-semibold mb-3"
+            >
+                The Reality
+            </span>
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                Daycare Licensing Requirements & Start-Up Costs
+            </h2>
+            <p class="text-base text-gray-600 mb-6">
+                Every state has its own rules. You deserve to see what it
+                actually looks like for <em>your</em> state, <em>your</em> capacity,
+                <em>your</em> vision.
+            </p>
+
+            <!-- Compact 2x2 grid -->
+            <div class="grid grid-cols-2 gap-3 mb-6">
+                <div class="text-center p-3 bg-white/50 rounded-xl">
+                    <div class="text-2xl mb-1">📍</div>
+                    <p class="text-xs font-semibold text-gray-900">Location</p>
+                </div>
+                <div class="text-center p-3 bg-white/50 rounded-xl">
+                    <div class="text-2xl mb-1">📋</div>
+                    <p class="text-xs font-semibold text-gray-900">Licensing</p>
+                </div>
+                <div class="text-center p-3 bg-white/50 rounded-xl">
+                    <div class="text-2xl mb-1">👥</div>
+                    <p class="text-xs font-semibold text-gray-900">Staffing</p>
+                </div>
+                <div class="text-center p-3 bg-white/50 rounded-xl">
+                    <div class="text-2xl mb-1">💰</div>
+                    <p class="text-xs font-semibold text-gray-900">
+                        Investment
+                    </p>
+                </div>
+            </div>
+
+            <a
+                href="#calculator"
+                class="inline-flex items-center gap-2 text-purple-600 hover:text-purple-700 font-semibold text-base group"
+            >
+                See what's possible for you
+                <svg
+                    class="w-4 h-4 group-hover:translate-x-1 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                </svg>
+            </a>
+        </div>
+
+        <!-- Desktop: Side-by-side layout -->
+        <div class="hidden md:grid grid-cols-2 gap-12 items-center">
+            <div>
+                <span
+                    class="inline-block px-4 py-2 rounded-full bg-purple-100 text-purple-700 text-sm font-semibold mb-4"
+                >
+                    The Reality
+                </span>
+                <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                    Daycare Licensing Requirements & Start-Up Costs
+                </h2>
+                <p class="text-lg text-gray-600 mb-6">
+                    Every state has its own rules. Costs vary wildly depending
+                    on where you are and what you're building. That's why
+                    generic advice feels so confusing—it wasn't written for you.
+                </p>
+                <p class="text-lg text-gray-600 mb-8">
+                    You deserve to see what it actually looks like for <em
+                        >your</em
+                    > state, <em>your</em> capacity, <em>your</em> vision.
+                </p>
+                <a
+                    href="#calculator"
+                    class="inline-flex items-center gap-2 text-purple-600 hover:text-purple-700 font-semibold text-lg group"
+                >
+                    See what's possible for you
+                    <svg
+                        class="w-5 h-5 group-hover:translate-x-1 transition-transform"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="glass-panel rounded-2xl p-6 text-center">
+                    <div class="text-3xl mb-2">📍</div>
+                    <h4 class="font-bold text-gray-900 mb-1">Location</h4>
+                    <p class="text-sm text-gray-600">
+                        Zoning, space, accessibility
+                    </p>
+                </div>
+                <div class="glass-panel rounded-2xl p-6 text-center">
+                    <div class="text-3xl mb-2">📋</div>
+                    <h4 class="font-bold text-gray-900 mb-1">Licensing</h4>
+                    <p class="text-sm text-gray-600">
+                        State-specific requirements
+                    </p>
+                </div>
+                <div class="glass-panel rounded-2xl p-6 text-center">
+                    <div class="text-3xl mb-2">👥</div>
+                    <h4 class="font-bold text-gray-900 mb-1">Staffing</h4>
+                    <p class="text-sm text-gray-600">Ratios & qualifications</p>
+                </div>
+                <div class="glass-panel rounded-2xl p-6 text-center">
+                    <div class="text-3xl mb-2">💰</div>
+                    <h4 class="font-bold text-gray-900 mb-1">Investment</h4>
+                    <p class="text-sm text-gray-600">Startup & operations</p>
+                </div>
+            </div>
+        </div>
+    </Container>
+</section>

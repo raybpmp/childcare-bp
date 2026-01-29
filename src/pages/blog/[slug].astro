@@ -16,6 +16,8 @@ export const getStaticPaths = (async () => {
 
 import GlassParagraph from "@/components/blog/GlassParagraph.astro";
 
+import { getCategoryStyle, getSeoAlt } from "@/config/blog";
+
 const { post } = Astro.props;
 const { title, excerpt, coverImage, category, date } = post.data;
 const { Content } = await post.render();
@@ -23,30 +25,24 @@ const readTime = calculateReadTime(post.body);
 
 const cover = coverImage || "/images/blog/default-cover.webp";
 
-const categoryColors: Record<string, string> = {
-    "Industry Trends": "bg-purple-100 text-purple-700",
-    "Startup Guides": "bg-teal-100 text-teal-700",
-    Operations: "bg-blue-100 text-blue-700",
-    Marketing: "bg-amber-100 text-amber-700",
-};
+const categoryClass = getCategoryStyle(category);
 
-const getSeoAlt = (title: string, category: string) => {
-    switch (category) {
-        case "Marketing":
-            return `Strategist planning childcare advertising: ${title}`;
-        case "Startup Guides":
-            return `Essential starting a daycare center checklist item: ${title}`;
-        case "Operations":
-            return `Modern childcare management software interface for: ${title}`;
-        case "Industry Trends":
-            return `Analysis of the Daycare Business Plan landscape: ${title}`;
-        default:
-            return `B2B Childcare Business Strategy: ${title}`;
-    }
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: title,
+    image: new URL(
+        cover,
+        Astro.site || "https://childcarebusinessplan.com",
+    ).toString(),
+    datePublished: new Date(date).toISOString(),
+    author: {
+        "@type": "Person",
+        name: "Childcare Business Plan Team", // Default, could be extended if author data exists
+    },
+    articleSection: category,
+    description: excerpt,
 };
-
-const categoryClass =
-    categoryColors[category || ""] || "bg-gray-100 text-gray-700";
 ---
 
 <Layout title={`${title} | Blog`} description={excerpt}>
@@ -131,4 +127,5 @@ const categoryClass =
             />
         </Container>
     </section>
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 </Layout>

@@ -5,9 +5,11 @@ import {
     EmbeddedCheckout,
 } from '@stripe/react-stripe-js';
 
-const stripePromise = loadStripe(
-    'pk_live_51RwF9EQqnU6tynvLpDDufqfwNxrmOYM6K6TBi19GBq7qC60FSvUPZvURcxoyEZr93Xl7IOwhP0a4RkQ16JeWSmqI00oAUA0kV9'
-);
+const publishableKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY;
+if (!publishableKey) {
+    console.error("Missing PUBLIC_STRIPE_PUBLISHABLE_KEY");
+}
+const stripePromise = publishableKey ? loadStripe(publishableKey) : Promise.resolve(null);
 
 interface CheckoutFormProps {
     tier: 'launchpad' | 'director' | 'ceo';
@@ -20,7 +22,8 @@ export default function EmbeddedCheckoutForm({ tier, billing, onClose }: Checkou
 
     const fetchClientSecret = useCallback(async () => {
         try {
-            const response = await fetch('https://portal.childcarebusinessplan.com/stripe/v1/create-session', {
+            const portalUrl = import.meta.env.PUBLIC_PORTAL_URL || 'https://portal.childcarebusinessplan.com';
+            const response = await fetch(`${portalUrl}/stripe/v1/create-session`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ tier, billing }),

@@ -5,9 +5,12 @@ import { directorTemplate } from './templates/welcome/director';
 import { ceoTemplate } from './templates/welcome/ceo';
 
 // --- CONFIGURATION ---
-const POSTMARK_TOKEN = '57242712-82f9-4c43-b918-25287f04f82b';
-const FROM_ADDRESS = 'hello@childcarebusinessplan.com';
-const INTERNAL_RECIPIENT = 'hello@childcarebusinessplan.com';
+const POSTMARK_TOKEN = import.meta.env.POSTMARK_TOKEN;
+if (!POSTMARK_TOKEN) {
+    throw new Error('Missing POSTMARK_TOKEN environment variable');
+}
+const FROM_ADDRESS = import.meta.env.EMAIL_FROM_ADDRESS || 'hello@childcarebusinessplan.com';
+const INTERNAL_RECIPIENT = import.meta.env.EMAIL_INTERNAL_RECIPIENT || 'hello@childcarebusinessplan.com';
 
 const transporter = nodemailer.createTransport({
     host: 'smtp.postmarkapp.com',

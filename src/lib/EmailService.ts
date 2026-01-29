@@ -2,11 +2,11 @@
 // ARCHITECTURAL CHANGE: Refactored to use Firebase Cloud Function 'sendEmail'
 // This removes direct nodemailer dependencies from the Next.js app.
 
-// Configuration - TODO: Move to env var
+// Configuration
 const FUNCTIONS_URL_DEV = 'http://127.0.0.1:5001/childcare-bp/us-central1/sendEmail';
-const FUNCTIONS_URL_PROD = 'https://us-central1-childcare-bp.cloudfunctions.net/sendEmail'; // Verify region
-const IS_DEV = process.env.NODE_ENV === 'development';
-const API_URL = IS_DEV ? FUNCTIONS_URL_DEV : FUNCTIONS_URL_PROD;
+const FUNCTIONS_URL_PROD = 'https://us-central1-childcare-bp.cloudfunctions.net/sendEmail';
+const DEFAULT_URL = import.meta.env.DEV ? FUNCTIONS_URL_DEV : FUNCTIONS_URL_PROD;
+const API_URL = import.meta.env.PUBLIC_FUNCTIONS_URL || DEFAULT_URL;
 
 // --- TYPES ---
 export interface WelcomeEmailPayload {

@@ -9,7 +9,7 @@ import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://childcarebusinessplan.com',
+  site: process.env.PUBLIC_SITE_URL || 'https://childcarebusinessplan.com',
   output: 'static',
   adapter: node({
     mode: 'standalone'

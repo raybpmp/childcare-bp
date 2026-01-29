@@ -16,7 +16,7 @@ if (!admin.apps.length) {
             credential: serviceAccountPath
                 ? admin.credential.cert(serviceAccountPath)
                 : admin.credential.applicationDefault(),
-            projectId: 'childcare-bp'
+            projectId: import.meta.env.FIREBASE_PROJECT_ID || 'childcare-bp'
         });
         console.log('Firebase Admin initialized successfully');
     } catch (error) {
@@ -35,7 +35,7 @@ if (!admin.apps.length) {
         // In development, you should have GOOGLE_APPLICATION_CREDENTIALS set
         admin.initializeApp({
             credential: admin.credential.applicationDefault(),
-            projectId: 'childcare-bp'
+            projectId: import.meta.env.FIREBASE_PROJECT_ID || 'childcare-bp'
         });
         console.log('Firebase Admin initialized successfully');
     } catch (error) {

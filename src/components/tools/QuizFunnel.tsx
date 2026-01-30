@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import PricingSection from '../PricingSection';
+import { EmailService } from '@/lib/EmailService';
 
 // STATE_DATA from IncomeBuilderTool.tsx
 const STATE_DATA: Record<string, {
@@ -204,21 +205,17 @@ export default function QuizFunnel() {
         // Calculate revenue for the API payload
         const { min, max } = calculateRevenue();
 
-        // Submit lead to ERPNext
+        // Submit lead to ERPNext & Cloud Function
         try {
-            await fetch('/api/capture-lead', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    email,
-                    funnelSegment: answers.situation?.includes('running') ? 'Growth' : 'Startup',
-                    quizData: {
-                        state: stateInfo?.name,
-                        revenuePotential: max,
-                        payload: answers,
-                    },
-                    utmSource: new URLSearchParams(window.location.search).get('utm_source') || 'quiz',
-                }),
+            await EmailService.processLeadCapture({
+                email,
+                funnelSegment: answers.situation?.includes('running') ? 'Growth' : 'Startup',
+                quizData: {
+                    state: stateInfo?.name,
+                    revenuePotential: max,
+                    payload: answers,
+                },
+                utmSource: new URLSearchParams(window.location.search).get('utm_source') || 'quiz',
             });
         } catch (error) {
             console.error('Failed to submit lead:', error);

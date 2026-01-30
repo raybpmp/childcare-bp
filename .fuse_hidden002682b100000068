@@ -475,3 +475,29 @@
 [debug] [2026-01-30T00:48:51.806Z] <<< [apiv2][status] GET https://artifactregistry.googleapis.com/v1/projects/childcare-bp/locations/us-central1/repositories/gcf-artifacts 200
 [debug] [2026-01-30T00:48:51.806Z] <<< [apiv2][body] GET https://artifactregistry.googleapis.com/v1/projects/childcare-bp/locations/us-central1/repositories/gcf-artifacts {"name":"projects/childcare-bp/locations/us-central1/repositories/gcf-artifacts","format":"DOCKER","description":"This repository is created and used by Cloud Functions for storing function docker images.","labels":{"goog-managed-by":"cloudfunctions"},"createTime":"2026-01-30T00:47:11.961093Z","updateTime":"2026-01-30T00:48:13.282390Z","mode":"STANDARD_REPOSITORY","sizeBytes":"511416591","vulnerabilityScanningConfig":{"lastEnableTime":"2026-01-30T00:47:03.492820560Z","enablementState":"SCANNING_DISABLED","enablementStateReason":"API containerscanning.googleapis.com is not enabled."},"satisfiesPzi":true,"registryUri":"us-central1-docker.pkg.dev/childcare-bp/gcf-artifacts"}
 [warn] ⚠  functions: No cleanup policy detected for repositories in us-central1. This may result in a small monthly bill as container images accumulate over time. 
+[debug] [2026-01-30T01:09:09.453Z] ----------------------------------------------------------------------
+[debug] [2026-01-30T01:09:09.455Z] Command:       /usr/bin/node /home/leader/.npm-global/bin/firebase functions:log --project childcare-bp --lines 20
+[debug] [2026-01-30T01:09:09.456Z] CLI Version:   15.3.1
+[debug] [2026-01-30T01:09:09.456Z] Platform:      linux
+[debug] [2026-01-30T01:09:09.456Z] Node Version:  v24.13.0
+[debug] [2026-01-30T01:09:09.456Z] Time:          Thu Jan 29 2026 20:09:09 GMT-0500 (Eastern Standard Time)
+[debug] [2026-01-30T01:09:09.456Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-30T01:09:09.673Z] Field "/hosting/trailingSlash" in "firebase.json" is possibly invalid: must be boolean
+[debug] [2026-01-30T01:09:09.674Z] Field "/hosting" in "firebase.json" is possibly invalid: must be array
+[debug] [2026-01-30T01:09:09.674Z] Field "/hosting" in "firebase.json" is possibly invalid: must match a schema in anyOf
+[debug] [2026-01-30T01:09:09.678Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-30T01:09:09.678Z] > authorizing via signed-in user (chiray89@gmail.com)
+[debug] [2026-01-30T01:09:09.678Z] [iam] checking project childcare-bp for permissions ["firebase.projects.get","logging.logEntries.list","logging.logs.list"]
+[debug] [2026-01-30T01:09:09.679Z] Checked if tokens are valid: true, expires at: 1769736956887
+[debug] [2026-01-30T01:09:09.679Z] Checked if tokens are valid: true, expires at: 1769736956887
+[debug] [2026-01-30T01:09:09.680Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/childcare-bp:testIamPermissions [none]
+[debug] [2026-01-30T01:09:09.680Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/childcare-bp:testIamPermissions x-goog-quota-user=projects/childcare-bp
+[debug] [2026-01-30T01:09:09.680Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/childcare-bp:testIamPermissions {"permissions":["firebase.projects.get","logging.logEntries.list","logging.logs.list"]}
+[debug] [2026-01-30T01:09:09.904Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/childcare-bp:testIamPermissions 200
+[debug] [2026-01-30T01:09:09.905Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/childcare-bp:testIamPermissions {"permissions":["firebase.projects.get","logging.logEntries.list","logging.logs.list"]}
+[debug] [2026-01-30T01:09:09.905Z] Checked if tokens are valid: true, expires at: 1769736956887
+[debug] [2026-01-30T01:09:09.906Z] Checked if tokens are valid: true, expires at: 1769736956887
+[debug] [2026-01-30T01:09:09.906Z] >>> [apiv2][query] POST https://logging.googleapis.com/v2/entries:list [none]
+[debug] [2026-01-30T01:09:09.906Z] >>> [apiv2][body] POST https://logging.googleapis.com/v2/entries:list {"resourceNames":["projects/childcare-bp"],"filter":"resource.type=\"cloud_function\" OR (resource.type=\"cloud_run_revision\" AND labels.\"goog-managed-by\"=\"cloudfunctions\")","orderBy":"timestamp desc","pageSize":"20"}
+[debug] [2026-01-30T01:09:16.036Z] <<< [apiv2][status] POST https://logging.googleapis.com/v2/entries:list 200

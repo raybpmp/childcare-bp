@@ -14,7 +14,7 @@ export const authors: Record<string, Author> = {
     'junya-herron': {
         slug: 'junya-herron',
         name: 'Junya Herron',
-        role: 'Co-Founder',
+        role: 'CEO & President',
         bio: 'Childcare industry expert helping owners build sustainable, profitable centers.',
         avatar: '/hero-woman.webp',
     },

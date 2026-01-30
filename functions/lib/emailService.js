@@ -46,14 +46,7 @@ const transporter = nodemailer.createTransport({
 exports.EmailService = {
     async processLeadCapture(rawBody) {
         var _a, _b, _c;
-        const payload = {
-            email: rawBody.email,
-            funnelSegment: rawBody.funnelSegment || 'Startup',
-            revenuePotential: (_a = rawBody.quizData) === null || _a === void 0 ? void 0 : _a.revenuePotential,
-            state: (_b = rawBody.quizData) === null || _b === void 0 ? void 0 : _b.state,
-            utmSource: rawBody.utmSource,
-            quizData: ((_c = rawBody.quizData) === null || _c === void 0 ? void 0 : _c.payload) || {}
-        };
+        const payload = Object.assign(Object.assign({}, rawBody), { email: rawBody.email, funnelSegment: rawBody.funnelSegment || 'Startup', revenuePotential: (_a = rawBody.quizData) === null || _a === void 0 ? void 0 : _a.revenuePotential, state: (_b = rawBody.quizData) === null || _b === void 0 ? void 0 : _b.state, utmSource: rawBody.utmSource, quizData: ((_c = rawBody.quizData) === null || _c === void 0 ? void 0 : _c.payload) || rawBody.quizData || {} });
         console.log('Server EmailService: Processing Lead Capture for %s', payload.email);
         const [alertResult, userResult] = await Promise.all([
             this.sendLeadAlert(payload),

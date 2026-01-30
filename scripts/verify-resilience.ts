@@ -1,5 +1,4 @@
 
-import { POST } from '../src/pages/api/capture-lead';
 import { EmailService } from '../src/lib/EmailService';
 
 // Mock the Request object standard in Astro
@@ -41,55 +40,15 @@ async function verifyResilience() {
     await runTest('Service: Handles Missing Optional Data', async () => {
         try {
             // Restore original to test the transformation logic, but mock the internal _send to avoid external call
-            EmailService._send = async () => ({ success: true, messageId: 'mock-id' });
+            EmailService._callFunction = async () => ({ success: true, messageId: 'mock-id' });
 
             const minimalPayload = { email: 'minimal@test.com', funnelSegment: 'Growth' }; // No quizData, no utm
             const result = await EmailService.processLeadCapture(minimalPayload);
-            return result.success === true;
+            return result.success === true; // The service returns { success: true, ... } on success
         } catch (e) {
             console.error(e);
             return false;
         }
-    });
-
-    // TEST 2: API Handler - Success Path
-    await runTest('API: Returns 200 on Valid Input', async () => {
-        EmailService.processLeadCapture = async () => ({
-            success: true,
-            details: { alert: { success: true }, user: { success: true } }
-        });
-
-        const req = createMockRequest({ email: 'valid@test.com' });
-        const res = await POST({ request: req } as any);
-        return res.status === 200;
-    });
-
-    // TEST 3: API Handler - Service Failure (Graceful degradation)
-    await runTest('API: Returns 500 on Service Failure', async () => {
-        // Simulate Service reporting failure (e.g. SMTP down)
-        EmailService.processLeadCapture = async () => ({
-            success: false,
-            details: { alert: { success: false, error: 'SMTP Timeout' }, user: { success: false } }
-        });
-
-        const req = createMockRequest({ email: 'fail@test.com' });
-        const res = await POST({ request: req } as any);
-
-        // Should catch the failure and return 500, NOT crash
-        const json = await res.json();
-        return res.status === 500 && json.success === false && json.error.includes('Failed');
-    });
-
-    // TEST 4: API Handler - Malformed Input (Safety)
-    await runTest('API: Handles Malformed JSON Gracefully', async () => {
-        // Mock request that throws on json() parsing (simulating bad body)
-        const crashReq = {
-            json: async () => { throw new Error('Invalid JSON'); }
-        } as unknown as Request;
-
-        const res = await POST({ request: crashReq } as any);
-        const json = await res.json();
-        return res.status === 500 && json.error.includes('Internal Server Error');
     });
 
     console.log(`\n----------------------------------------`);

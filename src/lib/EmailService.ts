@@ -66,14 +66,15 @@ export const EmailService = {
      * HIGH-LEVEL ADAPTER: Processes raw Lead capture data from API routes.
      */
     async processLeadCapture(rawBody: any) {
-        // Prepare payload exactly as the server expects it
+        // Prepare payload exactly as the server expects it, but keeping ALL data
         const payload: WelcomeEmailPayload = {
+            ...rawBody, // <--- CRITICAL: Pass everything through
             email: rawBody.email,
             funnelSegment: rawBody.funnelSegment || 'Startup',
             revenuePotential: rawBody.quizData?.revenuePotential,
             state: rawBody.quizData?.state,
             utmSource: rawBody.utmSource,
-            quizData: rawBody.quizData?.payload || {}
+            quizData: rawBody.quizData?.payload || rawBody.quizData || {}
         };
 
         return this._callFunction('leadCapture', payload);

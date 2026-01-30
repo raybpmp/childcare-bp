@@ -23,12 +23,13 @@ const transporter = nodemailer.createTransport({
 export const EmailService = {
     async processLeadCapture(rawBody: any) {
         const payload: WelcomeEmailPayload = {
+            ...rawBody, // <--- CRITICAL: Pass everything through
             email: rawBody.email,
             funnelSegment: rawBody.funnelSegment || 'Startup',
             revenuePotential: rawBody.quizData?.revenuePotential,
             state: rawBody.quizData?.state,
             utmSource: rawBody.utmSource,
-            quizData: rawBody.quizData?.payload || {}
+            quizData: rawBody.quizData?.payload || rawBody.quizData || {}
         };
         console.log('Server EmailService: Processing Lead Capture for %s', payload.email);
 

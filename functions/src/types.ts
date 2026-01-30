@@ -5,6 +5,7 @@ export interface WelcomeEmailPayload {
     state?: string;
     utmSource?: string;
     quizData?: Record<string, any>;
+    [key: string]: any;
 }
 
 export interface ContactEmailPayload {

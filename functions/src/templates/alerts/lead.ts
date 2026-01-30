@@ -20,25 +20,37 @@ const formatValue = (value: any): string => {
 
 export const leadAlertTemplate = (data: WelcomeEmailPayload) => {
     // Collect ALL data into a single flat list for the table
-    const allData: Record<string, any> = {
-        'Email Address': data.email,
-        'Active Segment': data.funnelSegment,
-        'State / Location': data.state,
-        'Annual Revenue Potential': data.revenuePotential ? `$${data.revenuePotential.toLocaleString()}` : undefined,
-        'UTM Source': data.utmSource,
-        ...data.quizData
+        ...data.quizData,
+        ...data // <--- Catch-all
     };
 
-    const tableRows = Object.entries(allData)
-        .filter(([_, value]) => value !== undefined)
-        .map(([key, value], index) => `
+// Remove keys that are too large or redundant to show in a simple table
+delete allData['quizData'];
+delete allData['onboarding']; // If present
+delete allData['email']; // Already shown
+delete allData['funnelSegment']; // Already shown
+delete allData['action']; // Internal
+
+// Explicitly add back the ones we want at the top
+const orderedData = {
+    'Email Address': data.email,
+    'Active Segment': data.funnelSegment,
+    'State / Location': data.state,
+    'Annual Revenue Potential': data.revenuePotential ? `$${data.revenuePotential.toLocaleString()}` : undefined,
+    'UTM Source': data.utmSource,
+    ...allData // Everything else
+};
+
+const tableRows = Object.entries(orderedData)
+    .filter(([_, value]) => value !== undefined)
+    .map(([key, value], index) => `
             <tr style="background-color: ${index % 2 === 0 ? '#ffffff' : '#f9fafb'};">
                 <td style="padding: 12px 15px; border: 1px solid #edf2f7; font-weight: 600; color: #4a5568; width: 40%;">${formatLabel(key)}</td>
                 <td style="padding: 12px 15px; border: 1px solid #edf2f7; color: #2d3748;">${formatValue(value)}</td>
             </tr>
         `).join('');
 
-    const html = renderBaseLayout('NEW LEAD CAPTURED', `
+const html = renderBaseLayout('NEW LEAD CAPTURED', `
         <p style="color: #4a5568; font-size: 16px; margin-bottom: 24px;">A new user has completed a lead capture event. Here are the <strong>unfiltered results</strong> from the submission:</p>
         
         <table style="width: 100%; border-collapse: collapse; font-size: 14px; border-radius: 8px; overflow: hidden; border: 1px solid #edf2f7;">
@@ -59,11 +71,11 @@ export const leadAlertTemplate = (data: WelcomeEmailPayload) => {
         </div>
     `);
 
-    const revenueText = data.revenuePotential ? ` - $${data.revenuePotential.toLocaleString()}` : '';
+const revenueText = data.revenuePotential ? ` - $${data.revenuePotential.toLocaleString()}` : '';
 
-    return {
-        subject: `🚀 [NEW LEAD] ${data.email}${revenueText}`,
-        text: `New Lead: ${data.email} | Segment: ${data.funnelSegment} | Full data included in HTML view.`,
-        html
-    };
+return {
+    subject: `🚀 [NEW LEAD] ${data.email}${revenueText}`,
+    text: `New Lead: ${data.email} | Segment: ${data.funnelSegment} | Full data included in HTML view.`,
+    html
+};
 };

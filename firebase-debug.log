@@ -1,0 +1,150 @@
+[debug] [2026-01-30T01:43:13.554Z] ----------------------------------------------------------------------
+[debug] [2026-01-30T01:43:13.557Z] Command:       /usr/bin/node /home/leader/.npm-global/bin/firebase deploy --only functions --project childcare-bp
+[debug] [2026-01-30T01:43:13.557Z] CLI Version:   15.3.1
+[debug] [2026-01-30T01:43:13.557Z] Platform:      linux
+[debug] [2026-01-30T01:43:13.557Z] Node Version:  v24.13.0
+[debug] [2026-01-30T01:43:13.557Z] Time:          Thu Jan 29 2026 20:43:13 GMT-0500 (Eastern Standard Time)
+[debug] [2026-01-30T01:43:13.557Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-30T01:43:14.539Z] Field "/hosting/trailingSlash" in "firebase.json" is possibly invalid: must be boolean
+[debug] [2026-01-30T01:43:14.540Z] Field "/hosting" in "firebase.json" is possibly invalid: must be array
+[debug] [2026-01-30T01:43:14.540Z] Field "/hosting" in "firebase.json" is possibly invalid: must match a schema in anyOf
+[debug] [2026-01-30T01:43:14.543Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-30T01:43:14.543Z] > authorizing via signed-in user (chiray89@gmail.com)
+[debug] [2026-01-30T01:43:14.543Z] [iam] checking project childcare-bp for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2026-01-30T01:43:14.544Z] Checked if tokens are valid: false, expires at: 1769736956887
+[debug] [2026-01-30T01:43:14.544Z] Checked if tokens are valid: false, expires at: 1769736956887
+[debug] [2026-01-30T01:43:14.545Z] > refreshing access token with scopes: []
+[debug] [2026-01-30T01:43:14.546Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-01-30T01:43:14.546Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-30T01:43:14.684Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-01-30T01:43:14.684Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-30T01:43:14.688Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/childcare-bp:testIamPermissions [none]
+[debug] [2026-01-30T01:43:14.688Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/childcare-bp:testIamPermissions x-goog-quota-user=projects/childcare-bp
+[debug] [2026-01-30T01:43:14.688Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/childcare-bp:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2026-01-30T01:43:14.874Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/childcare-bp:testIamPermissions 200
+[debug] [2026-01-30T01:43:14.874Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/childcare-bp:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2026-01-30T01:43:14.874Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:14.874Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:14.874Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/childcare-bp/serviceAccounts/childcare-bp@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2026-01-30T01:43:14.874Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/childcare-bp/serviceAccounts/childcare-bp@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2026-01-30T01:43:15.065Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/childcare-bp/serviceAccounts/childcare-bp@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2026-01-30T01:43:15.065Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/childcare-bp/serviceAccounts/childcare-bp@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'childcare-bp'...
+[info] 
+[info] i  deploying functions 
+[info] Running command: npm --prefix "$RESOURCE_DIR" run build
+[info] ✔  functions: Finished running predeploy script. 
+[debug] [2026-01-30T01:43:20.072Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:20.072Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:20.072Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/childcare-bp [none]
+[debug] [2026-01-30T01:43:20.229Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/childcare-bp 200
+[debug] [2026-01-30T01:43:20.229Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/childcare-bp {"projectNumber":"1087392719042","projectId":"childcare-bp","lifecycleState":"ACTIVE","name":"childcare-bp","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2026-01-07T16:12:13.827977Z"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2026-01-30T01:43:20.231Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:20.231Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:20.231Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/childcare-bp/adminSdkConfig [none]
+[debug] [2026-01-30T01:43:20.477Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/childcare-bp/adminSdkConfig 200
+[debug] [2026-01-30T01:43:20.478Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/childcare-bp/adminSdkConfig {"projectId":"childcare-bp","storageBucket":"childcare-bp.firebasestorage.app"}
+[debug] [2026-01-30T01:43:20.478Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:20.478Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:20.478Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/childcare-bp/configs [none]
+[debug] [2026-01-30T01:43:20.771Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/childcare-bp/configs 200
+[debug] [2026-01-30T01:43:20.771Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/childcare-bp/configs {}
+[debug] [2026-01-30T01:43:20.773Z] Validating nodejs source
+[warn] ⚠  functions: Runtime Node.js 20 will be deprecated on 2026-04-30 and will be decommissioned on 2026-10-30, after which you will not be able to deploy without upgrading. Consider upgrading now to avoid disruption. See https://cloud.google.com/functions/docs/runtime-support for full details on the lifecycle policy 
+[warn] ⚠  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[warn] ⚠  functions: Please note that there will be breaking changes when you upgrade. 
+[debug] [2026-01-30T01:43:21.285Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "build": "tsc",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "firebase-admin": "^11.5.0",
+    "firebase-functions": "^4.3.1",
+    "nodemailer": "^6.9.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/nodemailer": "^6.4.8",
+    "typescript": "^4.9.0",
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2026-01-30T01:43:21.285Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[info] i  functions: You are using a version of firebase-functions SDK (4.9.0) that does not have support for the newest Firebase Extensions features. Please update firebase-functions SDK to >=5.1.0 to use them correctly 
+[debug] [2026-01-30T01:43:21.287Z] Could not find functions.yaml. Must use http discovery
+[debug] [2026-01-30T01:43:21.297Z] Found firebase-functions binary at '/mnt/storage/The Ark/Documents/Websites/Child Care Business Plan/functions/node_modules/.bin/firebase-functions'
+[info] Serving at port 8002
+
+[debug] [2026-01-30T01:43:23.682Z] Got response from /__/functions.yaml {"endpoints":{"sendEmail":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"sendEmail"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[info] i  functions: preparing functions directory for uploading... 
+[info] i  functions: packaged /mnt/storage/The Ark/Documents/Websites/Child Care Business Plan/functions (109.07 KB) for uploading 
+[debug] [2026-01-30T01:43:27.801Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:27.801Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:27.801Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/childcare-bp/locations/-/functions [none]
+[debug] [2026-01-30T01:43:28.390Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/childcare-bp/locations/-/functions 200
+[debug] [2026-01-30T01:43:28.391Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/childcare-bp/locations/-/functions {"functions":[{"name":"projects/childcare-bp/locations/us-central1/functions/sendEmail","httpsTrigger":{"url":"https://us-central1-childcare-bp.cloudfunctions.net/sendEmail","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"sendEmail","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"childcare-bp@appspot.gserviceaccount.com","updateTime":"2026-01-30T00:48:54.382962119Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"f6538b5c96585d022d44c3195a1e0bb67907aaae"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-547608527620.us-central1.cloudfunctions.appspot.com/d57a9855-387b-4428-9a4f-7a6d4037c39c.zip","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"childcare-bp\",\"storageBucket\":\"childcare-bp.firebasestorage.app\"}","GCLOUD_PROJECT":"childcare-bp","EVENTARC_CLOUD_EVENT_SOURCE":"projects/childcare-bp/locations/us-central1/functions/sendEmail"},"runtime":"nodejs20","ingressSettings":"ALLOW_ALL","buildId":"4b3c5b35-3fa0-475a-a27d-9226faf4472a","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/1087392719042/locations/us-central1/builds/4b3c5b35-3fa0-475a-a27d-9226faf4472a","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{},"buildServiceAccount":"projects/childcare-bp/serviceAccounts/1087392719042-compute@developer.gserviceaccount.com","satisfiesPzi":true}]}
+[debug] [2026-01-30T01:43:28.392Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:28.392Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:28.392Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/childcare-bp/locations/-/functions filter=environment%3D%22GEN_2%22
+[debug] [2026-01-30T01:43:28.841Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/childcare-bp/locations/-/functions 200
+[debug] [2026-01-30T01:43:28.841Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/childcare-bp/locations/-/functions {}
+[debug] [2026-01-30T01:43:28.845Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:28.846Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:28.846Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/childcare-bp [none]
+[debug] [2026-01-30T01:43:29.209Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/childcare-bp 200
+[debug] [2026-01-30T01:43:29.209Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/childcare-bp {"projectNumber":"1087392719042","projectId":"childcare-bp","lifecycleState":"ACTIVE","name":"childcare-bp","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2026-01-07T16:12:13.827977Z"}
+[debug] [2026-01-30T01:43:29.211Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:29.211Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:29.211Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v1/projects/childcare-bp/locations/us-central1/functions:generateUploadUrl [none]
+[debug] [2026-01-30T01:43:29.211Z] >>> [apiv2][body] POST https://cloudfunctions.googleapis.com/v1/projects/childcare-bp/locations/us-central1/functions:generateUploadUrl {}
+[debug] [2026-01-30T01:43:29.740Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v1/projects/childcare-bp/locations/us-central1/functions:generateUploadUrl 200
+[debug] [2026-01-30T01:43:29.740Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v1/projects/childcare-bp/locations/us-central1/functions:generateUploadUrl {"uploadUrl":"https://storage.googleapis.com/uploads-547608527620.us-central1.cloudfunctions.appspot.com/f7163b02-b74b-47b9-b072-e81130392287.zip?GoogleAccessId=service-1087392719042@gcf-admin-robot.iam.gserviceaccount.com&Expires=1769739219&Signature=U%2FPHW7CXatkUqV8%2F7Y7t%2FY01F5jWfO6rLf09XFcFiNT1CWA7IiCyr%2FC1NuRUMy%2F6WZToa2rAJcDp4KqygQ3vwemI0F2AX6kj%2FEyPA4gkiYpMq0R4ahTdcZEj94RBmlB%2BP3mLZXUv%2F1lCsS5dnCjpbf6MzNnNekxEKDW%2Bzv9IN55to1T2b3puGSbu1GNfMml70GYu1LOrpxvKDUvGuVJXQ%2Fpbw%2BV7xdPo703sMrYqT%2FYlWjkovYJ2pDYAgxxTR7rUPG2QuKwVOcBsIITBM6D8WO2KT1e4noJscUbTg1jqhAkvSYFMFzyUTtwiLcUrjYQ48robwbN9hbyzuDZuDMH8nQ%3D%3D"}
+[debug] [2026-01-30T01:43:29.741Z] >>> [apiv2][query] PUT https://storage.googleapis.com/uploads-547608527620.us-central1.cloudfunctions.appspot.com/f7163b02-b74b-47b9-b072-e81130392287.zip GoogleAccessId=service-1087392719042%40gcf-admin-robot.iam.gserviceaccount.com&Expires=1769739219&Signature=U%2FPHW7CXatkUqV8%2F7Y7t%2FY01F5jWfO6rLf09XFcFiNT1CWA7IiCyr%2FC1NuRUMy%2F6WZToa2rAJcDp4KqygQ3vwemI0F2AX6kj%2FEyPA4gkiYpMq0R4ahTdcZEj94RBmlB%2BP3mLZXUv%2F1lCsS5dnCjpbf6MzNnNekxEKDW%2Bzv9IN55to1T2b3puGSbu1GNfMml70GYu1LOrpxvKDUvGuVJXQ%2Fpbw%2BV7xdPo703sMrYqT%2FYlWjkovYJ2pDYAgxxTR7rUPG2QuKwVOcBsIITBM6D8WO2KT1e4noJscUbTg1jqhAkvSYFMFzyUTtwiLcUrjYQ48robwbN9hbyzuDZuDMH8nQ%3D%3D
+[debug] [2026-01-30T01:43:29.741Z] >>> [apiv2][body] PUT https://storage.googleapis.com/uploads-547608527620.us-central1.cloudfunctions.appspot.com/f7163b02-b74b-47b9-b072-e81130392287.zip [stream]
+[debug] [2026-01-30T01:43:30.012Z] <<< [apiv2][status] PUT https://storage.googleapis.com/uploads-547608527620.us-central1.cloudfunctions.appspot.com/f7163b02-b74b-47b9-b072-e81130392287.zip 200
+[debug] [2026-01-30T01:43:30.012Z] <<< [apiv2][body] PUT https://storage.googleapis.com/uploads-547608527620.us-central1.cloudfunctions.appspot.com/f7163b02-b74b-47b9-b072-e81130392287.zip [omitted]
+[info] ✔  functions: functions source uploaded successfully 
+[info] i  functions: updating Node.js 20 (1st Gen) function sendEmail(us-central1)... 
+[debug] [2026-01-30T01:43:30.018Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:30.018Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:30.018Z] >>> [apiv2][query] PATCH https://cloudfunctions.googleapis.com/v1/projects/childcare-bp/locations/us-central1/functions/sendEmail updateMask=name%2CsourceUploadUrl%2CentryPoint%2Cruntime%2CdockerRegistry%2Clabels%2ChttpsTrigger.securityLevel%2CminInstances%2CmaxInstances%2CingressSettings%2CenvironmentVariables%2CserviceAccountEmail%2CavailableMemoryMb%2Ctimeout%2CvpcConnector%2CvpcConnectorEgressSettings%2CsourceToken%2CbuildEnvironmentVariables
+[debug] [2026-01-30T01:43:30.018Z] >>> [apiv2][body] PATCH https://cloudfunctions.googleapis.com/v1/projects/childcare-bp/locations/us-central1/functions/sendEmail {"name":"projects/childcare-bp/locations/us-central1/functions/sendEmail","sourceUploadUrl":"https://storage.googleapis.com/uploads-547608527620.us-central1.cloudfunctions.appspot.com/f7163b02-b74b-47b9-b072-e81130392287.zip?GoogleAccessId=service-1087392719042@gcf-admin-robot.iam.gserviceaccount.com&Expires=1769739219&Signature=U%2FPHW7CXatkUqV8%2F7Y7t%2FY01F5jWfO6rLf09XFcFiNT1CWA7IiCyr%2FC1NuRUMy%2F6WZToa2rAJcDp4KqygQ3vwemI0F2AX6kj%2FEyPA4gkiYpMq0R4ahTdcZEj94RBmlB%2BP3mLZXUv%2F1lCsS5dnCjpbf6MzNnNekxEKDW%2Bzv9IN55to1T2b3puGSbu1GNfMml70GYu1LOrpxvKDUvGuVJXQ%2Fpbw%2BV7xdPo703sMrYqT%2FYlWjkovYJ2pDYAgxxTR7rUPG2QuKwVOcBsIITBM6D8WO2KT1e4noJscUbTg1jqhAkvSYFMFzyUTtwiLcUrjYQ48robwbN9hbyzuDZuDMH8nQ%3D%3D","entryPoint":"sendEmail","runtime":"nodejs20","dockerRegistry":"ARTIFACT_REGISTRY","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"b28623d5927de06175608c8cf3ee65af397172c1"},"httpsTrigger":{"securityLevel":"SECURE_ALWAYS"},"minInstances":null,"maxInstances":null,"ingressSettings":null,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"childcare-bp\",\"storageBucket\":\"childcare-bp.firebasestorage.app\"}","GCLOUD_PROJECT":"childcare-bp","EVENTARC_CLOUD_EVENT_SOURCE":"projects/childcare-bp/locations/us-central1/functions/sendEmail"},"serviceAccountEmail":null,"availableMemoryMb":null,"timeout":null,"vpcConnector":null,"vpcConnectorEgressSettings":null,"buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""}}
+[debug] [2026-01-30T01:43:30.483Z] <<< [apiv2][status] PATCH https://cloudfunctions.googleapis.com/v1/projects/childcare-bp/locations/us-central1/functions/sendEmail 200
+[debug] [2026-01-30T01:43:30.483Z] <<< [apiv2][body] PATCH https://cloudfunctions.googleapis.com/v1/projects/childcare-bp/locations/us-central1/functions/sendEmail {"name":"operations/Y2hpbGRjYXJlLWJwL3VzLWNlbnRyYWwxL3NlbmRFbWFpbC9zWm90bFRpMXlsNA","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/childcare-bp/locations/us-central1/functions/sendEmail","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/childcare-bp/locations/us-central1/functions/sendEmail","httpsTrigger":{"url":"https://us-central1-childcare-bp.cloudfunctions.net/sendEmail","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"sendEmail","updateTime":"2026-01-30T00:48:52.427Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"b28623d5927de06175608c8cf3ee65af397172c1"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-547608527620.us-central1.cloudfunctions.appspot.com/f7163b02-b74b-47b9-b072-e81130392287.zip?GoogleAccessId=service-1087392719042@gcf-admin-robot.iam.gserviceaccount.com&Expires=1769739219&Signature=U%2FPHW7CXatkUqV8%2F7Y7t%2FY01F5jWfO6rLf09XFcFiNT1CWA7IiCyr%2FC1NuRUMy%2F6WZToa2rAJcDp4KqygQ3vwemI0F2AX6kj%2FEyPA4gkiYpMq0R4ahTdcZEj94RBmlB%2BP3mLZXUv%2F1lCsS5dnCjpbf6MzNnNekxEKDW%2Bzv9IN55to1T2b3puGSbu1GNfMml70GYu1LOrpxvKDUvGuVJXQ%2Fpbw%2BV7xdPo703sMrYqT%2FYlWjkovYJ2pDYAgxxTR7rUPG2QuKwVOcBsIITBM6D8WO2KT1e4noJscUbTg1jqhAkvSYFMFzyUTtwiLcUrjYQ48robwbN9hbyzuDZuDMH8nQ%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"childcare-bp\",\"storageBucket\":\"childcare-bp.firebasestorage.app\"}","GCLOUD_PROJECT":"childcare-bp","EVENTARC_CLOUD_EVENT_SOURCE":"projects/childcare-bp/locations/us-central1/functions/sendEmail"},"runtime":"nodejs20","buildId":"4b3c5b35-3fa0-475a-a27d-9226faf4472a","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/1087392719042/locations/us-central1/builds/4b3c5b35-3fa0-475a-a27d-9226faf4472a","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{},"buildServiceAccount":"projects/childcare-bp/serviceAccounts/1087392719042-compute@developer.gserviceaccount.com"},"versionId":"2","updateTime":"2026-01-30T01:43:40Z"}}
+[debug] [2026-01-30T01:43:30.484Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:30.484Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:30.485Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/Y2hpbGRjYXJlLWJwL3VzLWNlbnRyYWwxL3NlbmRFbWFpbC9zWm90bFRpMXlsNA [none]
+[debug] [2026-01-30T01:43:30.688Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/Y2hpbGRjYXJlLWJwL3VzLWNlbnRyYWwxL3NlbmRFbWFpbC9zWm90bFRpMXlsNA 200
+[debug] [2026-01-30T01:43:30.689Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/Y2hpbGRjYXJlLWJwL3VzLWNlbnRyYWwxL3NlbmRFbWFpbC9zWm90bFRpMXlsNA {"name":"operations/Y2hpbGRjYXJlLWJwL3VzLWNlbnRyYWwxL3NlbmRFbWFpbC9zWm90bFRpMXlsNA","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/childcare-bp/locations/us-central1/functions/sendEmail","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/childcare-bp/locations/us-central1/functions/sendEmail","httpsTrigger":{"url":"https://us-central1-childcare-bp.cloudfunctions.net/sendEmail","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"sendEmail","updateTime":"2026-01-30T00:48:52.427Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"b28623d5927de06175608c8cf3ee65af397172c1"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-547608527620.us-central1.cloudfunctions.appspot.com/f7163b02-b74b-47b9-b072-e81130392287.zip?GoogleAccessId=service-1087392719042@gcf-admin-robot.iam.gserviceaccount.com&Expires=1769739219&Signature=U%2FPHW7CXatkUqV8%2F7Y7t%2FY01F5jWfO6rLf09XFcFiNT1CWA7IiCyr%2FC1NuRUMy%2F6WZToa2rAJcDp4KqygQ3vwemI0F2AX6kj%2FEyPA4gkiYpMq0R4ahTdcZEj94RBmlB%2BP3mLZXUv%2F1lCsS5dnCjpbf6MzNnNekxEKDW%2Bzv9IN55to1T2b3puGSbu1GNfMml70GYu1LOrpxvKDUvGuVJXQ%2Fpbw%2BV7xdPo703sMrYqT%2FYlWjkovYJ2pDYAgxxTR7rUPG2QuKwVOcBsIITBM6D8WO2KT1e4noJscUbTg1jqhAkvSYFMFzyUTtwiLcUrjYQ48robwbN9hbyzuDZuDMH8nQ%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"childcare-bp\",\"storageBucket\":\"childcare-bp.firebasestorage.app\"}","GCLOUD_PROJECT":"childcare-bp","EVENTARC_CLOUD_EVENT_SOURCE":"projects/childcare-bp/locations/us-central1/functions/sendEmail"},"runtime":"nodejs20","buildId":"4b3c5b35-3fa0-475a-a27d-9226faf4472a","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/1087392719042/locations/us-central1/builds/4b3c5b35-3fa0-475a-a27d-9226faf4472a","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{},"buildServiceAccount":"projects/childcare-bp/serviceAccounts/1087392719042-compute@developer.gserviceaccount.com"},"versionId":"2","updateTime":"2026-01-30T01:43:40Z"}}
+[debug] [2026-01-30T01:43:31.190Z] [update-default-us-central1-sendEmail] Retrying task index 0
+[debug] [2026-01-30T01:43:31.191Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:31.191Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:31.191Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/Y2hpbGRjYXJlLWJwL3VzLWNlbnRyYWwxL3NlbmRFbWFpbC9zWm90bFRpMXlsNA [none]
+[debug] [2026-01-30T01:43:31.303Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/Y2hpbGRjYXJlLWJwL3VzLWNlbnRyYWwxL3NlbmRFbWFpbC9zWm90bFRpMXlsNA 200
+[debug] [2026-01-30T01:43:31.304Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/Y2hpbGRjYXJlLWJwL3VzLWNlbnRyYWwxL3NlbmRFbWFpbC9zWm90bFRpMXlsNA {"name":"operations/Y2hpbGRjYXJlLWJwL3VzLWNlbnRyYWwxL3NlbmRFbWFpbC9zWm90bFRpMXlsNA","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/childcare-bp/locations/us-central1/functions/sendEmail","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/childcare-bp/locations/us-central1/functions/sendEmail","httpsTrigger":{"url":"https://us-central1-childcare-bp.cloudfunctions.net/sendEmail","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"sendEmail","updateTime":"2026-01-30T00:48:52.427Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"b28623d5927de06175608c8cf3ee65af397172c1"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-547608527620.us-central1.cloudfunctions.appspot.com/f7163b02-b74b-47b9-b072-e81130392287.zip?GoogleAccessId=service-1087392719042@gcf-admin-robot.iam.gserviceaccount.com&Expires=1769739219&Signature=U%2FPHW7CXatkUqV8%2F7Y7t%2FY01F5jWfO6rLf09XFcFiNT1CWA7IiCyr%2FC1NuRUMy%2F6WZToa2rAJcDp4KqygQ3vwemI0F2AX6kj%2FEyPA4gkiYpMq0R4ahTdcZEj94RBmlB%2BP3mLZXUv%2F1lCsS5dnCjpbf6MzNnNekxEKDW%2Bzv9IN55to1T2b3puGSbu1GNfMml70GYu1LOrpxvKDUvGuVJXQ%2Fpbw%2BV7xdPo703sMrYqT%2FYlWjkovYJ2pDYAgxxTR7rUPG2QuKwVOcBsIITBM6D8WO2KT1e4noJscUbTg1jqhAkvSYFMFzyUTtwiLcUrjYQ48robwbN9hbyzuDZuDMH8nQ%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"childcare-bp\",\"storageBucket\":\"childcare-bp.firebasestorage.app\"}","GCLOUD_PROJECT":"childcare-bp","EVENTARC_CLOUD_EVENT_SOURCE":"projects/childcare-bp/locations/us-central1/functions/sendEmail"},"runtime":"nodejs20","buildId":"4b3c5b35-3fa0-475a-a27d-9226faf4472a","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/1087392719042/locations/us-central1/builds/4b3c5b35-3fa0-475a-a27d-9226faf4472a","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{},"buildServiceAccount":"projects/childcare-bp/serviceAccounts/1087392719042-compute@developer.gserviceaccount.com"},"versionId":"2","updateTime":"2026-01-30T01:43:40Z"}}
+[debug] [2026-01-30T01:43:32.305Z] [update-default-us-central1-sendEmail] Retrying task index 0
+[debug] [2026-01-30T01:43:32.306Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:32.306Z] Checked if tokens are valid: true, expires at: 1769740993684
+[debug] [2026-01-30T01:43:32.306Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/Y2hpbGRjYXJlLWJwL3VzLWNlbnRyYWwxL3NlbmRFbWFpbC9zWm90bFRpMXlsNA [none]
+[debug] [2026-01-30T01:43:32.501Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/Y2hpbGRjYXJlLWJwL3VzLWNlbnRyYWwxL3NlbmRFbWFpbC9zWm90bFRpMXlsNA 200
+[debug] [2026-01-30T01:43:32.501Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/Y2hpbGRjYXJlLWJwL3VzLWNlbnRyYWwxL3NlbmRFbWFpbC9zWm90bFRpMXlsNA {"name":"operations/Y2hpbGRjYXJlLWJwL3VzLWNlbnRyYWwxL3NlbmRFbWFpbC9zWm90bFRpMXlsNA","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/childcare-bp/locations/us-central1/functions/sendEmail","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/childcare-bp/locations/us-central1/functions/sendEmail","httpsTrigger":{"url":"https://us-central1-childcare-bp.cloudfunctions.net/sendEmail","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"sendEmail","updateTime":"2026-01-30T00:48:52.427Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"b28623d5927de06175608c8cf3ee65af397172c1"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-547608527620.us-central1.cloudfunctions.appspot.com/f7163b02-b74b-47b9-b072-e81130392287.zip?GoogleAccessId=service-1087392719042@gcf-admin-robot.iam.gserviceaccount.com&Expires=1769739219&Signature=U%2FPHW7CXatkUqV8%2F7Y7t%2FY01F5jWfO6rLf09XFcFiNT1CWA7IiCyr%2FC1NuRUMy%2F6WZToa2rAJcDp4KqygQ3vwemI0F2AX6kj%2FEyPA4gkiYpMq0R4ahTdcZEj94RBmlB%2BP3mLZXUv%2F1lCsS5dnCjpbf6MzNnNekxEKDW%2Bzv9IN55to1T2b3puGSbu1GNfMml70GYu1LOrpxvKDUvGuVJXQ%2Fpbw%2BV7xdPo703sMrYqT%2FYlWjkovYJ2pDYAgxxTR7rUPG2QuKwVOcBsIITBM6D8WO2KT1e4noJscUbTg1jqhAkvSYFMFzyUTtwiLcUrjYQ48robwbN9hbyzuDZuDMH8nQ%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"childcare-bp\",\"storageBucket\":\"childcare-bp.firebasestorage.app\"}","GCLOUD_PROJECT":"childcare-bp","EVENTARC_CLOUD_EVENT_SOURCE":"projects/childcare-bp/locations/us-central1/functions/sendEmail"},"runtime":"nodejs20","buildId":"4b3c5b35-3fa0-475a-a27d-9226faf4472a","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/1087392719042/locations/us-central1/builds/4b3c5b35-3fa0-475a-a27d-9226faf4472a","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{},"buildServiceAccount":"projects/childcare-bp/serviceAccounts/1087392719042-compute@developer.gserviceaccount.com"},"versionId":"2","updateTime":"2026-01-30T01:43:40Z","buildId":"ec134693-9105-4c14-bdd2-a81a67c277f3","buildName":"projects/1087392719042/locations/us-central1/builds/ec134693-9105-4c14-bdd2-a81a67c277f3"}}

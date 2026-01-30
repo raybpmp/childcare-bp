@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '@nanostores/react';
 import { isModalOpen, selectedFunnel, closeModal, type FunnelType } from '../store/modalStore';
+import { EmailService } from '../lib/EmailService';
 import {
     Dialog,
     DialogContent,
@@ -29,19 +30,16 @@ export default function EmailModal() {
         setStatus('loading');
 
         try {
-            const response = await fetch('/api/capture-lead', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email,
-                    funnelSegment: activeTab === 'startup' ? 'Startup' : 'Growth',
-                    utmSource: new URLSearchParams(window.location.search).get('utm_source') || 'direct'
-                }),
+            // Direct call to EmailService (Client -> Cloud Function)
+            // Bypassing broken /api/capture-lead API route
+            const response = await EmailService.processLeadCapture({
+                email,
+                funnelSegment: activeTab === 'startup' ? 'Startup' : 'Growth',
+                utmSource: new URLSearchParams(window.location.search).get('utm_source') || 'direct'
             });
 
-            if (response.ok) {
+            // EmailService returns { success: boolean, ... }
+            if (response.success) {
                 setStatus('success');
                 setTimeout(() => {
                     closeModal();
@@ -50,7 +48,7 @@ export default function EmailModal() {
                     window.location.href = `/thank-you?funnel=${activeTab}`;
                 }, 1500);
             } else {
-                throw new Error('Failed to submit lead');
+                throw new Error('Failed to submit lead: ' + (response.error || 'Unknown error'));
             }
         } catch (error) {
             console.error('Lead submission error:', error);

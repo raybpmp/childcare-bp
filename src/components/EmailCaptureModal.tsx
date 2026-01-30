@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { isModalOpen, selectedFunnel, closeModal, type FunnelType } from '../store/modalStore';
+import { EmailService } from '../lib/EmailService';
 import { XMarkIcon } from '@heroicons/react/24/outline'; // Need to make sure this is installed or use svg
 
 export default function EmailCaptureModal() {
@@ -23,19 +24,15 @@ export default function EmailCaptureModal() {
         setStatus('loading');
 
         try {
-            const response = await fetch('/api/capture-lead', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email,
-                    funnelSegment: activeTab === 'startup' ? 'Startup' : 'Growth',
-                    utmSource: new URLSearchParams(window.location.search).get('utm_source') || 'direct'
-                }),
+            // Direct call to EmailService (Client -> Cloud Function)
+            // Bypassing broken /api/capture-lead API route
+            const response = await EmailService.processLeadCapture({
+                email,
+                funnelSegment: activeTab === 'startup' ? 'Startup' : 'Growth',
+                utmSource: new URLSearchParams(window.location.search).get('utm_source') || 'direct'
             });
 
-            if (response.ok) {
+            if (response.success) {
                 setStatus('success');
                 setTimeout(() => {
                     closeModal();
@@ -44,7 +41,7 @@ export default function EmailCaptureModal() {
                     window.location.href = `/thank-you?funnel=${activeTab}`;
                 }, 1500);
             } else {
-                throw new Error('Failed to submit lead');
+                throw new Error('Failed to submit lead: ' + (response.error || 'Unknown error'));
             }
         } catch (error) {
             console.error('Lead submission error:', error);

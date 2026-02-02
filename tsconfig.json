@@ -5,7 +5,11 @@
     "**/*"
   ],
   "exclude": [
-    "dist"
+    "dist",
+    "stripe",
+    "functions",
+    "scripts",
+    "debug"
   ],
   "compilerOptions": {
     "jsx": "react-jsx",
@@ -14,6 +18,9 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "stripe": [
+        "./node_modules/stripe"
       ]
     }
   }

@@ -1,6 +1,6 @@
 import { atom } from 'nanostores';
 
-export type FunnelType = 'startup' | 'growth';
+export type FunnelType = 'startup' | 'growth' | 'consulting';
 
 export const isModalOpen = atom(false);
 export const selectedFunnel = atom<FunnelType>('startup');

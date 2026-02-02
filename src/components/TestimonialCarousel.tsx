@@ -64,8 +64,15 @@ const testimonials = [
   },
 ];
 
+interface Testimonial {
+  name: string;
+  role: string;
+  content: string;
+  rating: number;
+}
+
 // Reusable Testimonial Card Component
-const TestimonialCard = ({ testimonial }) => (
+const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => (
   <div className="flex-shrink-0 w-[380px] px-4">
     <div className="h-full border border-teal-100 bg-white/50 rounded-xl p-6 transition-all duration-300 hover:bg-white hover:shadow-md">
       <div className="flex gap-1 mb-4">
@@ -119,7 +126,8 @@ export default function App() {
       </div>
 
       {/* Animation Styles */}
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes scroll {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }

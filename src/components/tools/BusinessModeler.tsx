@@ -24,7 +24,7 @@ const StartupCalculator = () => {
   const INFLATION_MULTIPLIER_INSURANCE = 2.5; // 150% increase (Hard Market)
 
   // Handlers
-  const handleModeChange = (newMode) => {
+  const handleModeChange = (newMode: 'home' | 'center') => {
     setMode(newMode);
     if (newMode === 'home') {
       setCapacity(6);

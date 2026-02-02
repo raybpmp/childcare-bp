@@ -9,6 +9,16 @@ const IS_DEV = process.env.NODE_ENV === 'development';
 const API_URL = IS_DEV ? FUNCTIONS_URL_DEV : FUNCTIONS_URL_PROD;
 
 // --- TYPES ---
+export interface LeadCaptureResponse {
+    success: boolean;
+    leadId?: string;
+    error?: string;
+    details?: {
+        alert: { success: boolean; messageId?: string; error?: string };
+        user: { success: boolean; messageId?: string; error?: string };
+    };
+}
+
 export interface WelcomeEmailPayload {
     email: string;
     funnelSegment: 'Startup' | 'Growth';
@@ -27,10 +37,9 @@ export interface ContactEmailPayload {
 
 export interface SaleAlertData {
     email: string;
-    name: string;
     program: string;
     amount: number; // in cents
-    onboarding: Record<string, any>;
+    [key: string]: string | number | boolean | undefined; // Allow additional dynamic properties
 }
 
 export const EmailService = {

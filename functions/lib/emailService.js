@@ -25,6 +25,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EmailService = void 0;
 const nodemailer = __importStar(require("nodemailer"));
+const firestore_1 = require("firebase-admin/firestore");
 const config_1 = require("./config");
 // Import templates - ensuring paths are correct relative to this file
 const lead_1 = require("./templates/alerts/lead");
@@ -46,14 +47,57 @@ const transporter = nodemailer.createTransport({
 exports.EmailService = {
     async processLeadCapture(rawBody) {
         var _a, _b, _c;
-        const payload = Object.assign(Object.assign({}, rawBody), { email: rawBody.email, funnelSegment: rawBody.funnelSegment || 'Startup', revenuePotential: (_a = rawBody.quizData) === null || _a === void 0 ? void 0 : _a.revenuePotential, state: (_b = rawBody.quizData) === null || _b === void 0 ? void 0 : _b.state, utmSource: rawBody.utmSource, quizData: ((_c = rawBody.quizData) === null || _c === void 0 ? void 0 : _c.payload) || rawBody.quizData || {} });
-        console.log('Server EmailService: Processing Lead Capture for %s', payload.email);
+        const payload = Object.assign(Object.assign({}, rawBody), { email: rawBody.email, funnelSegment: rawBody.funnelSegment || 'Startup', revenuePotential: rawBody.revenuePotential || ((_a = rawBody.quizData) === null || _a === void 0 ? void 0 : _a.revenuePotential), state: rawBody.state || ((_b = rawBody.quizData) === null || _b === void 0 ? void 0 : _b.state), utmSource: rawBody.utmSource, quizData: ((_c = rawBody.quizData) === null || _c === void 0 ? void 0 : _c.payload) || rawBody.quizData || {} });
+        console.log('╔══ Lead Capture Started ══╗');
+        console.log('║ Email:', payload.email);
+        console.log('║ Funnel:', payload.funnelSegment);
+        // STEP 1: Database First (The Database Pillar)
+        let leadId;
+        try {
+            const leadDoc = await (0, firestore_1.getFirestore)().collection('leads').add({
+                email: payload.email,
+                funnelSegment: payload.funnelSegment,
+                utmSource: payload.utmSource || 'direct',
+                state: payload.state || null,
+                revenuePotential: payload.revenuePotential || null,
+                quizData: payload.quizData || {},
+                createdAt: firestore_1.FieldValue.serverTimestamp(),
+                emailStatus: 'pending'
+            });
+            leadId = leadDoc.id;
+            console.log('✓ Step 1: Lead saved to Firestore -', leadId);
+        }
+        catch (dbError) {
+            console.error('! CRITICAL: Firestore write failed:', dbError);
+            return {
+                success: false,
+                error: 'Database write failed',
+                step: 'database'
+            };
+        }
+        // STEP 2: Send Emails (The Email Pillar - non-blocking for DB success)
         const [alertResult, userResult] = await Promise.all([
             this.sendLeadAlert(payload),
             this.sendUserConfirmation(payload)
         ]);
+        // STEP 3: Update lead with email status
+        try {
+            await (0, firestore_1.getFirestore)().collection('leads').doc(leadId).update({
+                emailStatus: alertResult.success && userResult.success ? 'sent' : 'partial',
+                alertEmailId: alertResult.messageId || null,
+                userEmailId: userResult.messageId || null,
+                emailSentAt: firestore_1.FieldValue.serverTimestamp()
+            });
+            console.log('✓ Step 3: Email status updated');
+        }
+        catch (updateError) {
+            console.error('! Email status update failed:', updateError);
+            // We don't return failure here because the lead IS in the database
+        }
+        console.log('╚══ Lead Capture Complete ══╝');
         return {
-            success: alertResult.success || userResult.success,
+            success: true,
+            leadId,
             details: { alert: alertResult, user: userResult }
         };
     },

@@ -13,7 +13,7 @@
       "**/node_modules/**"
     ],
     "cleanUrls": true,
-    "trailingSlash": "never",
+    "trailingSlash": false,
     "headers": [
       {
         "source": "**/*.@(jpg|jpeg|gif|png|webp|svg|css|js)",

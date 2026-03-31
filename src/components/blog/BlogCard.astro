@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
 import { calculateReadTime } from "@/lib/blog";
 
 interface Props {
@@ -10,8 +11,8 @@ const { post } = Astro.props;
 const { title, excerpt, coverImage, category, date } = post.data;
 
 // Calculate read time from the rendered content
-const { Content } = await post.render();
-const readTime = calculateReadTime(post.body);
+const { Content } = await render(post);
+const readTime = calculateReadTime(post.body || '');
 
 // Get default cover image if none provided
 const cover = coverImage || "/images/blog/default-cover.jpg";
@@ -30,7 +31,7 @@ const categoryClass =
 <article
     class="glass-panel rounded-2xl overflow-hidden group hover:shadow-lg transition-all duration-300"
 >
-    <a href={`/blog/${post.slug}`} class="block min-h-[44px]">
+    <a href={`/blog/${post.id}`} class="block min-h-[44px]">
         <!-- Cover Image -->
         <div class="aspect-[16/9] overflow-hidden bg-gray-100">
             <img

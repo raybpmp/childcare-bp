@@ -34,7 +34,7 @@ from google.genai import types
 
 REPO_ROOT = Path(__file__).parent.parent
 POSTS_DIR = REPO_ROOT / "src" / "content" / "posts"
-LOGS_DIR = POSTS_DIR / "logs"
+LOGS_DIR = REPO_ROOT / "src" / "content" / "logs"
 SEO_KEYWORDS_FILE = REPO_ROOT / "scripts" / "seo_keywords.json"
 PROMPT_AGENT = REPO_ROOT / "scripts" / "prompts" / "blog_agent_prompt.md"
 

@@ -6,10 +6,12 @@ import BlogCTA from "@/components/blog/BlogCTA.astro";
 import { getAllPosts, calculateReadTime } from "@/lib/blog";
 import type { GetStaticPaths } from "astro";
 
+import { render } from 'astro:content';
+
 export const getStaticPaths = (async () => {
     const posts = await getAllPosts();
     return posts.map((post) => ({
-        params: { slug: post.slug },
+        params: { slug: post.id },
         props: { post },
     }));
 }) satisfies GetStaticPaths;
@@ -20,8 +22,8 @@ import { getCategoryStyle, getSeoAlt } from "@/config/blog";
 
 const { post } = Astro.props;
 const { title, excerpt, coverImage, category, date } = post.data;
-const { Content } = await post.render();
-const readTime = calculateReadTime(post.body);
+const { Content } = await render(post);
+const readTime = calculateReadTime(post.body || '');
 
 const cover = coverImage || "/images/blog/default-cover.webp";
 

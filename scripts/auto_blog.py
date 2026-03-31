@@ -16,10 +16,13 @@ import os
 import re
 import json
 import random
+import asyncio
 import datetime
 import feedparser
 from pathlib import Path
 from slugify import slugify
+
+from seleniumbase import SB
 
 from google import genai
 from google.genai import types
@@ -31,18 +34,11 @@ from google.genai import types
 
 REPO_ROOT = Path(__file__).parent.parent
 POSTS_DIR = REPO_ROOT / "src" / "content" / "posts"
-PROMPT_FILE = Path(__file__).parent / "prompts" / "blog_agent_prompt.md"
+LOGS_DIR = POSTS_DIR / "logs"
+SEO_KEYWORDS_FILE = REPO_ROOT / "scripts" / "seo_keywords.json"
+PROMPT_AGENT = REPO_ROOT / "scripts" / "prompts" / "blog_agent_prompt.md"
 
-MODEL = "gemini-flash-lite-latest"
-
-PILLARS = [
-    "Startup Guides",
-    "Industry Trends",
-    "Marketing",
-    "Operations",
-    "Business Strategy",
-    "Regulatory & Compliance",
-]
+MODEL = "gemini-3.1-flash-lite-preview"
 
 PILLAR_SLUG_MAP = {
     "Startup Guides": "startup-guides",
@@ -51,6 +47,11 @@ PILLAR_SLUG_MAP = {
     "Operations": "operations",
     "Business Strategy": "business-strategy",
     "Regulatory & Compliance": "regulatory-compliance",
+    "Corporate & Enterprise Benefits": "industry-trends",
+    "SaaS & Operational Technology": "operations",
+    "Marketing & Enrollment Growth": "marketing",
+    "Market Entry & Start-up Planning": "startup-guides",
+    "Staffing & HR Management": "operations"
 }
 
 # Google News RSS — childcare-focused query per pillar
@@ -71,82 +72,105 @@ def get_api_key() -> str:
     return key
 
 
-def get_rss_url(pillar: str) -> str | None:
-    """Fetch the top article URL from Google News RSS for a given pillar."""
-    query = PILLAR_RSS_QUERIES[pillar]
+def get_rss_url(pillar: str) -> dict | None:
+    """Fetch the top article info (title, link) from Google News RSS."""
+    # Use a broad childcare query if the pillar is too specific
+    query = PILLAR_RSS_QUERIES.get(pillar, pillar)
     rss_url = f"https://news.google.com/rss/search?q={query}+childcare&hl=en-US&gl=US&ceid=US:en"
     feed = feedparser.parse(rss_url)
 
     if not feed.entries:
-        print(f"[WARN] No RSS entries found for pillar: {pillar}")
         return None
 
     top_entry = feed.entries[0]
-    link = top_entry.get("link", "")
-    print(f"[INFO] Pillar: {pillar} | Source URL: {link}")
-    return link
+    return {
+        "title": top_entry.get("title", ""),
+        "link": top_entry.get("link", "")
+    }
 
 
-def pass_one_research(client: genai.Client, url: str, pillar: str) -> str:
-    """
-    Pass 1: Use Search Grounding to read and extract facts from the source URL.
-    Returns raw research notes as a string.
-    """
-    prompt = f"""
-You are a research analyst for childcarebusinessplan.com.
+def scrape_article_text(url: str) -> str | None:
+    """Use SeleniumBase UC Mode to bypass Google News redirects and Cloudflare."""
+    print(f"[INFO] Launching SeleniumBase (UC Mode) for: {url}")
+    try:
+        # CONFIGURATION FOR CI/CD:
+        # uc=True: Activates Undetected-Chromedriver mode (bypasses Google blocks)
+        # use_chromium=True: Downloads/uses a pinned Chromium binary (ignores system Chrome)
+        # xvfb=True: Creates a virtual display (Xvfb) ensuring bot evasion via headed browsing. 
+        with SB(uc=True, use_chromium=True, xvfb=True) as sb:
+            # Use uc_open_with_reconnect to bypass initial bot detection
+            sb.uc_open_with_reconnect(url, reconnect_time=3)
+            
+            # Wait for any complex JS redirects to finish
+            sb.sleep(2)
+            
+            # The DOM has settled.
+            final_url = sb.get_current_url()
+            print(f"[INFO] Reached: {final_url}")
+            
+            # Robust text extraction: Attempt to target the main content, 
+            # falling back to the entire body. Gemini will filter out the noise.
+            scraped_text = ""
+            selectors = ["article", "main", ".entry-content", ".post-content", "body"]
+            
+            for css in selectors:
+                if sb.is_element_visible(css):
+                    candidate = sb.get_text(css)
+                    # Keep the longest valid text block found
+                    if len(candidate) > max(len(scraped_text), 300):
+                        scraped_text = candidate
+            
+            if not scraped_text or len(scraped_text) < 200:
+                print("[WARN] Scraped content too thin. Likely blocked or paywalled.")
+                return None
+                
+            print(f"[SUCCESS] Scraped {len(scraped_text)} characters.")
+            return scraped_text
 
-Your task: Visit and read the full content of this URL: {url}
+    except Exception as e:
+        print(f"[ERROR] SeleniumBase scraper failed: {e}")
+        return None
 
-Extract all facts relevant to the following content pillar: "{pillar}" — specifically for childcare business owners in the United States.
 
-Your output must be a structured research brief with:
-- 5-8 specific, grounded facts or statistics with context (year, source, scope).
-- The core argument or trend described in the source.
-- Any financial figures, policy changes, or operational data mentioned.
-- The user segment this most serves: "startup" (aspiring owners) or "growth" (existing owners).
+def generate_news_path(client: genai.Client, news_text: str, source_url: str, pillar: str, date_str: str) -> str:
+    """Generate a news reaction post using Path B (20% logic)."""
+    system_instruction = PROMPT_AGENT.read_text(encoding="utf-8")
+    pillar_slug = PILLAR_SLUG_MAP.get(pillar, "marketing")
 
-Be specific. Do not paraphrase vaguely. If the source has numbers, use them.
+    prompt = f"""[INPUT DATA FOR POST GENERATION]
+NEWS_CONTENT: {news_text}
+SCRAPED_URL: {source_url}
+PILLAR: {pillar}
+DATE: {date_str}
+PILLAR_SLUG: {pillar_slug}
 """
-
     response = client.models.generate_content(
         model=MODEL,
         contents=prompt,
         config=types.GenerateContentConfig(
-            tools=[types.Tool(google_search=types.GoogleSearch())],
-            temperature=0.3,
+            system_instruction=system_instruction,
+            temperature=0.4,
         ),
     )
-
-    research = response.text
-    print(f"[INFO] Pass 1 complete. Research brief: {len(research)} chars.")
-    return research
+    return response.text.strip()
 
 
-def pass_two_format(
-    client: genai.Client, research: str, pillar: str, date_str: str
-) -> str:
-    """
-    Pass 2: Use the strict blog_agent_prompt.md to format the research into a valid .mdx file.
-    Returns the complete .mdx string ready to write to disk.
-    """
-    system_instruction = PROMPT_FILE.read_text(encoding="utf-8")
-    pillar_slug = PILLAR_SLUG_MAP[pillar]
+def generate_evergreen_path(client: genai.Client, date_str: str) -> tuple[str, str]:
+    """Generate an SEO-driven evergreen post using Path A (80% logic)."""
+    # Load keywords
+    keywords_data = json.loads(SEO_KEYWORDS_FILE.read_text())
+    category = random.choice(list(keywords_data.keys()))
+    keyword = random.choice(keywords_data[category])
+    pillar_slug = PILLAR_SLUG_MAP.get(category, "marketing")
 
-    prompt = f"""
-Using the research brief below, write a complete .mdx blog post.
-
-INJECT_PILLAR = "{pillar}"
-INJECT_PILLAR_SLUG = "{pillar_slug}"
-TODAY_DATE = "{date_str}"
-
----RESEARCH BRIEF---
-{research}
----END RESEARCH BRIEF---
-
-Follow your system instructions exactly. Output ONLY the raw .mdx file content. 
-Start directly with the frontmatter `---` block. Do not include any explanation, preamble, or markdown code fences.
+    system_instruction = PROMPT_AGENT.read_text(encoding="utf-8")
+    
+    prompt = f"""[INPUT DATA FOR POST GENERATION]
+TARGET_KEYWORD: {keyword}
+CATEGORY: {category}
+DATE: {date_str}
+PILLAR_SLUG: {pillar_slug}
 """
-
     response = client.models.generate_content(
         model=MODEL,
         contents=prompt,
@@ -155,16 +179,7 @@ Start directly with the frontmatter `---` block. Do not include any explanation,
             temperature=0.5,
         ),
     )
-
-    mdx_content = response.text.strip()
-
-    # Strip any accidental markdown fences the model might add
-    if mdx_content.startswith("```"):
-        mdx_content = re.sub(r"^```[a-z]*\n?", "", mdx_content)
-        mdx_content = re.sub(r"\n?```$", "", mdx_content.strip())
-
-    print(f"[INFO] Pass 2 complete. MDX output: {len(mdx_content)} chars.")
-    return mdx_content
+    return response.text.strip(), keyword
 
 
 def extract_slug_from_mdx(mdx_content: str, date_str: str) -> str:
@@ -219,43 +234,83 @@ def write_post(mdx_content: str, slug: str) -> Path:
 def main():
     api_key = get_api_key()
     client = genai.Client(api_key=api_key)
-
-    pillar = random.choice(PILLARS)
-    date_str = datetime.date.today().isoformat()  # YYYY-MM-DD
+    date_str = datetime.date.today().isoformat()
+    
+    # Probabilistic Logic: 25% News, 75% Evergreen. Forcing True for SB testing.
+    is_news_day = random.random() < 0.25
+    path_taken = "Path B (News)" if is_news_day else "Path A (Evergreen)"
 
     print(f"\n{'='*50}")
-    print(f"  Daily Blog Bot")
-    print(f"  Date:   {date_str}")
-    print(f"  Pillar: {pillar}")
+    print(f"  Daily Blog Bot | {date_str}")
+    print(f"  Selected Mode: {path_taken}")
     print(f"{'='*50}\n")
 
-    # Step 1: Get source URL from RSS
-    source_url = get_rss_url(pillar)
-    if not source_url:
-        print("[ERROR] Could not fetch RSS source URL. Aborting.")
-        raise SystemExit(1)
+    # Create timestamped log directory
+    timestamp = datetime.datetime.now().strftime("%H-%M-%S")
+    run_log_dir = LOGS_DIR / date_str / timestamp
+    run_log_dir.mkdir(parents=True, exist_ok=True)
 
-    # Step 2: Pass 1 — Research
-    research = pass_one_research(client, source_url, pillar)
+    mdx_content = ""
+    log_data = {
+        "date": date_str,
+        "timestamp": timestamp,
+        "mode": path_taken,
+        "pillar": "Searching...",
+        "status": "In Progress"
+    }
 
-    # Step 3: Pass 2 — Format into MDX
-    mdx_content = pass_two_format(client, research, pillar, date_str)
+    try:
+        if is_news_day:
+            # TRY PATH B: News
+            pillar = random.choice(list(PILLAR_RSS_QUERIES.keys()))
+            log_data["pillar"] = pillar
+            rss_info = get_rss_url(pillar)
+            
+            if rss_info:
+                text = scrape_article_text(rss_info["link"])
+                if text:
+                    mdx_content = generate_news_path(client, text, rss_info["link"], pillar, date_str)
+                    log_data["source_url"] = rss_info["link"]
+                else:
+                    print("[INFO] News scrape failed. Falling back to Path A.")
+                    is_news_day = False # Trigger fallback
+            else:
+                 print("[INFO] No news found. Falling back to Path A.")
+                 is_news_day = False
 
-    # Step 4: Validate
-    warnings = validate_mdx(mdx_content)
-    if warnings:
-        for w in warnings:
-            print(f"[VALIDATION] {w}")
-        if any("CRITICAL" in w for w in warnings):
-            print("[ERROR] Critical validation failure. Aborting to prevent broken build.")
-            raise SystemExit(1)
+        if not is_news_day:
+            # PATH A: Evergreen SEO
+            mdx_content, keyword = generate_evergreen_path(client, date_str)
+            log_data["mode"] = "Path A (Evergreen Fallback)" if "Path B" in path_taken else "Path A (Evergreen)"
+            log_data["target_keyword"] = keyword
 
-    # Step 5: Write file
-    slug = extract_slug_from_mdx(mdx_content, date_str)
-    filepath = write_post(mdx_content, slug)
+        # Save Raw Output to logs
+        with open(run_log_dir / "draft.mdx", "w") as f:
+            f.write(mdx_content)
+        
+        # Step 4: Validate
+        warnings = validate_mdx(mdx_content)
+        if warnings:
+            for w in warnings:
+                print(f"[VALIDATION] {w}")
+            log_data["warnings"] = warnings
 
-    print(f"\n[SUCCESS] Blog post generated: {filepath.name}")
-    print(f"[INFO] Pillar: {pillar} | Model: {MODEL}")
+        # Step 5: Write file
+        slug = extract_slug_from_mdx(mdx_content, date_str)
+        filepath = write_post(mdx_content, slug)
+        
+        log_data["status"] = "Success"
+        log_data["output_file"] = filepath.name
+        print(f"\n[SUCCESS] Generated: {filepath.name}")
+
+    except Exception as e:
+        print(f"[ERROR] Pipeline failed: {e}")
+        log_data["status"] = "Failed"
+        log_data["error"] = str(e)
+        raise e
+    finally:
+        with open(run_log_dir / "manifest.json", "w") as f:
+            json.dump(log_data, f, indent=2)
 
 
 if __name__ == "__main__":

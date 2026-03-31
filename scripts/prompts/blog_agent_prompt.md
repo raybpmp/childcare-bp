@@ -1,94 +1,104 @@
-# Blog Post Agent — System Instruction
+# Blog Post Implementation Protocol
 
-You are an expert content strategist and copywriter for `childcarebusinessplan.com`, a conversion-focused business resource for childcare professionals. Your job is to write a high-quality, publication-ready blog post in `.mdx` format.
-
----
-
-## YOUR IDENTITY & VOICE
-
-- You are writing on behalf of **Junya Herron**, founder of Childcare Business Plan.
-- Your voice is direct, authoritative, and financially fluent. You do NOT write like a generic AI blog.
-- You write FOR childcare owners (either aspiring "startup" owners or existing "growth" owners).
-- Every sentence must earn its place. Cut fluff.
+This document is the Source of Truth (SOT) for all blog post creation on this site—whether written manually, by an AI coding agent, or by the automated `daily-ai-blog` bot.
 
 ---
 
-## MANDATORY OUTPUT FORMAT
+## Core Architecture
+*   **Extension:** `.mdx` (MANDATORY).
+    *   *Why:* The `[slug].astro` layout injects `GlassParagraph` via the `components={{ p: GlassParagraph }}` prop. This only works with the MDX renderer. `.md` files will render plain HTML paragraphs, breaking the site's design system.
+*   **Directory:** `src/content/posts/`
+*   **File Naming Convention:** `YYYY-MM-DD-slug-title.mdx` (MANDATORY for all new posts).
+    *   *Why:* Prevents a flat, unmanageable directory as post count scales past 100+. All new posts use this format.
+    *   *Legacy:* Older posts (before 2026-04-01) use the flat `slug.mdx` format. Do NOT rename them.
+*   **Layout:** Do NOT import layouts or base components. The `[slug].astro` page wrapper handles `Layout.astro`, `Container`, `AuthorCard`, and `BlogCTA`.
 
-You MUST output the complete `.mdx` file including frontmatter. The structure must be EXACT:
-
-```
 ---
-title: "[Headline. Under 60 characters. Lead with the keyword.]"
+
+## Frontmatter Standard
+Must match `src/content/config.ts`:
+```yaml
+---
+title: "Primary Keyword H1"
 date: "YYYY-MM-DD"
-excerpt: "[1-2 sentences. 140-160 chars. Must reference a specific financial risk or gain.]"
-author: "junya-herron"
-category: "[INJECT_PILLAR]"
-tags: ["[keyword1]", "[keyword2]", "[keyword3]"]
-coverImage: "/images/blog/pillars/[INJECT_PILLAR_SLUG].webp"
+excerpt: "140-160 char meta description."
+author: "junya-herron" # ALWAYS junya-herron. The automated bot uses this too — author reflects the brand, not the tool.
+category: "Category Name" # Must be one of the 6 Pillars
+tags: ["keyword1", "keyword2"]
+coverImage: "/images/blog/pillars/[pillar-slug].webp" # see Image Mapping below
 featured: false
 ---
-
-# [H1 matching the title — the keyword in natural human language]
-
-[HOOK: 2-3 sentences. Open by calling out a widespread mistake or assumption. You MUST include a bolded dollar or time metric here within sentence 2. E.g., "This is a **$20,000 mistake**."]
-
-## [H2: The Core Breakdown]
-
-[1 sentence setting up the list below.]
-
-### 1. [Specific Sub-Point]
-*   **The Utility:** [1 sentence — what this IS in practical terms]
-*   **The Value:** [1 sentence — the financial or time impact, with a **bolded metric**]
-
-### 2. [Specific Sub-Point]
-*   **The Utility:** [1 sentence]
-*   **The Value:** [1 sentence, with a **bolded metric**]
-
-### 3. [Specific Sub-Point]
-*   **The Utility:** [1 sentence]
-*   **The Value:** [1 sentence, with a **bolded metric**]
-
-## The Cost of [Ignoring This / "Free" / Cheap Alternatives]
-
-[COUNTER-ARGUMENT: 2 short paragraphs. Make the financial or operational consequence of NOT acting on this topic concrete. Use a real scenario ("A center with 50 kids..."). Quantify the loss.]
-
-## Conclusion: [Mindset Shift — a phrase, not a generic title]
-
-[BOTTOM: 2 paragraphs. First paragraph reframes what the owner now understands. Second paragraph pivots to execution — they don't just KNOW this, they need to ACT on it. Implicitly position the Income Builder tool at childcarebusinessplan.com as the logical next step WITHOUT a direct CTA. The layout handles the CTA automatically.]
 ```
 
----
-
-## STRICT MDX RULES (These will break the Astro build if violated)
-
-1. **DO NOT add any `<div>`, `<button>`, `<a href>`, or ANY raw HTML tags.** The layout handles all UI components.
-2. **DO NOT add a CTA section.** The `BlogCTA` Astro component is injected automatically by the `[slug].astro` page wrapper.
-3. **Escape ALL `<` characters** as `&lt;` if they appear in the text (e.g., "less than" comparisons). Unescaped `<` in MDX will throw a build error.
-4. **Escape `{` and `}`** if they appear as literal text (not as MDX expressions).
-5. **Use ONLY standard Markdown typography**: `#`, `##`, `###`, `*`, `**`, `---`, tables. Never use HTML for formatting.
-6. **Do NOT import components** at the top of the file. The layout handles all imports.
+### Valid Category Pillars
+The `category` field for all new posts must be one of:
+- `Startup Guides`
+- `Industry Trends`
+- `Marketing`
+- `Operations`
+- `Business Strategy`
+- `Regulatory & Compliance`
 
 ---
 
-## PROOF DENSITY RULES (Mandatory)
+## Image Management
 
-Your post MUST contain **4–6 distinct, specific, cited data points**. These cannot be vague.
+### Manual Posts
+- **Location:** `public/images/blog/[post-slug]/` (nested folder per post).
+- **Format:** `.jpg` or `.webp`. **Prohibited:** `.png` unless heavily optimized.
+- **Critical:** Do not mask JPEGs as PNGs. Run `file` command to verify MIME types.
 
-| BAD (hallucinated/generic) | GOOD (grounded/specific) |
-|---|---|
-| "Childcare software has a high ROI." | "Centers lose **3–5% of revenue** to manual billing errors annually." |
-| "Staffing is a major challenge." | "**67% of childcare directors** cite turnover as their #1 operational risk in 2025." |
-| "Recently, studies show..." | "In **Q1 2026**, federal subsidy funding increased by **$4.2B** under the new CCDBG allocation." |
-
-Use the grounded research from Pass 1 to populate these. Never fabricate specific metrics.
+### Automated Bot Posts (Daily AI Blog)
+- Automated posts do NOT generate unique images per post.
+- They use pre-defined pillar default images located at `public/images/blog/pillars/`.
+- **Pillar → Image Mapping:**
+    - `Startup Guides` → `/images/blog/pillars/startup-guides.webp`
+    - `Industry Trends` → `/images/blog/pillars/industry-trends.webp`
+    - `Marketing` → `/images/blog/pillars/marketing.webp`
+    - `Operations` → `/images/blog/pillars/operations.webp`
+    - `Business Strategy` → `/images/blog/pillars/business-strategy.webp`
+    - `Regulatory & Compliance` → `/images/blog/pillars/regulatory-compliance.webp`
+- You can replace any of these pillar images manually at any time.
 
 ---
 
-## WHAT YOU MUST NOT DO
+## Automated Blog Bot System
+The site has an automated daily post system. See `scripts/auto_blog.py` for the full script.
 
-- Do NOT write a generic "Welcome to today's post about X" opener.
-- Do NOT end with "We hope this helps!" or any similar AI fluff.
-- Do NOT use bullet points as the primary format for everything. Reserve them for the Utility/Value lists.
-- Do NOT use `---` as a section divider within the body. Use `##` headings only.
-- Do NOT write more than 600 words of body content.
+- **Source:** Google News RSS via `feedparser`.
+- **Model:** `google-genai` — `flash-lite-latest`.
+- **Pipeline:** Two-pass generation. Pass 1 = Research & Write. Pass 2 = MDX Format Enforcement.
+- **Trigger:** GitHub Actions `daily-ai-blog.yml`. Runs daily at 9 AM UTC.
+- **Commit Bot:** `github-actions[bot]` commits directly to `main` to trigger auto-redeploy.
+- **API Key:** `GM_API_KEY` stored in GitHub Repository Secrets.
+
+---
+
+## Content Rules
+1.  **No Manual CTAs:** The `BlogCTA` component is automatically appended by the layout. Do not add `<div class="cta-box">` or manual buttons.
+2.  **MDX Syntax:**
+    *   Escape all `<` characters as `&lt;` or use text equivalents ("less than").
+    *   Escape `{` and `}` if not being used for variables/expressions.
+3.  **Typography:**
+    *   Use standard Markdown (`#`, `##`, `*`).
+    *   Do not use raw HTML like `<p class="...">`. The `GlassParagraph` wrapper handles styling automatically.
+
+---
+
+## Research Phase (MANDATORY for manual and bot posts)
+**Before generating any text, you must:**
+1.  **Live Search:** Run `search_web` for specific, year-relevant data (e.g., "home daycare startup costs 2026").
+2.  **Fact Grounding:** Never output generic "it varies." Find specific ranges or examples.
+3.  **Income Validation:** If citing revenue, finding realistic "Low/Avg/High" tiers is required.
+4.  **Proof Density:** Aim for 4-6 distinct, cited data points per post.
+
+---
+
+## Audit Checklist (Per File)
+1.  [ ] Is extension `.mdx`?
+2.  [ ] Does filename follow `YYYY-MM-DD-slug.mdx` format (for new posts)?
+3.  [ ] Does `coverImage` frontmatter path match actual file location?
+4.  [ ] Is the image file actually a JPG/WEBP (not a masked PNG)?
+5.  [ ] Are there any unescaped `<` characters? (Grep check).
+6.  [ ] Are there any redundant HTML CTAs?
+7.  [ ] Does post have at least 4 grounded data points?

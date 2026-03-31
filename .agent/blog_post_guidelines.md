@@ -66,7 +66,7 @@ The `category` field for all new posts must be one of:
 The site has an automated daily post system. See `scripts/auto_blog.py` for the full script.
 
 - **Source:** Google News RSS via `feedparser`.
-- **Model:** `google-genai` — `gemini-2.0-flash-lite-latest`.
+- **Model:** `google-genai` — `flash-lite-latest`.
 - **Pipeline:** Two-pass generation. Pass 1 = Research & Write. Pass 2 = MDX Format Enforcement.
 - **Prompt Source:** `scripts/prompts/blog_agent_prompt.md` — this is the production system instruction for the AI. Do NOT confuse with `.agent/` files, which are for developer AI agents only.
 - **Trigger:** GitHub Actions `daily-ai-blog.yml`. Runs daily at 9 AM UTC.

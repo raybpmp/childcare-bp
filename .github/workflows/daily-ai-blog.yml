@@ -29,10 +29,14 @@ jobs:
 
       - name: Install Python dependencies
         run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
           pip install --quiet \
             google-genai \
             feedparser \
-            python-slugify
+            python-slugify \
+            seleniumbase
+          seleniumbase get chromium
 
       - name: Verify API key is set
         run: |

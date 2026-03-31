@@ -7,10 +7,6 @@ on:
   # Allows manual trigger from the GitHub Actions tab for testing
   workflow_dispatch:
 
-env:
-  # Opt into Node.js 24 now to silence deprecation warnings from GitHub Actions
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 
 jobs:
   generate-blog-post:
@@ -22,12 +18,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
@@ -74,7 +70,7 @@ jobs:
     if: needs.generate-blog-post.outputs.post_generated == 'true'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:

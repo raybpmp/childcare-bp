@@ -33,7 +33,7 @@ REPO_ROOT = Path(__file__).parent.parent
 POSTS_DIR = REPO_ROOT / "src" / "content" / "posts"
 PROMPT_FILE = Path(__file__).parent / "prompts" / "blog_agent_prompt.md"
 
-MODEL = "gemini-2.0-flash-lite-latest"
+MODEL = "gemini-flash-lite-latest"
 
 PILLARS = [
     "Startup Guides",

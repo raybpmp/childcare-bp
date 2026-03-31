@@ -7,6 +7,11 @@ on:
   # Allows manual trigger from the GitHub Actions tab for testing
   workflow_dispatch:
 
+env:
+  # Opt into Node.js 24 now to silence deprecation warnings from GitHub Actions
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+
 jobs:
   generate-blog-post:
     runs-on: ubuntu-latest
@@ -17,7 +22,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # Fetch full history so the bot can push commits
           fetch-depth: 0
 
       - name: Set up Python
@@ -32,6 +36,17 @@ jobs:
             feedparser \
             python-slugify
 
+      - name: Verify API key is set
+        run: |
+          if [ -z "$GM_API_KEY" ]; then
+            echo "ERROR: GM_API_KEY secret is not set in GitHub Repository Secrets."
+            echo "Go to Settings > Secrets and variables > Actions > New repository secret"
+            exit 1
+          fi
+          echo "API key confirmed present."
+        env:
+          GM_API_KEY: ${{ secrets.GM_API_KEY }}
+
       - name: Run Blog Generator
         env:
           GM_API_KEY: ${{ secrets.GM_API_KEY }}
@@ -42,10 +57,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add src/content/posts/
-          # Only commit if there's actually a new file
           if git diff --staged --quiet; then
             echo "No new post generated. Nothing to commit."
           else
-            git commit -m "chore(content): auto-generate daily blog post [skip ci]"
+            git commit -m "chore(content): auto-generate daily blog post"
             git push
           fi

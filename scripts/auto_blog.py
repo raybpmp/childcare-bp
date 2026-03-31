@@ -46,22 +46,17 @@ PILLAR_SLUG_MAP = {
     "Marketing": "marketing",
     "Operations": "operations",
     "Business Strategy": "business-strategy",
-    "Regulatory & Compliance": "regulatory-compliance",
-    "Corporate & Enterprise Benefits": "industry-trends",
-    "SaaS & Operational Technology": "operations",
-    "Marketing & Enrollment Growth": "marketing",
-    "Market Entry & Start-up Planning": "startup-guides",
-    "Staffing & HR Management": "operations"
+    "Regulatory & Compliance": "regulatory-compliance"
 }
 
 # Google News RSS — childcare-focused query per pillar
 PILLAR_RSS_QUERIES = {
     "Startup Guides": "starting+a+childcare+business",
-    "Industry Trends": "childcare+industry+trends+2026",
+    "Industry Trends": "childcare+industry+trends",
     "Marketing": "childcare+center+marketing+strategies",
     "Operations": "childcare+center+operations+management",
-    "Business Strategy": "childcare+business+strategy+growth",
-    "Regulatory & Compliance": "childcare+regulations+compliance+2026",
+    "Business Strategy": "childcare+business+strategy",
+    "Regulatory & Compliance": "childcare+regulations+compliance",
 }
 
 
@@ -149,7 +144,7 @@ PILLAR_SLUG: {pillar_slug}
         contents=prompt,
         config=types.GenerateContentConfig(
             system_instruction=system_instruction,
-            temperature=0.4,
+            temperature=0.7,
         ),
     )
     return response.text.strip()
@@ -176,7 +171,7 @@ PILLAR_SLUG: {pillar_slug}
         contents=prompt,
         config=types.GenerateContentConfig(
             system_instruction=system_instruction,
-            temperature=0.5,
+            temperature=0.7,
         ),
     )
     return response.text.strip(), keyword

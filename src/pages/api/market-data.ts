@@ -1,5 +1,4 @@
-import fs from 'fs';
-import path from 'path';
+import csvContentRaw from '../../data/csv/county data/comprehensive.csv?raw';
 
 export const prerender = false;
 
@@ -30,10 +29,12 @@ export interface CountyData {
 
 let cachedData: CountyData[] | null = null;
 
-function parseCSV(filePath: string): CountyData[] {
-  // Read file as UTF-8 (comprehensive.csv is UTF-8 with BOM)
-  const content = fs.readFileSync(filePath, 'utf8').replace(/^\uFEFF/, '');
-  const lines = content.trim().split('\n');
+function parseCSV(content: string): CountyData[] {
+  // Remove UTF-8 BOM if present
+  const cleanContent = content.replace(/^\uFEFF/, '');
+  const lines = cleanContent.trim().split('\n');
+  if (lines.length < 2) return [];
+  
   const headers = lines[0].split(',').map(h => h.trim());
   
   return lines.slice(1).map(line => {
@@ -59,7 +60,7 @@ function parseCSV(filePath: string): CountyData[] {
       }
     });
 
-    // Map Care Types
+    // Map Care Types (using headers.indexOf to be safely dynamic)
     row.infantCenter = { p22: values[headers.indexOf("Infant Center 2022")], p24: values[headers.indexOf("Infant Center 2024")], share: values[headers.indexOf("Infant Center Faminc")] };
     row.infantHome = { p22: values[headers.indexOf("Infant Home 2022")], p24: values[headers.indexOf("Infant Home 2024")], share: values[headers.indexOf("Infant Home Faminc")] };
     row.toddlerCenter = { p22: values[headers.indexOf("Toddler Center 2022")], p24: values[headers.indexOf("Toddler Center 2024")], share: values[headers.indexOf("Toddler Center Faminc")] };
@@ -75,12 +76,8 @@ function parseCSV(filePath: string): CountyData[] {
 
 function getData() {
   if (cachedData) return cachedData;
-  const filePath = path.join(process.cwd(), 'src/data/csv/county data/comprehensive.csv');
-  if (fs.existsSync(filePath)) {
-    cachedData = parseCSV(filePath);
-  } else {
-    cachedData = [];
-  }
+  // In Astro/Vite production, csvContentRaw is bundled directly as a string chunk
+  cachedData = parseCSV(csvContentRaw);
   return cachedData;
 }
 
@@ -95,7 +92,10 @@ export async function GET({ request }: { request: Request }) {
 
     if (fips) {
       const result = allData.find(d => d.fipsCode === fips);
-      return new Response(JSON.stringify(result || null), { status: 200 });
+      return new Response(JSON.stringify(result || null), { 
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
 
     if (state && county) {
@@ -103,10 +103,13 @@ export async function GET({ request }: { request: Request }) {
         d.stateName.toLowerCase() === state.toLowerCase() && 
         d.countyName.toLowerCase() === county.toLowerCase()
       );
-      return new Response(JSON.stringify(result || null), { status: 200 });
+      return new Response(JSON.stringify(result || null), { 
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
 
-    // List view for selection
+    // List view for search autocomplete
     const list = allData.map(d => ({
       state: d.stateName,
       county: d.countyName,
@@ -115,7 +118,7 @@ export async function GET({ request }: { request: Request }) {
 
     return new Response(JSON.stringify(list), { 
       status: 200,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=3600' }
     });
   } catch (error) {
     return new Response(JSON.stringify({ error: (error as Error).message }), { status: 500 });

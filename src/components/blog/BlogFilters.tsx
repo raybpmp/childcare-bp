@@ -34,12 +34,12 @@ export function BlogFilters({ posts: initialPosts, categories }: Props) {
             {/* Filters Section */}
             <div className="mb-10 md:mb-16">
                 {/* Category Pills - premium horizontal scroll */}
-                <div className="flex gap-3 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide md:flex-wrap md:justify-center md:pb-0 mb-8">
+                <div className="flex flex-wrap items-start md:justify-start gap-2.5 mb-10">
                     <button
                         onClick={() => setSelectedCategory(null)}
-                        className={`group relative flex-shrink-0 px-6 py-3 rounded-full text-base font-bold transition-all duration-300 snap-start min-h-[48px] border-2 shadow-sm ${!selectedCategory
+                        className={`group relative px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 border-2 shadow-sm ${!selectedCategory
                             ? 'bg-teal-600 text-white border-teal-600 shadow-teal-500/20 scale-105'
-                            : 'bg-white/40 backdrop-blur-md text-gray-700 border-white/50 hover:bg-white hover:border-teal-200 hover:scale-105'
+                            : 'bg-gray-100 text-gray-700 border-transparent hover:bg-teal-50 hover:text-teal-700 hover:border-teal-200'
                             }`}
                     >
                         <span>All Posts</span>
@@ -48,9 +48,9 @@ export function BlogFilters({ posts: initialPosts, categories }: Props) {
                         <button
                             key={category}
                             onClick={() => setSelectedCategory(category)}
-                            className={`group relative flex-shrink-0 px-6 py-3 rounded-full text-base font-bold transition-all duration-300 snap-start min-h-[48px] border-2 shadow-sm ${selectedCategory === category
+                            className={`group relative px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 border-2 shadow-sm ${selectedCategory === category
                                 ? 'bg-teal-600 text-white border-teal-600 shadow-teal-500/20 scale-105'
-                                : 'bg-white/40 backdrop-blur-md text-gray-700 border-white/50 hover:bg-white hover:border-teal-200 hover:scale-105'
+                                : 'bg-gray-100 text-gray-700 border-transparent hover:bg-teal-50 hover:text-teal-700 hover:border-teal-200'
                                 }`}
                         >
                             {category}
@@ -136,7 +136,7 @@ export function BlogFilters({ posts: initialPosts, categories }: Props) {
                                     </div>
 
                                     {/* Title */}
-                                    <h3 className="text-2xl font-extrabold text-gray-900 mb-3 group-hover:text-teal-600 transition-colors duration-300 line-clamp-2 leading-tight">
+                                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-teal-600 transition-colors duration-300 leading-tight">
                                         {post.title}
                                     </h3>
 

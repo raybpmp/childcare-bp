@@ -1,0 +1,13 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import MarketReportTool from "../../components/tools/MarketReportTool";
+---
+
+<Layout
+	title="Childcare Market Report Tool | County Data & Demographics"
+	description="Access comprehensive childcare market data for your county. Get accurate price estimates, family income metrics, and demographic characteristics."
+>
+	<main class="min-h-screen py-12 px-4">
+		<MarketReportTool client:load />
+	</main>
+</Layout>

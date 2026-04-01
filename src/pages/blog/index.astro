@@ -23,8 +23,8 @@ const postsForFilters = posts.map((post) => ({
     category: post.data.category,
     date:
         post.data.date instanceof Date
-            ? post.data.date.toISOString()
-            : new Date(post.data.date).toISOString(),
+            ? post.data.date.toISOString().split('T')[0]
+            : post.data.date,
     readTime: calculateReadTime(post.body),
 }));
 

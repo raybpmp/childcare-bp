@@ -312,12 +312,75 @@ body {
     @apply rounded-2xl md:rounded-3xl p-6 md:p-10 text-center border-2 border-teal-200/50 bg-gradient-to-br from-teal-50/30 to-white/50;
   }
 
-  .blog-content-paragraph {
+  .blog-content-paragraph,
+  .prose ul,
+  .prose ol {
     background: var(--color-glass-warm);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid var(--color-glass-border-warm);
     box-shadow: 0 8px 32px 0 rgba(209, 148, 116, 0.1);
-    @apply p-4 md:p-6 rounded-xl md:rounded-2xl mb-6 text-sm md:text-base text-gray-700 leading-relaxed shadow-sm;
+    @apply p-4 md:p-6 rounded-2xl mb-6 text-sm md:text-base text-gray-700 leading-relaxed shadow-sm;
+  }
+
+  /* Bespoke Glass-Dots */
+  .prose ul {
+    @apply list-none! p-0! m-0!;
+  }
+
+  .prose ul li {
+    position: relative !important;
+    padding-left: 3rem !important; /* Force a wide gutter */
+    margin-bottom: 0.75rem !important;
+    list-style-type: none !important;
+  }
+
+  .prose ul li::before {
+    content: "" !important;
+    position: absolute !important;
+    left: 0.5rem !important;
+    top: 0.6em !important;
+    width: 0.6rem !important;
+    height: 0.6rem !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(4px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    box-shadow: 0 0 15px rgba(20, 184, 166, 0.6) !important; /* Teal glow */
+    display: inline-block !important;
+  }
+
+  /* Bespoke Glass-Numbers */
+  .prose ol {
+    @apply list-none! p-0! m-0!;
+    counter-reset: blog-list-counter;
+  }
+
+  .prose ol li {
+    position: relative !important;
+    padding-left: 3.5rem !important; /* Extra space for numbers */
+    margin-bottom: 1rem !important;
+    list-style-type: none !important;
+  }
+
+  .prose ol li::before {
+    content: counter(blog-list-counter) !important;
+    counter-increment: blog-list-counter !important;
+    position: absolute !important;
+    left: 0.5rem !important;
+    top: 0.15em !important;
+    width: 1.8rem !important;
+    height: 1.8rem !important;
+    border-radius: 6px !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 0.85rem !important;
+    font-weight: 800 !important;
+    color: var(--color-brand-600) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
   }
 }

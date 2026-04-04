@@ -1,0 +1,38 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import BusinessPlanApp from "@/components/tools/BusinessPlanApp";
+---
+
+<Layout title="Free Daycare Business Plan Template PDF | 23-Page Generator">
+    <meta
+        name="description"
+        slot="head"
+        content="Generate a free, professionally formatted daycare business plan PDF customized with your company details. 23 pages covering executive summary, financials, marketing strategy, and more — emailed instantly."
+    />
+    <div
+        class="relative min-h-screen bg-[#fafaf8] overflow-hidden selection:bg-teal-100 selection:text-teal-900"
+    >
+        {/* Background Gradients */}
+        <div
+            class="absolute inset-x-0 top-0 h-96 overflow-hidden pointer-events-none"
+        >
+            <div
+                class="absolute -top-24 -left-20 w-[30rem] h-[30rem] rounded-full bg-teal-100/50 blur-[64px]"
+            >
+            </div>
+            <div
+                class="absolute top-10 right-0 w-[40rem] h-[40rem] rounded-full bg-blue-50/40 blur-[80px]"
+            >
+            </div>
+        </div>
+
+        <div class="relative pt-16 md:pt-24 pb-16">
+            {/* SEO H1 — Transactional Entity keyword in most prominent HTML position */}
+            <h1 class="sr-only">Free Daycare Business Plan Template — Generate Your Custom 23-Page PDF</h1>
+            <p class="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6 px-4">
+                Free daycare business plan generator — customize and download your PDF in 60 seconds
+            </p>
+            <BusinessPlanApp client:load />
+        </div>
+    </div>
+</Layout>

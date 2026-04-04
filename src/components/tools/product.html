@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Daycare Business Plan Template</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #008080;
+            --primary-light: #e0f2f1;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --bg-body: #f0f2f5;
+            --border-color: #d1d8e0;
+            --field-accent: #00bfa5;
+        }
+
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+        }
+
+        .document-container { padding: 40px 0; }
+
+        .page {
+            width: 8.5in;
+            height: 11in;
+            padding: 0.75in 1in;
+            margin: 0 auto 40px auto;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            page-break-after: always;
+            overflow: hidden;
+        }
+
+        @media print {
+            body { background: white; }
+            .page { margin: 0; box-shadow: none; border: none; }
+            .no-print { display: none; }
+        }
+
+        /* Typography */
+        h1, h2, h3 { font-family: 'Montserrat', sans-serif; color: var(--primary); margin-top: 0; }
+        h1 { font-size: 32pt; line-height: 1.2; font-weight: 800; text-transform: uppercase; }
+        h2 { font-size: 20pt; border-bottom: 2px solid var(--primary-light); padding-bottom: 8px; margin-bottom: 20px; }
+        h3 { font-size: 14pt; margin-top: 24px; color: var(--text-main); border-left: 4px solid var(--primary); padding-left: 10px; }
+        
+        p { font-size: 10.5pt; line-height: 1.6; margin-bottom: 12pt; text-align: justify; }
+        ul, ol { margin-bottom: 12pt; padding-left: 20px; }
+        li { margin-bottom: 6pt; font-size: 10pt; }
+
+        .instruction { 
+            font-style: italic; color: var(--text-muted); font-size: 9pt; 
+            background: #fff9c4; padding: 12px; border-radius: 4px; 
+            border-left: 4px solid #fbc02d; margin-bottom: 20px; 
+        }
+
+        /* Interactive Elements */
+        input[type="text"], textarea {
+            font-family: inherit;
+            font-size: 10pt;
+            border: none;
+            border-bottom: 1.5px solid var(--primary);
+            background: var(--primary-light);
+            padding: 2px 8px;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            background: white;
+            border-color: var(--field-accent);
+        }
+
+        .inline-input {
+            display: inline-block;
+            width: auto;
+            min-width: 150px;
+            margin: 0 4px;
+        }
+
+        /* Component Details */
+        .header-rule { height: 4px; background: var(--primary); width: 60px; margin-bottom: 30px; }
+        .footer-info { 
+            font-size: 8pt; color: var(--text-muted); border-top: 1px solid var(--border-color); 
+            padding-top: 10px; margin-top: auto; display: flex; justify-content: space-between; 
+        }
+
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 9pt; }
+        th { background: var(--primary); color: white; padding: 10px; text-align: left; }
+        td { border: 1px solid var(--border-color); padding: 8px 10px; }
+        tr:nth-child(even) { background: #fdfdfd; }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    </style>
+</head>
+<body>
+
+<div class="document-container">
+
+    <!-- PAGE 1: COVER -->
+    <div class="page">
+        <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+            <div class="header-rule"></div>
+            <p style="font-weight: bold; margin-bottom: 5px;">Brought to you by <a href="https://childcarebusinessplan.com" style="color: var(--primary);">ChildcareBusinessPlan.com</a></p>
+            <p style="font-style: italic; color: var(--text-muted);">Your ultimate resource for launching and growing a successful childcare business.</p>
+            <br>
+            <h1><input type="text" class="sync-co-name" value="[Company Name]" style="font-size: 32pt; background: none; border: none; width: 100%;"></h1>
+            <p style="font-size: 14pt; color: var(--primary); font-weight: 300;">Strategic Business Plan Template</p>
+            
+            <div style="margin-top: 60px; max-width: 450px;">
+                <p><strong><input type="text" class="sync-co-name" value="[Company Name]" style="width: 100%;"></strong></p>
+                <p><input type="text" class="sync-addr" value="[Address]" style="width: 100%;"></p>
+                <p><input type="text" class="sync-location" value="[City, State, Zip]" style="width: 100%;"></p>
+                <p><input type="text" class="sync-url" value="[Website: https://www.URL]" style="width: 100%;"></p>
+                <br>
+                <p><strong><input type="text" class="sync-owner" value="[Name of Owner or Contact]" style="width: 100%;"></strong></p>
+                <p><input type="text" class="sync-title" value="[Title]" style="width: 100%;"></p>
+                <p><input type="text" class="sync-phone" value="[Phone]" style="width: 100%;"></p>
+                <p><input type="text" class="sync-email" value="[Email]" style="width: 100%;"></p>
+            </div>
+        </div>
+        <div class="footer-info">
+            <span>Section 1 | Cover Page</span>
+            <span>ChildcareBusinessPlan.com</span>
+        </div>
+    </div>
+
+    <!-- PAGE 2: CONFIDENTIALITY -->
+    <div class="page">
+        <h2>Business Plan Confidentiality Agreement</h2>
+        <div class="instruction">(Instructions: Replace all bracketed text and adapt the examples to fit your own daycare's specific details before finalizing and presenting your business plan.)</div>
+        
+        <p>
+            The undersigned reader of <strong><input type="text" class="sync-co-name" value="[Company Name]"></strong> Business Plan hereby acknowledges that the information provided is completely confidential and therefore the reader agrees not to disclose anything found in the business plan without the express written consent of <strong><input type="text" class="sync-owner" value="[Business Owner's Name(s)]"></strong>.
+        </p>
+        <p>
+            It is also acknowledged by the reader that the information to be furnished in this business plan is in all aspects confidential in nature, other than information that is in the public domain through other means and that any disclosure or use of the same by the reader may cause serious harm and or damage to <strong><input type="text" class="sync-co-name" value="[Company Name]"></strong>.
+        </p>
+        <p>Upon request this business plan document will be immediately returned to <strong><input type="text" class="sync-owner" value="[Business Owner's Name(s)]"></strong>.</p>
+
+        <div style="margin-top: 100px;">
+            <div style="margin-bottom: 20px;">___________________<br><small>Signature</small></div>
+            <div style="margin-bottom: 20px;"><input type="text" placeholder="[Name (typed or printed)]" style="width: 300px;"><br><small>Name (typed or printed)</small></div>
+            <div><input type="text" placeholder="[Date]" style="width: 150px;"><br><small>Date</small></div>
+        </div>
+        
+        <p style="margin-top: 40px; font-style: italic;">This business plan does not imply an offering of securities.</p>
+
+        <div class="footer-info">
+            <span>Section 2 | Confidentiality Agreement</span>
+            <span>Page 2</span>
+        </div>
+    </div>
+
+    <!-- PAGE 3: EXECUTIVE SUMMARY -->
+    <div class="page">
+        <h2>Executive Summary</h2>
+        <div class="instruction">(Note: The executive summary is a mini version of the plan and can be somewhat repetitive. You can do this section last.)</div>
+
+        <h3>Purpose</h3>
+        <p>
+            The purpose of this business plan is to <input type="text" class="inline-input" placeholder="____ (i.e. start-up, expand, re-brand, etc.)"> 
+            the <strong><input type="text" class="inline-input" value="[type of daycare]"></strong> daycare center while showcasing the expected operations over the next three to five years.
+        </p>
+
+        <h3>Introduction</h3>
+        <p>
+            <strong><input type="text" class="sync-co-name" value="[Company Name]"></strong> (Also referred to as “The Company”) is a <input type="text" class="inline-input" placeholder="[start-up or existing]"> 
+            <input type="text" class="inline-input" placeholder="[type of daycare, traditional, in-home, au pair, preschool, nanny services, before school, afterschool, etc.]"> day care. 
+            The types of services <input type="text" class="inline-input" placeholder="____ (i.e. full-time, part-time, after school, camps, summer, etc.)"> will appeal to a diverse range of customers. 
+            The establishment is located in <strong><input type="text" class="sync-location" value="[City, State]"></strong>. The outlook for the future of <strong><input type="text" class="sync-city" value="[City]" style="min-width: 80px;"></strong> is promising.
+        </p>
+        
+        <p><em>(Note: If the daycare is a franchise or has multiple locations mention that as well.)</em></p>
+        <p><em>(If a start-up add: The daycare center will launch on <input type="text" class="inline-input" placeholder="____ 202_">.)</em> The daycare center will be open <input type="text" class="inline-input" placeholder="_____"> days a week.</p>
+
+        <p>The daycare center offers <input type="text" style="width: 80%;" placeholder="______________________________________________."></p>
+        <div class="instruction">(Example: a variety of educational programs and after school service options. This is a good place to mention anything special such as, the daycare center offers potty training, meals, tutoring, and after school programs etc.)</div>
+
+        <div class="footer-info">
+            <span>Section 3 | Executive Summary</span>
+            <span>Page 3</span>
+        </div>
+    </div>
+
+    <!-- PAGE 4: PROBLEM & SOLUTION -->
+    <div class="page">
+        <h2>Problem & Solution</h2>
+        
+        <h3>Problem/Need</h3>
+        <ul>
+            <li><strong>(Example 1):</strong> There are no full-service day cares in the area that provide <input type="text" class="inline-input" placeholder="______ (I.e. safe, fun, great teaching atmosphere, convenient hours of operation.)" style="width: 100%;"></li>
+            <li><strong>(Example 2):</strong> The area is in need of a warm and friendly daycare with excellent teachers and a place where parents feel comfortable leaving their children while they go to work.</li>
+        </ul>
+
+        <h3>Solution</h3>
+        <p>The daycare center will solve this problem/need by <input type="text" style="width: 70%;" placeholder="______________________."></p>
+        <ul>
+            <li><strong>(Example 1):</strong> The daycare center will solve this problem by opening up a daycare center that will focus on single parents, dual-income parents, working parents, etc. that live or work in the area.</li>
+            <li><strong>(Example 2):</strong> <strong><input type="text" class="sync-co-name" value="[Company Name]"></strong> daycare center will feature a wide range of educational programs, healthy snacks, friendly staff, and convenient hours of operation.</li>
+        </ul>
+
+        <h3>The Market Size</h3>
+        <div class="instruction">(In this section search online for a few statistics that show the industry size.)</div>
+        <p><em>(Example 1: taken from statista.com/forecasts)</em></p>
+        <p><strong>Daycare Center Industry Facts at a Glance</strong></p>
+        <p>The US child day-care industry is one of the largest in the world, owing mainly to the prevalence of a culture where both parents choose to pursue a career. Cumulatively, the industry is estimated to value as much as 235 billion U.S. dollars during 2019-2023. It is also no surprise that child-care is one of the biggest items in families’ monthly budgets, according to a 2017 study by Child Care Aware of America. As such, the annual average spending on day-care centers has been on the rise, having surpassed 10,000 U.S. dollars per household as of 2018.</p>
+
+        <div class="footer-info">
+            <span>Section 4 | Market Analysis</span>
+            <span>Page 4</span>
+        </div>
+    </div>
+
+    <!-- PAGE 5: COMPANY STRUCTURE -->
+    <div class="page">
+        <h2>Company Structure</h2>
+        
+        <h3>Overview</h3>
+        <p><strong>Mission</strong></p>
+        <div class="field-group"><input type="text" value="[Insert Mission Statement here]" style="width: 100%;"></div>
+        <ul>
+            <li><em>(Example 1) - The company’s mission is to provide top notch child care services to our clients and their children.</em></li>
+            <li><em>(Example 2) - <strong><span class="display-co-name">[Company Name]</span></strong> will pride itself on being a place of learning, development, and safety for child care age children. The company’s mission is to provide the best child care services in the area.</em></li>
+        </ul>
+
+        <p><strong>Vision</strong></p>
+        <div class="field-group"><input type="text" value="[Insert Vision Statement here (optional)]" style="width: 100%;"></div>
+        <p><em>(Example) <strong><span class="display-co-name">[Company Name]</span></strong> will be known as the best place to children when seeking daycare needs, because of our educational programs, friendly educational staff, and the love of teaching your little ones.</em></p>
+
+        <p><strong>Founded:</strong> <input type="text" class="inline-input" value="[Month, Year]"></p>
+
+        <p><strong>Legal Structure:</strong> The legal structure of the <strong><span class="display-co-name">[Company Name]</span></strong> is a <input type="text" class="inline-input" placeholder="_____________">.</p>
+        <div class="instruction">(Examples: LLC, Corporation, Partnership, Nonprofit, etc.)</div>
+
+        <p><strong>Ownership:</strong></p>
+        <ul>
+            <li><input type="text" class="inline-input" value="[Owner's Name: xx%]"></li>
+            <li><input type="text" class="inline-input" value="[Owner's Name: xx%]"></li>
+        </ul>
+
+        <p><strong>Location:</strong> <span class="display-addr">[Address]</span></p>
+        <p><strong>Hours of operation:</strong> <input type="text" style="width: 80%;" value="[Insert days and Hours of Operation. i.e. Monday – Friday 6:00 am - 8:00 pm closed Saturday & Sunday]"></p>
+
+        <div class="footer-info">
+            <span>Section 5 | Structure</span>
+            <span>Page 5</span>
+        </div>
+    </div>
+
+    <!-- PAGE 6: COMPANY SUMMARY -->
+    <div class="page">
+        <h2>Company Summary</h2>
+        
+        <h3>Company Description</h3>
+        <p><strong><span class="display-co-name">[Company Name]</span></strong> offers <input type="text" style="width: 70%;" placeholder="______________________________________________."></p>
+        <div class="instruction">(Example: ABC Daycare center is dedicated to providing a fun, safe, and great learning atmosphere for children ages 0-12.)</div>
+
+        <p>
+            <strong><span class="display-co-name">[Company Name]</span></strong> will focus on <input type="text" class="inline-input" placeholder="___________ (i.e. single parents/double income parents etc.)">. 
+            <strong><span class="display-co-name">[Company Name]</span></strong> will provide a <input type="text" class="inline-input" placeholder="______ (i.e. friendly, safe, fun, etc.)"> 
+            atmosphere with the <input type="text" class="inline-input" placeholder="_____________ (i.e. child, parent, siblings etc.)"> being included in the learning process. 
+            The Company goal is to have <input type="text" class="inline-input" placeholder="_________ (i.e. wide, multiple, etc.)"> learning approach.
+        </p>
+
+        <p>
+            <strong><span class="display-co-name">[Company Name]</span></strong> will have <input type="text" class="inline-input" placeholder="_______ (I.e. toys, games, material)"> 
+            that will provide the children an atmosphere that is <input type="text" class="inline-input" placeholder="______ (I.e. friendly, safe, etc.)">.
+        </p>
+
+        <p>The Company will hire an educational staff that has a strong background in teaching, nurturing, and organizational skills. They will have had years of experience working in a daycare setting and know what is expected of them in their individual role.</p>
+
+        <div class="footer-info">
+            <span>Section 6 | Company Summary</span>
+            <span>Page 6</span>
+        </div>
+    </div>
+
+    <!-- PAGE 7: PRODUCTS & SERVICES -->
+    <div class="page">
+        <h2>Products & Services</h2>
+        <p>The daycare center will provide the following products and services:</p>
+        <ul>
+            <li><input type="text" class="inline-input" value="[insert]"></li>
+            <li><input type="text" class="inline-input" value="[insert]"></li>
+            <li><input type="text" class="inline-input" value="[insert]"></li>
+        </ul>
+
+        <p><em>Explain what products/services you will be providing: i.e.</em></p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-left: 20px;">
+            <li>Learning Programs</li>
+            <li>Highly Interactive Programs</li>
+            <li>Play / Art / Motor Skills</li>
+            <li>Transportation</li>
+            <li>After School Tutoring</li>
+            <li>Social Skills training</li>
+            <li>Special Themed days</li>
+            <li>Potty Training</li>
+        </div>
+
+        <div class="footer-info">
+            <span>Section 7 | Products & Services</span>
+            <span>Page 7</span>
+        </div>
+    </div>
+
+    <!-- PAGE 8: PROGRAMS -->
+    <div class="page">
+        <h2>Educational Programs</h2>
+        <p>
+            The educational programs will be focus on different <input type="text" class="inline-input" placeholder="___________________. (I.e. age groups, learning abilities, and development goals, etc.)">. 
+            There will be multiple child care plans that will be include <input type="text" class="inline-input" placeholder="_______ (I.e. potty training, meals, snacks, and the age of the child.)"> for an additional cost. 
+            Prices will be <input type="text" class="inline-input" placeholder="________ (i.e. competitive with other day care centers in the area)">. 
+            However, it is the strategy of <strong><span class="display-co-name">[Company Name]</span></strong> 
+            to provide a higher level of service than its competitors through convenient hours and after school programs.
+        </p>
+
+        <h3>Content Areas</h3>
+        <p>Our principles and content areas include:</p>
+        <div class="grid-2">
+            <ul>
+                <li>English Language Arts</li>
+                <li>Mathematics</li>
+                <li>Approaches to Learning and Science (STEM)</li>
+            </ul>
+            <ul>
+                <li>Social/Emotional and Social Studies</li>
+                <li>Creative Arts</li>
+                <li>Physical/Health and Safety</li>
+            </ul>
+        </div>
+
+        <div class="instruction">
+            [Here is where you put your educational programs, written or visual]
+        </div>
+
+        <div class="footer-info">
+            <span>Section 8 | Programs</span>
+            <span>Page 8</span>
+        </div>
+    </div>
+
+    <!-- PAGE 9: RATES - FULL TIME -->
+    <div class="page">
+        <h2>Financial Rates: Full Time</h2>
+        <div class="instruction">(Example Table: Weekly and Daily Rates)</div>
+        <table>
+            <thead>
+                <tr><th>Child Care</th><th>Weekly</th><th>Daily</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Infant</td><td>$265</td><td>$63</td></tr>
+                <tr><td>Toddler</td><td>$260</td><td>$60</td></tr>
+                <tr><td>Preschool</td><td>$220</td><td>$58</td></tr>
+                <tr><td>Pre-K</td><td>$210</td><td>$53</td></tr>
+                <tr><td>School Aged Care (Before & After Care)</td><td>$120</td><td>$35</td></tr>
+                <tr><td>Care with One Way Bussing</td><td>$80</td><td>$20</td></tr>
+                <tr><td>Half Day - In addition to bus fee</td><td>-</td><td>$25</td></tr>
+                <tr><td>Full Day</td><td>-</td><td>$50</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Full Time Rates (Based on Departure Time)</h3>
+        <p>Full Time Rates based upon a maximum of nine hours a day and time your child departs from day care:</p>
+        <div class="grid-2">
+            <table>
+                <thead><tr><th>Departure</th><th>Weekly</th></tr></thead>
+                <tbody>
+                    <tr><td>3:00 p.m.</td><td>$135.00</td></tr>
+                    <tr><td>3:15 p.m.</td><td>$140.00</td></tr>
+                    <tr><td>3:30 p.m.</td><td>$145.00</td></tr>
+                    <tr><td>3:45 p.m.</td><td>$150.00</td></tr>
+                    <tr><td>4:00 p.m.</td><td>$155.00</td></tr>
+                    <tr><td>4:15 p.m.</td><td>$160.00</td></tr>
+                    <tr><td>4:30 p.m.</td><td>$165.00</td></tr>
+                </tbody>
+            </table>
+            <table>
+                <thead><tr><th>Departure</th><th>Weekly</th></tr></thead>
+                <tbody>
+                    <tr><td>4:45 p.m.</td><td>$170.00</td></tr>
+                    <tr><td>5:00 p.m.</td><td>$175.00</td></tr>
+                    <tr><td>5:15 p.m.</td><td>$180.00</td></tr>
+                    <tr><td>5:30 p.m.</td><td>$185.00</td></tr>
+                    <tr><td>5:45 p.m.</td><td>$190.00</td></tr>
+                    <tr><td>6:00 p.m.</td><td>$195.00</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer-info">
+            <span>Section 9 | Rates (Full Time)</span>
+            <span>Page 9</span>
+        </div>
+    </div>
+
+    <!-- PAGE 10: RATES - PART TIME -->
+    <div class="page">
+        <h2>Financial Rates: Part Time</h2>
+        <p><em>There is a different rate structure for part time. Part time is a minimum of three full working days per week. The Center (does/does not) provide drop-in care. The Center (does/does not) offer half day rates.</em></p>
+
+        <h3>Part Time Rates (Example)</h3>
+        <div class="grid-2">
+            <table>
+                <thead><tr><th>Departure</th><th>Daily</th></tr></thead>
+                <tbody>
+                    <tr><td>3:00 p.m.</td><td>$33.00</td></tr>
+                    <tr><td>3:15 p.m.</td><td>$34.00</td></tr>
+                    <tr><td>3:30 p.m.</td><td>$35.00</td></tr>
+                    <tr><td>3:45 p.m.</td><td>$36.00</td></tr>
+                    <tr><td>4:00 p.m.</td><td>$37.00</td></tr>
+                    <tr><td>4:15 p.m.</td><td>$38.00</td></tr>
+                </tbody>
+            </table>
+            <table>
+                <thead><tr><th>Departure</th><th>Daily</th></tr></thead>
+                <tbody>
+                    <tr><td>4:30 p.m.</td><td>$39.00</td></tr>
+                    <tr><td>4:45 p.m.</td><td>$40.00</td></tr>
+                    <tr><td>5:00 p.m.</td><td>$41.00</td></tr>
+                    <tr><td>5:15 p.m.</td><td>$42.00</td></tr>
+                    <tr><td>5:30 p.m.</td><td>$43.00</td></tr>
+                    <tr><td>5:45 p.m.</td><td>$44.00</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p style="margin-top: 20px;">
+            Additional hours beyond nine hours per day billed at $ <input type="text" class="inline-input" value="X.00" style="min-width: 40px;"> per hour. 
+            Overtime must be pre-arranged and approved.
+        </p>
+
+        <div class="footer-info">
+            <span>Section 10 | Rates (Part Time)</span>
+            <span>Page 10</span>
+        </div>
+    </div>
+
+    <!-- PAGE 11: REVENUE & PROFITABILITY -->
+    <div class="page">
+        <h2>Revenue & Profitability</h2>
+        <p><em>[Explain how you will make money with the business.]</em></p>
+        <p>The daycare center will make money from <input type="text" style="width: 70%;" placeholder="____________________________________."></p>
+        <p><em>(Example: The daycare center will make money from the tuition payments, enrollment fees, government programs; drop-in rates, and adding after school programs. Prices will be competitive with other daycares centers in the area.)</em></p>
+
+        <h3>Pricing Strategy</h3>
+        <p>The day care center will be able to accommodate <input type="text" class="inline-input" placeholder="______"> children.</p>
+        <p>
+            The goal of the daycare is to have <strong><input type="text" class="inline-input" value="[number of children]"></strong> with a monthly tuition fee of 
+            <strong><input type="text" class="inline-input" value="[Estimated average fees]"></strong> over the next 12 months, which will result in estimated revenue of 
+            <strong><input type="text" class="inline-input" value="[Estimated revenue]"></strong>.
+        </p>
+        <p><em>(I.e. The goal of the daycare is to have 30 children per week with an average tuition of ($300.00 plus a $50 enrollment fee) per week, resulting in estimated revenue of $468,000.)</em></p>
+
+        <div class="footer-info">
+            <span>Section 11 | Revenue</span>
+            <span>Page 11</span>
+        </div>
+    </div>
+
+    <!-- PAGE 12: GOALS & MILESTONES -->
+    <div class="page">
+        <h2>Growth Strategy</h2>
+        
+        <h3>Goals</h3>
+        <p><strong><span class="display-co-name">[Company Name]</span></strong> has established goals in order to fulfill its objective of operating and growing this business establishment:</p>
+        <ul>
+            <li>Increase Enrollment</li>
+            <li>Keep Cost Down</li>
+            <li>Develop New & Exciting After School Programs</li>
+            <li>Offer Summer Camps</li>
+            <li>Open another location by year 3</li>
+        </ul>
+
+        <h3>Milestones</h3>
+        <table>
+            <thead>
+                <tr><th>Date</th><th>Milestone</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><input type="text" value="[Date 1]"></td><td>Finalize lease agreement</td></tr>
+                <tr><td><input type="text" value="[Date 2]"></td><td>Design and build out <strong><span class="display-co-name">[Company]</span></strong></td></tr>
+                <tr><td><input type="text" value="[Date 3]"></td><td>Hire and train initial staff</td></tr>
+                <tr><td><input type="text" value="[Date 4]"></td><td>Launch <strong><span class="display-co-name">[Company]</span></strong></td></tr>
+                <tr><td><input type="text" value="[Date 5]"></td><td>Reach Sales goal of $ <input type="text" class="inline-input" placeholder="______"></td></tr>
+            </tbody>
+        </table>
+
+        <h3>Keys to Success</h3>
+        <ul>
+            <li>The unique and innovative atmosphere will differentiate us from the competition. The daycare center will stand out from the other day cares in the area because of the <input type="text" class="inline-input" placeholder="_______ (i.e. programs and quality staff)."></li>
+            <li>The programs will appeal to a wide and varied client base.</li>
+            <li>Controlling costs at all times.</li>
+        </ul>
+
+        <div class="footer-info">
+            <span>Section 12 | Growth Strategy</span>
+            <span>Page 12</span>
+        </div>
+    </div>
+
+    <!-- PAGE 13: COMPETITION -->
+    <div class="page">
+        <h2>Competition & Competitive Advantages</h2>
+        
+        <h3>Competition</h3>
+        <p>
+            Competition in the local area is <input type="text" class="inline-input" placeholder="_____ (I.e. somewhat sparse)"> and does not provide 
+            <input type="text" class="inline-input" placeholder="_______ (I.e. nearly the same level of quality)">. They desire a unique, high-quality experience.
+        </p>
+        <p><strong><span class="display-co-name">[Company Name]</span></strong> faces competition from the following companies:</p>
+        <ul>
+            <li>(Competition name) – Brief description.</li>
+            <li>(Competition name) – Brief description.</li>
+        </ul>
+        <p><em>(Example: ABC Day Care - website - location - Offers daycare services in the local area; however, they do not offer extra programs for all ages of children.)</em></p>
+
+        <h3>Competitive Advantages</h3>
+        <p>The <strong><span class="display-co-name">[Company Name]</span></strong> competitive advantage is <input type="text" class="inline-input" value="[I.e. high-quality program, experienced child care teachers, the environment, the management, and safe surroundings.]" style="width: 80%;"></p>
+        <p>OR</p>
+        <p><strong><span class="display-co-name">[Company Name]</span></strong> will have several competitive advantages including:</p>
+        <ul>
+            <li>Location</li>
+            <li>Quality Programs</li>
+            <li>Friendly staff</li>
+            <li>More variety of healthy food options</li>
+            <li>Convenient hours of operation</li>
+        </ul>
+
+        <div class="footer-info">
+            <span>Section 13 | Competition</span>
+            <span>Page 13</span>
+        </div>
+    </div>
+
+    <!-- PAGE 14: SWOT ANALYSIS -->
+    <div class="page">
+        <h2>SWOT Analysis</h2>
+        <div class="instruction">(Pick 3-5 in each category; examples below)</div>
+        
+        <div class="grid-2">
+            <div>
+                <h3>Strengths</h3>
+                <ul>
+                    <li>Industry trends</li>
+                    <li>Growth market</li>
+                    <li>High quality educational programs</li>
+                    <li>Variety of services offered</li>
+                    <li>Safe & fun atmosphere</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Weaknesses</h3>
+                <ul>
+                    <li>High operational cost</li>
+                    <li>Increased price on child care items</li>
+                    <li>Limited amount of vendors</li>
+                    <li>Turn-over in the industry</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Opportunities</h3>
+                <ul>
+                    <li>Little competition in the local area</li>
+                    <li>Development of alternative programs to increase profits</li>
+                    <li>Offer healthier food options</li>
+                    <li>Use of technology (mobile app, online cameras, parent portal, etc.)</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Threats</h3>
+                <ul>
+                    <li>Trends may change</li>
+                    <li>Emergence of local competition or new competition</li>
+                    <li>Copy Cats</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-info">
+            <span>Section 14 | SWOT Analysis</span>
+            <span>Page 14</span>
+        </div>
+    </div>
+
+    <!-- PAGE 15: MANAGEMENT SUMMARY -->
+    <div class="page">
+        <h2>Management Summary</h2>
+        <p>The daycare center will be owned by <strong><input type="text" class="sync-owner" value="[Insert Owners name(s) here]"></strong>.</p>
+        
+        <h3>Management / Key Roles</h3>
+        <p><strong><input type="text" class="inline-input" value="[Name, Title]"> - [Experience, biography, or resume]</strong></p>
+        <p>Role: <strong><input type="text" class="inline-input" value="[Name]"></strong> will be responsible for <input type="text" class="inline-input" placeholder="______. (I.e. operations, marketing, art, etc.)"></p>
+        <p><strong><span class="display-name">[Name]</span></strong> is a <strong>[title]</strong> who has <input type="text" class="inline-input" placeholder="___________" style="min-width: 40px;"> -years of experience of working in <input type="text" class="inline-input" placeholder="_______">.</p>
+        <p><strong><span class="display-name">[Name]</span></strong> is good at <input type="text" class="inline-input" placeholder="_____________, _____________, and_____________">.</p>
+
+        <h3>Management Summary</h3>
+        <p>
+            <strong><span class="display-co-name">[Company Name]</span></strong> recognizes that in any growing Company management personnel often have to fill more than one role. 
+            <strong><span class="display-co-name">[Company Name]</span></strong> currently has everything covered and feels confident that each task is being handled competently by management. 
+            The management team is well compensated. <strong><span class="display-co-name">[Company Name]</span></strong> has a team that has considerable experience together and shares knowledge in many different fields of business and in life.
+        </p>
+
+        <div class="footer-info">
+            <span>Section 15 | Management</span>
+            <span>Page 15</span>
+        </div>
+    </div>
+
+    <!-- PAGE 16: PERSONNEL PLAN -->
+    <div class="page">
+        <h2>Personnel Plan</h2>
+        <p>
+            Management has adopted an effective interview process designed to staff the daycare center with highly qualified people for each position. 
+            Each applicant will be rated and evaluated according to a pre-defined set of standards designed for each position. 
+            Background checks will be utilized for designated positions. Recruiting efforts will always center on referrals.
+        </p>
+        <p>
+            <strong><span class="display-co-name">[Company Name]</span></strong> knows the personnel plan is in good proportion to the size of the daycare center and projected revenues. 
+            The staff will include both full-time employees and part-time employees, who will work various shifts based on peak hours and need.
+        </p>
+
+        <h3>Functional Roles</h3>
+        <p>In order to execute on <strong><span class="display-co-name">[Company Name]</span></strong>’s business model, the Company needs to fill the following positions:</p>
+        <div class="grid-2">
+            <ul>
+                <li>Daycare Director</li>
+                <li>Center Manager</li>
+                <li>Administrative Assistant</li>
+                <li>Childcare Worker</li>
+                <li>Preschool Teacher</li>
+            </ul>
+            <ul>
+                <li>Teacher / Assistant / Aide</li>
+                <li>Tutor</li>
+                <li>Monitor</li>
+                <li>Au Pair / Babysitter / Nanny</li>
+            </ul>
+        </div>
+        <p>
+            High quality programs are very important to management. The management and teachers will handle every detail to make sure the clients children’s experience is fun, learning, and a safe environment. 
+            All this and the great atmosphere will make customers want to tell their friends about their experience.
+        </p>
+
+        <div class="footer-info">
+            <span>Section 16 | Personnel</span>
+            <span>Page 16</span>
+        </div>
+    </div>
+
+    <!-- PAGE 17: MARKET SIZE & TRENDS -->
+    <div class="page">
+        <h2>Market Size & Trends</h2>
+        <div class="instruction">(Insert as many or as few examples, reports, stats, or tends as you want, just make sure to add the sources in the text or footnote.)</div>
+        
+        <p><strong>Example 1:</strong></p>
+        <p>U.S. daycare center industry sales will reach a record high of $863 billion this year, up 3.6% over last year, according to a report released today by the National Daycare center Association.</p>
+
+        <h3>Local Demographics</h3>
+        <p><em>(You can use the census, census quick-facts, or online search to discover demographics in the city or county in which your establishment resides)</em></p>
+        
+        <p><strong>Example Demographics profile (Las Vegas, Nevada):</strong></p>
+        <p>Las Vegas is the most populous city in Nevada and an internationally renowned resort city known for gambling, shopping, fine dining, and its nightlife. Billed as the Entertainment Capital of the World, Las Vegas is quickly transforming into a favorite family and retirement city as well, and it is now the 31st most populous city in the state. In 2016, the city had an estimated population of over 600,000 residents.</p>
+
+        <p>According to the most recent ACS, the racial composition of Las Vegas was:</p>
+        <div class="grid-2">
+            <ul>
+                <li>White: 62.17%</li>
+                <li>Other race: 12.47%</li>
+                <li>Black or African American: 12.17%</li>
+            </ul>
+            <ul>
+                <li>Asian: 6.62%</li>
+                <li>Two or more races: 4.86%</li>
+                <li>Native American: 0.92%</li>
+            </ul>
+        </div>
+
+        <div class="footer-info">
+            <span>Section 17 | Market Trends</span>
+            <span>Page 17</span>
+        </div>
+    </div>
+
+    <!-- PAGE 18: TARGET MARKET -->
+    <div class="page">
+        <h2>Target Market</h2>
+        <p><strong><span class="display-co-name">[Company Name]</span></strong> focuses on <input type="text" class="inline-input" placeholder="________">. Such as, <input type="text" class="inline-input" placeholder="______________">.</p>
+        <p><em>(Example: ABC daycare center focuses on Single Parents and Two-Income Households.)</em></p>
+
+        <h3>Primary Customer Base</h3>
+        <p>The target market is:</p>
+        <ul>
+            <li><input type="text" class="inline-input" value="[insert]"></li>
+            <li><input type="text" class="inline-input" value="[insert]"></li>
+        </ul>
+        <p><em>(Example: Who your customers will be and where will you target them? I.e. After School Tutoring, Pre-K Students, Working Parents)</em></p>
+
+        <div class="footer-info">
+            <span>Section 18 | Target Market</span>
+            <span>Page 18</span>
+        </div>
+    </div>
+
+    <!-- PAGE 19: MARKETING STRATEGY -->
+    <div class="page">
+        <h2>Marketing Strategy</h2>
+        <p>
+            <strong><span class="display-co-name">[Company Name]</span></strong> will use several marketing methods that will lead to finding more customers/clients in the area. 
+            The company will concentrate on developing a strong reputation of being the best day care center in <strong><span class="display-location">[City or County]</span></strong>.
+        </p>
+        <p>
+            <strong><span class="display-co-name">[Company Name]</span></strong> will direct all of our marketing efforts toward the goal of explaining who 
+            <strong><span class="display-co-name">[Company Name]</span></strong> is and what <strong><span class="display-co-name">[Company Name]</span></strong> does. 
+            <strong><span class="display-co-name">[Company Name]</span></strong> will keep our standards high and execute the concept so that word-of-mouth will be the main marketing force.
+        </p>
+
+        <h3>Marketing Methods</h3>
+        <div class="grid-2">
+            <ul>
+                <li>Grand Opening Celebration</li>
+                <li>Advertising & Local Media</li>
+                <li>Emails & Flyers</li>
+                <li>Mobile Marketing</li>
+            </ul>
+            <ul>
+                <li>Networking / PR</li>
+                <li>Social Media</li>
+                <li>Website Design</li>
+                <li>Word-of-Mouth</li>
+            </ul>
+        </div>
+
+        <p>
+            While the Company is not striving to be the lowest-priced day care center, <strong><span class="display-co-name">[Company Name]</span></strong> is aiming to be the 
+            <input type="text" class="inline-input" placeholder="i.e. educational programs, fun, and safe environment">.
+        </p>
+
+        <div class="footer-info">
+            <span>Section 19 | Marketing Strategy</span>
+            <span>Page 19</span>
+        </div>
+    </div>
+
+    <!-- PAGE 20: WEB & SALES PLAN -->
+    <div class="page">
+        <h2>Digital & Sales Operations</h2>
+        
+        <h3>Web Plan</h3>
+        <p><strong><span class="display-co-name">[Company Name]</span></strong> will have a website.</p>
+        <p><strong>URL:</strong> <span class="display-url">_______________</span></p>
+        <p>
+            The site will be the virtual business card and portfolio for the company, simple, classy, and well designed. 
+            It will offer the list of educational programs services, prices, reviews, and happenings at <strong><span class="display-co-name">[Company Name]</span></strong>.
+        </p>
+
+        <h3>Sales Strategy</h3>
+        <p>
+            The sales plan is to establish and maintain position with the local customers. The strategy is to build more clients in order to increase revenue and new business. 
+            The Company will focus on making all clients happy with the educational programs, convenient hours of operations and add services.
+        </p>
+
+        <h3>Positioning</h3>
+        <p>
+            <strong><span class="display-co-name">[Company Name]</span></strong> takes the position that its primary role in the marketplace is being a provider of top quality, 
+            <strong>[educational programs, fun & safe environment]</strong> daycare center for <input type="text" class="inline-input" placeholder="i.e. single parents and double income parents, etc.">.
+        </p>
+
+        <div class="footer-info">
+            <span>Section 20 | Operations</span>
+            <span>Page 20</span>
+        </div>
+    </div>
+
+    <!-- PAGE 21: FUNDING & BUDGET -->
+    <div class="page">
+        <h2>Funding & Use of Funds</h2>
+        
+        <h3>Funding Requirement</h3>
+        <p>
+            <strong>[$Amount]</strong> of funding is needed over the next year for <strong>[Insert uses here]</strong>. 
+            Total costs will be $ <input type="text" class="inline-input" placeholder="____">, $ <input type="text" class="inline-input" placeholder="____"> 
+            of which will be contributed by the <strong><span class="display-owner">[owner(s)]</span></strong> and the remainder will be secured through 
+            <input type="text" class="inline-input" placeholder="i.e. a proposed bank loan, SBA, grant, etc.">.
+        </p>
+        <p>OR</p>
+        <p><strong>[No funding is needed at this time. The owners have provided the company with sufficient capital.]</strong></p>
+
+        <h3>Use of Funds / Budget</h3>
+        <table>
+            <thead>
+                <tr><th>Category</th><th>Budget</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Building / Lease Hold</td><td>$ <input type="text" value="___"></td></tr>
+                <tr><td>Rugs or play mats</td><td>$ <input type="text" value="___"></td></tr>
+                <tr><td>Cribs and sheets</td><td>$ <input type="text" value="___"></td></tr>
+                <tr><td>Changing tables and pads</td><td>$ <input type="text" value="___"></td></tr>
+                <tr><td>Tables and chairs</td><td>$ <input type="text" value="___"></td></tr>
+                <tr><td>Storage cabinets, shelves, bins</td><td>$ <input type="text" value="___"></td></tr>
+                <tr><td>Play equipment, toys, art supplies</td><td>$ <input type="text" value="___"></td></tr>
+                <tr><td>Books and educational materials</td><td>$ <input type="text" value="___"></td></tr>
+                <tr><td>First-aid kits</td><td>$ <input type="text" value="___"></td></tr>
+                <tr><td>Kitchen utensils, microwave, refrigerator</td><td>$ <input type="text" value="___"></td></tr>
+                <tr><td>Insurance / Legal / Marketing / Renovations</td><td>$ <input type="text" value="___"></td></tr>
+                <tr><td>Technology / Working capital</td><td>$ <input type="text" value="___"></td></tr>
+            </tbody>
+        </table>
+
+        <div class="footer-info">
+            <span>Section 21 | Finance</span>
+            <span>Page 21</span>
+        </div>
+    </div>
+
+    <!-- PAGE 22: EXIT & CONCLUSION -->
+    <div class="page">
+        <h2>Conclusion & Future</h2>
+        
+        <h3>Exit Strategy</h3>
+        <p>
+            <strong><span class="display-co-name">[Company Name]</span></strong> is <input type="text" class="inline-input" placeholder="I.e. not looking to exit at this time, looking to sell in 5-10 years, looking to franchise, etc.">.
+        </p>
+
+        <br>
+        <p><em>Thank you for reading.</em></p>
+        <p><strong><span class="display-co-name">[Company Name]</span></strong> would like to <input type="text" style="width: 60%;" placeholder="_________. (I.e. introduce center)"></p>
+        
+        <p>
+            This business plan contains an overview of all the planning that is required for this business. Location, staff, food, and service quality etc. are some important aspects that the 
+            <strong><span class="display-owner">[owner(s)]</span></strong> of the daycare center will focus on. Strategic plans for marketing, human resources, and educational programs will be prepared as mentioned above.
+        </p>
+
+        <p>
+            With the growing demand for high-quality day care service, <strong><span class="display-co-name">[Company Name]</span></strong> will capitalize on its proximity to 
+            <strong><span class="display-location">[Location]</span></strong> to build a core group of new clients. 
+            The <strong><span class="display-owner">[owner(s)]</span></strong> believe that this concept will provide 
+            <input type="text" class="inline-input" placeholder="______ (i.e. new, updated, superior)"> experiences to the local families.
+        </p>
+
+        <p><strong><span class="display-co-name">[Company Name]</span></strong> values your time, and hopes to make an impact in the community in which we serve.</p>
+
+        <div class="footer-info">
+            <span>Section 22 | Conclusion</span>
+            <span>Page 22</span>
+        </div>
+    </div>
+
+    <!-- PAGE 23: APPENDIX -->
+    <div class="page">
+        <h2>Appendix</h2>
+        
+        <h3>Financial Plan</h3>
+        <ul>
+            <li>Summary/Use of Funds</li>
+            <li>Assumptions</li>
+            <li>Income Statement / Profit & Loss Statement</li>
+            <li>Cash Flow Statement / Balance Sheet</li>
+            <li>Breakeven Analysis</li>
+        </ul>
+
+        <h3>State Licensing Requirements</h3>
+        <p>State Licensing Requirements Example and Links:</p>
+        <p><a href="https://www.daycare.com/states.html" style="color: var(--primary);">https://www.daycare.com/states.html</a></p>
+
+        <h3>Other Supporting Documentation</h3>
+        <ul>
+            <li>Owner Resume(s) and Credentials</li>
+            <li>Business License and Insurance</li>
+            <li>Lease Agreement</li>
+            <li>Facility Blueprints / Design Concepts</li>
+        </ul>
+
+        <div class="footer-info">
+            <span>Section 23 | Appendix</span>
+            <span>Page 23</span>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const syncMap = [
+        { sel: '.sync-co-name', disp: '.display-co-name' },
+        { sel: '.sync-owner', disp: '.display-owner' },
+        { sel: '.sync-location', disp: '.display-location' },
+        { sel: '.sync-addr', disp: '.display-addr' },
+        { sel: '.sync-url', disp: '.display-url' },
+        { sel: '.sync-city', disp: '.display-city' }
+    ];
+
+    syncMap.forEach(map => {
+        const inputs = document.querySelectorAll(map.sel);
+        const displays = document.querySelectorAll(map.disp);
+
+        inputs.forEach(input => {
+            input.addEventListener('input', (e) => {
+                const val = e.target.value || "[Enter Value]";
+                inputs.forEach(inp => { if(inp !== e.target) inp.value = e.target.value; });
+                displays.forEach(d => { d.textContent = val; });
+            });
+        });
+    });
+</script>
+</body>
+</html>

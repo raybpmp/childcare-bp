@@ -63,7 +63,7 @@ export function MobileNav() {
                 <SheetFooter className="border-t border-gray-200 pt-4">
                     <SheetClose asChild>
                         <a
-                            href="#calculator"
+                            href="/#calculator"
                             className="w-full inline-flex items-center justify-center rounded-full bg-teal-600 hover:bg-teal-700 text-white text-sm font-medium px-5 py-3 shadow-lg shadow-teal-600/20 transition-all"
                         >
                             See What I Can Make Today

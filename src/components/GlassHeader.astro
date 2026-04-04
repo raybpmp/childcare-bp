@@ -1,5 +1,5 @@
 ---
-import { Button } from '@/components/ui/button';
+import { UserNav } from '@/components/auth/UserNav';
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 p-4">
@@ -25,9 +25,7 @@ import { Button } from '@/components/ui/button';
       </a>
     </div>
 
-    <!-- CTA Button -->
-    <Button className="rounded-full bg-teal-600 hover:bg-teal-700 text-white shadow-lg shadow-teal-600/20">
-      Get the Toolkit
-    </Button>
+    <!-- User Navigation -->
+    <UserNav client:load />
   </nav>
 </header>

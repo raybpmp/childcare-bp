@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import { Separator } from "@/components/ui/separator";
 import { MobileNav } from "@/components/MobileNav";
+import { UserNav } from "@/components/auth/UserNav";
 
 interface Props {
 	title: string;
@@ -72,18 +73,9 @@ const {
 					>
 						Blog
 					</a>
-					<a
-						href="https://portal.childcarebusinessplan.com"
-						class="text-sm font-medium text-gray-700 hover:text-teal-600 transition-colors"
-					>
-						Login
-					</a>
-					<a
-						href="/#calculator"
-						class="inline-flex items-center justify-center rounded-full bg-teal-600 hover:bg-teal-700 text-white text-sm font-medium px-5 py-2.5 shadow-lg shadow-teal-600/20 transition-all hover:shadow-xl hover:shadow-teal-600/30"
-					>
-						See What I Can Make Today
-					</a>
+					
+					<!-- User Navigation -->
+					<UserNav client:load />
 				</div>
 
 				<!-- Mobile nav -->
@@ -242,5 +234,6 @@ const {
 				</p>
 			</div>
 		</footer>
+		<!-- No additional scripts needed for navigation; UserNav handles auth state reactively. -->
 	</body>
 </html>

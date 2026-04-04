@@ -3,6 +3,8 @@ import { renderBaseLayout, COLORS } from './templates/layout';
 import { launchpadTemplate } from './templates/welcome/launchpad';
 import { directorTemplate } from './templates/welcome/director';
 import { ceoTemplate } from './templates/welcome/ceo';
+import { portalWelcomeTemplate } from './templates/welcome/portal';
+import { portalMemberAlertTemplate } from './templates/alerts/portal-member';
 
 // --- CONFIGURATION ---
 const POSTMARK_TOKEN = '57242712-82f9-4c43-b918-25287f04f82b';

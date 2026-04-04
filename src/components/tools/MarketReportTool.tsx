@@ -27,7 +27,7 @@ interface CountyData {
   oneraceW: string;
   prF: string;
   totalpop: string;
-  
+
   infantCenter: CareTypeData;
   infantHome: CareTypeData;
   toddlerCenter: CareTypeData;
@@ -60,7 +60,8 @@ export default function MarketReportTool() {
   const [loading, setLoading] = useState(true);
   const [dataLoading, setDataLoading] = useState(false);
   const [counties, setCounties] = useState<CountyListItem[]>([]);
-  
+  const [allData, setAllData] = useState<CountyData[]>([]);
+
   // Selection State
   const [selectedState, setSelectedState] = useState<string>('');
   const [selectedCounty, setSelectedCounty] = useState<string>('');
@@ -73,19 +74,72 @@ export default function MarketReportTool() {
   const [stateOpen, setStateOpen] = useState(false);
   const [countyOpen, setCountyOpen] = useState(false);
 
+  const parseCSV = (content: string): CountyData[] => {
+    const cleanContent = content.replace(/^\uFEFF/, '');
+    const lines = cleanContent.trim().split('\n');
+    if (lines.length < 2) return [];
+    
+    const headers = lines[0].split(',').map(h => h.trim());
+    
+    return lines.slice(1).map(line => {
+      const values = line.split(',').map(v => v.trim());
+      const row: any = {};
+      
+      headers.forEach((header, index) => {
+        const val = values[index] || "";
+        switch (header) {
+          case "County Fips Code": row.fipsCode = val; break;
+          case "State Name": row.stateName = val; break;
+          case "County Name": row.countyName = val; break;
+          case "Flfpr 20To64": row.flfpr = val; break;
+          case "Fme 2022": row.fme2022 = val; break;
+          case "Hispanic": row.hispanic = val; break;
+          case "Mfi": row.mfi = val; break;
+          case "Onerace A": row.oneraceA = val; break;
+          case "Onerace B": row.oneraceB = val; break;
+          case "Onerace W": row.oneraceW = val; break;
+          case "Pr F": row.prF = val; break;
+          case "Totalpop": row.totalpop = val; break;
+        }
+      });
+
+      const getVal = (h: string) => values[headers.indexOf(h)] || "0";
+
+      row.infantCenter = { p22: getVal("Infant Center 2022"), p24: getVal("Infant Center 2024"), share: getVal("Infant Center Faminc") };
+      row.infantHome = { p22: getVal("Infant Home 2022"), p24: getVal("Infant Home 2024"), share: getVal("Infant Home Faminc") };
+      row.toddlerCenter = { p22: getVal("Toddler Center 2022"), p24: getVal("Toddler Center 2024"), share: getVal("Toddler Center Faminc") };
+      row.toddlerHome = { p22: getVal("Toddler Home 2022"), p24: getVal("Toddler Home 2024"), share: getVal("Toddler Home Faminc") };
+      row.preschoolCenter = { p22: getVal("Preschool Center 2022"), p24: getVal("Preschool Center 2024"), share: getVal("Preschool Center Faminc") };
+      row.preschoolHome = { p22: getVal("Preschool Home 2022"), p24: getVal("Preschool Home 2024"), share: getVal("Preschool Home Faminc") };
+      row.schoolageCenter = { p22: getVal("Schoolage Center 2022"), p24: getVal("Schoolage Center 2024"), share: getVal("Schoolage Center Faminc") };
+      row.schoolageHome = { p22: getVal("Schoolage Home 2022"), p24: getVal("Schoolage Home 2024"), share: getVal("Schoolage Home Faminc") };
+
+      return row as CountyData;
+    });
+  };
+
   useEffect(() => {
-    async function fetchCounties() {
+    async function initData() {
       try {
-        const res = await fetch('/api/market-data');
-        const data = await res.json();
-        setCounties(data);
+        const res = await fetch('/data/comprehensive.csv');
+        const text = await res.text();
+        const parsed = parseCSV(text);
+        setAllData(parsed);
+        
+        const list = parsed.map(d => ({
+          state: d.stateName,
+          county: d.countyName,
+          fips: d.fipsCode
+        })).sort((a, b) => a.state.localeCompare(b.state) || a.county.localeCompare(b.county));
+        
+        setCounties(list);
       } catch (err) {
-        console.error("Failed to fetch counties:", err);
+        console.error("Failed to load market data:", err);
       } finally {
         setLoading(false);
       }
     }
-    fetchCounties();
+    initData();
   }, []);
 
   const states = useMemo(() => {
@@ -106,16 +160,20 @@ export default function MarketReportTool() {
   const generateReport = async () => {
     if (!selectedState || !selectedCounty) return;
     setDataLoading(true);
-    try {
-      const res = await fetch(`/api/market-data?state=${encodeURIComponent(selectedState)}&county=${encodeURIComponent(selectedCounty)}`);
-      const data = await res.json();
-      setReportData(data);
+    
+    // Artificial delay for UX feel, but logic is local
+    await new Promise(resolve => setTimeout(resolve, 600));
+    
+    const result = allData.find(d => 
+      d.stateName === selectedState && d.countyName === selectedCounty
+    );
+    
+    if (result) {
+      setReportData(result);
       setShowResults(true);
-    } catch (err) {
-      console.error("Failed to fetch report:", err);
-    } finally {
-      setDataLoading(false);
     }
+    
+    setDataLoading(false);
   };
 
   const reset = () => {
@@ -153,15 +211,15 @@ export default function MarketReportTool() {
         <h1 className="text-2xl font-bold text-center mb-8 text-gray-900 tracking-tight">
           Market Intelligence Tool
         </h1>
-        
+
         <Card className="glass-panel">
           <CardContent className="p-6 space-y-6">
             <div className="bg-teal-50 p-4 rounded-xl border border-teal-100 flex items-center gap-3">
               <div className="bg-white p-2 rounded-lg shadow-sm border border-teal-100 items-center justify-center flex text-xl">
-                 📊
+                📊
               </div>
               <p className="text-sm font-medium text-teal-900 leading-tight">
-                 Access comprehensive <b>Latest Federal Data</b> price projections and demographics for any US county.
+                Access comprehensive <b>Latest Federal Data</b> price projections and demographics for any US county.
               </p>
             </div>
 
@@ -176,28 +234,28 @@ export default function MarketReportTool() {
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-1 bg-white shadow-2xl border-teal-100" align="start">
-                     <div className="p-2 border-b">
-                        <div className="relative">
-                          <MagnifyingGlassIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
-                          <Input 
-                            placeholder="Search..." 
-                            className="pl-9 h-9 border-none bg-gray-50/50 focus-visible:ring-0"
-                            value={stateSearch}
-                            onChange={(e) => setStateSearch(e.target.value)}
-                          />
-                        </div>
-                     </div>
-                     <div className="max-h-[300px] overflow-y-auto p-1 custom-scrollbar">
-                        {filteredStates.map(s => (
-                          <button
-                            key={s}
-                            onClick={() => { setSelectedState(s); setSelectedCounty(''); setStateOpen(false); setStateSearch(''); }}
-                            className="w-full flex items-center justify-between px-3 py-3 text-left text-sm font-bold rounded-md hover:bg-teal-50"
-                          >
-                            {s} {selectedState === s && <CheckIcon className="h-4 w-4 text-teal-600" />}
-                          </button>
-                        ))}
-                     </div>
+                    <div className="p-2 border-b">
+                      <div className="relative">
+                        <MagnifyingGlassIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
+                        <Input
+                          placeholder="Search..."
+                          className="pl-9 h-9 border-none bg-gray-50/50 focus-visible:ring-0"
+                          value={stateSearch}
+                          onChange={(e) => setStateSearch(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                    <div className="max-h-[300px] overflow-y-auto p-1 custom-scrollbar">
+                      {filteredStates.map(s => (
+                        <button
+                          key={s}
+                          onClick={() => { setSelectedState(s); setSelectedCounty(''); setStateOpen(false); setStateSearch(''); }}
+                          className="w-full flex items-center justify-between px-3 py-3 text-left text-sm font-bold rounded-md hover:bg-teal-50"
+                        >
+                          {s} {selectedState === s && <CheckIcon className="h-4 w-4 text-teal-600" />}
+                        </button>
+                      ))}
+                    </div>
                   </PopoverContent>
                 </Popover>
               </div>
@@ -212,34 +270,34 @@ export default function MarketReportTool() {
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-1 bg-white shadow-2xl border-teal-100" align="start">
-                     <div className="p-2 border-b">
-                        <div className="relative">
-                          <MagnifyingGlassIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
-                          <Input 
-                            placeholder="Search..." 
-                            className="pl-9 h-9 border-none bg-gray-50/50 focus-visible:ring-0"
-                            value={countySearch}
-                            onChange={(e) => setCountySearch(e.target.value)}
-                          />
-                        </div>
-                     </div>
-                     <div className="max-h-[300px] overflow-y-auto p-1 custom-scrollbar">
-                        {filteredCounties.map(c => (
-                          <button
-                            key={c.fips}
-                            onClick={() => { setSelectedCounty(c.county); setCountyOpen(false); setCountySearch(''); }}
-                            className="w-full flex items-center justify-between px-3 py-3 text-left text-sm font-bold rounded-md hover:bg-teal-50"
-                          >
-                            {c.county} {selectedCounty === c.county && <CheckIcon className="h-4 w-4 text-teal-600" />}
-                          </button>
-                        ))}
-                     </div>
+                    <div className="p-2 border-b">
+                      <div className="relative">
+                        <MagnifyingGlassIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
+                        <Input
+                          placeholder="Search..."
+                          className="pl-9 h-9 border-none bg-gray-50/50 focus-visible:ring-0"
+                          value={countySearch}
+                          onChange={(e) => setCountySearch(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                    <div className="max-h-[300px] overflow-y-auto p-1 custom-scrollbar">
+                      {filteredCounties.map(c => (
+                        <button
+                          key={c.fips}
+                          onClick={() => { setSelectedCounty(c.county); setCountyOpen(false); setCountySearch(''); }}
+                          className="w-full flex items-center justify-between px-3 py-3 text-left text-sm font-bold rounded-md hover:bg-teal-50"
+                        >
+                          {c.county} {selectedCounty === c.county && <CheckIcon className="h-4 w-4 text-teal-600" />}
+                        </button>
+                      ))}
+                    </div>
                   </PopoverContent>
                 </Popover>
               </div>
             </div>
 
-            <Button 
+            <Button
               onClick={generateReport}
               disabled={!selectedCounty || dataLoading}
               className="w-full h-14 bg-teal-600 hover:bg-teal-700 text-lg font-black uppercase shadow-xl shadow-teal-600/20"
@@ -248,7 +306,7 @@ export default function MarketReportTool() {
             </Button>
 
             <p className="text-[10px] text-gray-400 text-center uppercase tracking-widest font-black pt-2 leading-relaxed">
-              Based on U.S. Dept of Labor Women’s Bureau<br/>Latest Federal Report
+              Based on U.S. Dept of Labor Women’s Bureau<br />Latest Federal Report
             </p>
           </CardContent>
         </Card>
@@ -271,26 +329,26 @@ export default function MarketReportTool() {
       <Card className="glass-panel border-teal-100/40 shadow-xl">
         <CardContent className="p-6 space-y-6">
           <div className="text-center space-y-1 mb-2">
-             <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Selected Care Format</p>
-             <h3 className="text-xl font-black text-teal-700 uppercase tracking-tight">{currentType.label}</h3>
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Selected Care Format</p>
+            <h3 className="text-xl font-black text-teal-700 uppercase tracking-tight">{currentType.label}</h3>
           </div>
-          
+
           <div className="px-2 pt-2 relative">
-            <Slider 
-              value={typeIndex} 
+            <Slider
+              value={typeIndex}
               onValueChange={setTypeIndex}
-              min={0} 
-              max={7} 
+              min={0}
+              max={7}
               step={1}
               className="py-4"
             />
           </div>
-          
+
           <div className="flex justify-between items-center px-1 text-[9px] font-black text-gray-300 uppercase tracking-[0.2em]">
-             <span className={typeIndex[0] < 2 ? "text-teal-500" : ""}>Infants</span>
-             <span className={typeIndex[0] >= 2 && typeIndex[0] < 4 ? "text-teal-500" : ""}>Toddlers</span>
-             <span className={typeIndex[0] >= 4 && typeIndex[0] < 6 ? "text-teal-500" : ""}>Preschool</span>
-             <span className={typeIndex[0] >= 6 ? "text-teal-500" : ""}>Schoolage</span>
+            <span className={typeIndex[0] < 2 ? "text-teal-500" : ""}>Infants</span>
+            <span className={typeIndex[0] >= 2 && typeIndex[0] < 4 ? "text-teal-500" : ""}>Toddlers</span>
+            <span className={typeIndex[0] >= 4 && typeIndex[0] < 6 ? "text-teal-500" : ""}>Preschool</span>
+            <span className={typeIndex[0] >= 6 ? "text-teal-500" : ""}>Schoolage</span>
           </div>
         </CardContent>
       </Card>
@@ -303,42 +361,42 @@ export default function MarketReportTool() {
         </h4>
         <Card className="glass-panel">
           <CardContent className="p-6 space-y-6">
-             <div className="text-center py-2">
-                <motion.div 
-                  key={currentType.id}
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-5xl font-black text-teal-600 tracking-tighter"
-                >
-                  {formatCurrency(currentPriceData.p24)}
-                </motion.div>
-                <p className="text-xs font-bold text-gray-500 mt-2 uppercase tracking-widest">Estimated Price (Latest Federal Data)</p>
-             </div>
+            <div className="text-center py-2">
+              <motion.div
+                key={currentType.id}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-5xl font-black text-teal-600 tracking-tighter"
+              >
+                {formatCurrency(currentPriceData.p24)}
+              </motion.div>
+              <p className="text-xs font-bold text-gray-500 mt-2 uppercase tracking-widest">Estimated Price (Latest Federal Data)</p>
+            </div>
 
-             <div className="grid grid-cols-2 gap-3">
-                <div className="glass-panel-warm p-4 rounded-2xl text-center">
-                   <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1 leading-tight">Median Yearly Price<br/>(Latest Report)</p>
-                   <p className="text-xl font-bold text-gray-900 tracking-tight">{formatCurrency(currentPriceData.p22)}</p>
-                </div>
-                <div className="glass-panel-warm p-4 rounded-2xl text-center">
-                   <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1 leading-tight">Family Income<br/>Share</p>
-                   <p className="text-xl font-bold text-teal-600 tracking-tight">{currentPriceData.share}</p>
-                </div>
-             </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="glass-panel-warm p-4 rounded-2xl text-center">
+                <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1 leading-tight">Median Yearly Price<br />(Latest Report)</p>
+                <p className="text-xl font-bold text-gray-900 tracking-tight">{formatCurrency(currentPriceData.p22)}</p>
+              </div>
+              <div className="glass-panel-warm p-4 rounded-2xl text-center">
+                <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1 leading-tight">Family Income<br />Share</p>
+                <p className="text-xl font-bold text-teal-600 tracking-tight">{currentPriceData.share}</p>
+              </div>
+            </div>
 
-             <div className="space-y-2 pt-2">
-                <div className="flex justify-between text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                   <span className="text-[9px]">Childcare price as share of median family income</span>
-                   <span className="text-teal-600">{currentPriceData.share}</span>
-                </div>
-                <div className="h-2 w-full bg-teal-50 rounded-full overflow-hidden border border-teal-100/50">
-                   <motion.div 
-                     initial={{ width: 0 }}
-                     animate={{ width: `${Math.min(parseFloat(currentPriceData.share) * 3, 100)}%` }} 
-                     className="h-full bg-teal-500 rounded-full"
-                   />
-                </div>
-             </div>
+            <div className="space-y-2 pt-2">
+              <div className="flex justify-between text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                <span className="text-[9px]">Childcare price as share of median family income</span>
+                <span className="text-teal-600">{currentPriceData.share}</span>
+              </div>
+              <div className="h-2 w-full bg-teal-50 rounded-full overflow-hidden border border-teal-100/50">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${Math.min(parseFloat(currentPriceData.share) * 3, 100)}%` }}
+                  className="h-full bg-teal-500 rounded-full"
+                />
+              </div>
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -350,10 +408,10 @@ export default function MarketReportTool() {
           County Economic Characteristics
         </h4>
         <div className="grid grid-cols-2 gap-3">
-           <MetricTile label="Women’s labor force participation rate" value={`${reportData?.flfpr}%`} />
-           <MetricTile label="Percent of families in poverty" value={`${reportData?.prF}%`} />
-           <MetricTile label="Women’s median earnings" value={formatCurrency(reportData?.fme2022 || "0")} />
-           <MetricTile label="Median family income" value={formatCurrency(reportData?.mfi || "0")} />
+          <MetricTile label="Women’s labor force participation rate" value={`${reportData?.flfpr}%`} />
+          <MetricTile label="Percent of families in poverty" value={`${reportData?.prF}%`} />
+          <MetricTile label="Women’s median earnings" value={formatCurrency(reportData?.fme2022 || "0")} />
+          <MetricTile label="Median family income" value={formatCurrency(reportData?.mfi || "0")} />
         </div>
       </div>
 
@@ -365,36 +423,36 @@ export default function MarketReportTool() {
         </h4>
         <Card className="glass-panel">
           <CardContent className="p-6 space-y-6">
-             <div className="flex justify-between items-center border-b border-teal-50 pb-4">
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">Total population</span>
-                <span className="text-3xl font-black text-gray-900 tracking-tighter">{new Intl.NumberFormat('en-US').format(parseInt(reportData?.totalpop || "0"))}</span>
-             </div>
+            <div className="flex justify-between items-center border-b border-teal-50 pb-4">
+              <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">Total population</span>
+              <span className="text-3xl font-black text-gray-900 tracking-tighter">{new Intl.NumberFormat('en-US').format(parseInt(reportData?.totalpop || "0"))}</span>
+            </div>
 
-             <div className="space-y-5 pt-1">
-                <div className="h-2 w-full flex rounded-full overflow-hidden border border-teal-100/30 shadow-inner">
-                   <div style={{ flex: parseFloat(reportData?.oneraceW || "0") }} className="bg-teal-600" />
-                   <div style={{ flex: parseFloat(reportData?.oneraceB || "0") }} className="bg-teal-500" />
-                   <div style={{ flex: parseFloat(reportData?.oneraceA || "0") }} className="bg-teal-400" />
-                   <div style={{ flex: parseFloat(reportData?.hispanic || "0") }} className="bg-teal-300" />
-                   <div className="bg-teal-100 flex-grow" />
-                </div>
+            <div className="space-y-5 pt-1">
+              <div className="h-2 w-full flex rounded-full overflow-hidden border border-teal-100/30 shadow-inner">
+                <div style={{ flex: parseFloat(reportData?.oneraceW || "0") }} className="bg-teal-600" />
+                <div style={{ flex: parseFloat(reportData?.oneraceB || "0") }} className="bg-teal-500" />
+                <div style={{ flex: parseFloat(reportData?.oneraceA || "0") }} className="bg-teal-400" />
+                <div style={{ flex: parseFloat(reportData?.hispanic || "0") }} className="bg-teal-300" />
+                <div className="bg-teal-100 flex-grow" />
+              </div>
 
-                <div className="grid grid-cols-2 gap-y-4 gap-x-6">
-                   <RaceItem color="bg-teal-600" label="Percent White" value={reportData?.oneraceW || "0"} />
-                   <RaceItem color="bg-teal-500" label="Percent Black" value={reportData?.oneraceB || "0"} />
-                   <RaceItem color="bg-teal-400" label="Percent Asian" value={reportData?.oneraceA || "0"} />
-                   <RaceItem color="bg-teal-300" label="Percent Hispanic (of any race)" value={reportData?.hispanic || "0"} />
-                </div>
-             </div>
+              <div className="grid grid-cols-2 gap-y-4 gap-x-6">
+                <RaceItem color="bg-teal-600" label="Percent White" value={reportData?.oneraceW || "0"} />
+                <RaceItem color="bg-teal-500" label="Percent Black" value={reportData?.oneraceB || "0"} />
+                <RaceItem color="bg-teal-400" label="Percent Asian" value={reportData?.oneraceA || "0"} />
+                <RaceItem color="bg-teal-300" label="Percent Hispanic (of any race)" value={reportData?.hispanic || "0"} />
+              </div>
+            </div>
           </CardContent>
         </Card>
       </div>
 
       <div className="pt-10 flex flex-col items-center">
-         <button onClick={reset} className="text-[10px] font-black text-teal-600 hover:text-teal-700 uppercase tracking-[0.3em] transition-colors py-4 px-8 bg-teal-50/50 rounded-full border border-teal-100">
-            ← SWITCH COUNTY
-         </button>
-         <p className="text-[9px] font-black text-gray-300 uppercase tracking-[0.5em] mt-10">ANTIGRAVITY MARKET DATA</p>
+        <button onClick={reset} className="text-[10px] font-black text-teal-600 hover:text-teal-700 uppercase tracking-[0.3em] transition-colors py-4 px-8 bg-teal-50/50 rounded-full border border-teal-100">
+          ← SWITCH COUNTY
+        </button>
+        <p className="text-[9px] font-black text-gray-300 uppercase tracking-[0.5em] mt-10">ANTIGRAVITY MARKET DATA</p>
       </div>
     </div>
   );
@@ -412,8 +470,8 @@ const RaceItem = ({ color, label, value }: any) => (
   <div className="flex items-center gap-3">
     <div className={`h-2.5 w-2.5 rounded-full ${color} shrink-0 shadow-sm`} />
     <div className="flex flex-col">
-       <span className="text-[9px] font-black text-gray-400 uppercase tracking-wider leading-none mb-1">{label}</span>
-       <span className="text-sm font-bold text-gray-800 tracking-tight">{parseFloat(value).toFixed(1)}%</span>
+      <span className="text-[9px] font-black text-gray-400 uppercase tracking-wider leading-none mb-1">{label}</span>
+      <span className="text-sm font-bold text-gray-800 tracking-tight">{parseFloat(value).toFixed(1)}%</span>
     </div>
   </div>
 );

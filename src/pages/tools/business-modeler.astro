@@ -1,0 +1,13 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import BusinessModeler from "../../components/tools/BusinessModeler";
+---
+
+<Layout
+	title="Cost of Starting a Daycare | Business Modeler"
+	description="Calculate the cost to open a daycare and your startup capital required with our childcare business modeler."
+>
+	<main class="min-h-screen py-12 px-4 pt-24">
+		<BusinessModeler client:load />
+	</main>
+</Layout>

@@ -13,6 +13,7 @@ import {
 
 const navLinks = [
     { href: "/childcarebusinessplans", label: "Plans" },
+    { href: "/tools", label: "Tools" },
     { href: "/blog", label: "Blog" },
     { href: "https://portal.childcarebusinessplan.com", label: "Login" },
 ];

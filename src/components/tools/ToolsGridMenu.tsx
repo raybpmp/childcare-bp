@@ -71,17 +71,17 @@ export const ToolsGridMenu = () => {
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     className="glass-panel-dark border border-white/20 rounded-[2rem] overflow-hidden shadow-2xl flex flex-col"
                 >
-                    <DialogHeader className="p-8 border-b border-white/10 bg-white/40 backdrop-blur-md">
-                        <DialogTitle className="text-2xl font-bold flex items-center gap-3 text-gray-900">
-                            <div className="w-10 h-10 rounded-xl bg-teal-600 flex items-center justify-center text-white shadow-lg">
-                                <Grid className="w-6 h-6" />
+                    <DialogHeader className="p-4 border-b border-white/10 bg-white/40 backdrop-blur-md">
+                        <DialogTitle className="text-lg font-bold flex items-center gap-2 text-gray-900">
+                            <div className="w-8 h-8 rounded-lg bg-teal-600 flex items-center justify-center text-white shadow-lg">
+                                <Grid className="w-5 h-5" />
                             </div>
-                            <span>Childcare Tools</span>
+                            <span className="uppercase tracking-tight">Childcare Business Tools</span>
                         </DialogTitle>
                     </DialogHeader>
 
-                    <div className="p-8 pb-10 bg-white/60 backdrop-blur-xl">
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="p-4 pb-6 bg-white/60 backdrop-blur-xl">
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                             <AnimatePresence>
                                 {tools.map((tool, index) => (
                                     <motion.div
@@ -93,26 +93,23 @@ export const ToolsGridMenu = () => {
                                         <DialogClose asChild>
                                             <a 
                                                 href={tool.href}
-                                                className="group relative flex flex-col items-center justify-between p-4 rounded-3xl bg-white/50 border border-white/40 hover:bg-white hover:shadow-xl hover:-translate-y-1 transition-all h-full text-center"
+                                                className="group relative flex flex-col items-center justify-between p-3 rounded-2xl bg-white/50 border border-white/40 hover:bg-white hover:shadow-xl hover:-translate-y-0.5 transition-all h-full text-center"
                                             >
                                                 <div className={`
-                                                    w-12 h-12 
-                                                    rounded-2xl 
+                                                    w-10 h-10 
+                                                    rounded-xl
                                                     ${tool.bg} ${tool.color} 
                                                     flex items-center justify-center 
-                                                    mb-4 
+                                                    mb-2
                                                     group-hover:scale-110 
                                                     transition-transform duration-300
                                                     shadow-sm
                                                 `}>
-                                                    <tool.icon className="w-6 h-6" />
+                                                    <tool.icon className="w-5 h-5" />
                                                 </div>
-                                                <span className="text-xs font-bold text-gray-800 leading-tight tracking-tight px-1">
+                                                <span className="text-[10px] font-black text-gray-800 leading-tight tracking-tight px-1 uppercase">
                                                     {tool.name}
                                                 </span>
-                                                <div className="mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                    <ChevronRight className="w-4 h-4 text-teal-600" />
-                                                </div>
                                             </a>
                                         </DialogClose>
                                     </motion.div>
@@ -121,17 +118,17 @@ export const ToolsGridMenu = () => {
                         </div>
                     </div>
 
-                    <div className="px-8 py-4 bg-gray-100/50 border-t border-white/10 flex items-center justify-between">
+                    <div className="px-4 py-3 bg-gray-100/50 border-t border-white/10 flex items-center justify-between">
                         <DialogClose asChild>
                             <a 
                                 href="/tools"
-                                className="text-xs font-bold text-teal-700 hover:text-teal-800 flex items-center gap-1 group"
+                                className="text-[10px] font-black text-teal-700 hover:text-teal-800 flex items-center gap-1 group uppercase tracking-wider"
                             >
-                                <span>Browse All Tools</span>
+                                <span>Browse All</span>
                                 <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                             </a>
                         </DialogClose>
-                        <span className="text-[10px] text-gray-400 font-medium uppercase tracking-widest">Premium Apps Suite</span>
+                        <span className="text-[9px] text-gray-400 font-bold uppercase tracking-widest">Premium Apps Suite</span>
                     </div>
                 </motion.div>
             </DialogContent>

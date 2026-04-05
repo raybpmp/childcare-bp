@@ -36,23 +36,23 @@
   --animate-fade-in: fade-in 0.6s ease-out forwards;
   --animate-slide-up: slide-up 0.8s ease-out forwards;
 
-  /* Mobile-First Typography Scale */
-  --text-base-mobile: 1.125rem;
-  /* 18px for readability on mobile */
+  /* Mobile-First Typography Scale - Ultra Density */
+  --text-base-mobile: 0.875rem;
+  /* 14px for pro-utility readability */
   --text-base-desktop: 1rem;
   /* 16px for desktop */
-  --line-height-relaxed: 1.75;
-  /* Easier reading for non-tech-savvy users */
+  --line-height-relaxed: 1.625;
+  /* Optimized for density */
 
-  /* Touch-Friendly Spacing */
-  --touch-target-min: 3rem;
-  /* 48px minimum touch target */
-  --spacing-section-mobile: 3rem;
-  /* 48px section spacing mobile */
-  --spacing-section-desktop: 5rem;
-  /* 80px section spacing desktop */
-  --spacing-component: 1.5rem;
-  /* 24px between components */
+  /* Touch-Friendly Spacing - Baseline Pro */
+  --touch-target-min: 2.5rem;
+  /* 40px minimum touch target */
+  --spacing-section-mobile: 0.75rem;
+  /* 12px section spacing mobile */
+  --spacing-section-desktop: 1.5rem;
+  /* 24px section spacing desktop */
+  --spacing-component: 0.75rem;
+  /* 12px between components */
 
   /* Glass Tokens for Warm Aesthetic */
   --color-glass-warm: rgba(255, 250, 245, 0.7);
@@ -212,7 +212,7 @@ body {
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: 0.375rem; /* Pro-Utility Sharp: 6px */
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -292,8 +292,71 @@ body {
 
 @layer components {
   /* 
+   * ULTRA-DENSITY PRO SYSTEM (WTR-LAB Standard)
+   */
+
+  .pro-section {
+    padding-top: var(--spacing-section-mobile);
+    padding-bottom: var(--spacing-section-mobile);
+  }
+
+  @media (min-width: 768px) {
+    .pro-section {
+      padding-top: var(--spacing-section-desktop);
+      padding-bottom: var(--spacing-section-desktop);
+    }
+  }
+
+  .pro-card {
+    padding: 0.625rem; /* 10px mobile */
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 0.5px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  @media (min-width: 768px) {
+    .pro-card {
+      padding: 1rem; /* 16px desktop */
+    }
+  }
+
+  .pro-icon-box {
+    width: 2rem; /* 32px */
+    height: 2rem;
+    border-radius: 0.375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @apply shadow-sm transition-transform active:scale-95;
+  }
+
+  .pro-grid-dense {
+    display: grid;
+    grid-template-cols: 1fr;
+    gap: 0.5rem; /* 8px mobile */
+  }
+
+  @media (min-width: 768px) {
+    .pro-grid-dense {
+      grid-template-cols: repeat(3, 1fr);
+      gap: 1.5rem; /* 24px desktop */
+    }
+  }
+
+  .pro-heading-dense {
+    @apply text-base font-bold text-gray-900 tracking-tight leading-tight;
+  }
+
+  .pro-text-meta {
+    font-size: 0.6875rem; /* 11px metadata */
+    @apply text-gray-400 font-medium tracking-wide uppercase;
+  }
+
+  /* 
    * SYSTEMIC KAIZEN: Blog Design System 
-   * exact extraction of existing styles to preserve visual fidelity 
    */
 
   .blog-hero-card {

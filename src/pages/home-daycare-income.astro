@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { Container } from "@/components/layout/Container";
 import HeroImage from "../components/ui/HeroImage.astro";
+import { ArrowRight } from "lucide-react";
 ---
 
 <Layout
@@ -9,67 +10,43 @@ import HeroImage from "../components/ui/HeroImage.astro";
     description="Home daycare income potential depends on your state's capacity limits, local market rates, and CACFP participation. Get personalized estimates for your situation."
 >
     <!-- HERO SECTION -->
-    <section class="pt-8 pb-12 md:pt-12 md:pb-20">
+    <section class="pro-section">
         <Container size="md">
             <HeroImage
                 src="/images/startup/home-daycare-income.webp"
                 alt="Cozy home-based learning environment representative of a successful home daycare business plan execution"
-                className="mb-8 md:mb-12"
+                className="mb-4 md:mb-12"
             />
-            <div class="text-center mb-8 md:mb-12">
-                <span
-                    class="inline-block px-3 py-1 rounded-full bg-teal-100 text-teal-700 text-xs font-semibold mb-3"
-                >
+            <div class="text-center">
+                <span class="pro-text-meta mb-2 block">
                     Income Insights
                 </span>
-                <h1
-                    class="text-2xl md:text-5xl font-bold text-gray-900 mb-4 md:mb-6"
-                >
+                <h1 class="text-xl md:text-5xl font-bold text-gray-900 mb-2 md:mb-6">
                     YOUR Income Potential
                 </h1>
-                <p class="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">
-                    Home daycare income isn't a fixed number—it's determined by
-                    your state's capacity regulations, your local market's rate
-                    structure, and your ability to maintain full enrollment.
+                <p class="text-sm md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                    Home daycare income isn't a fixed number—it's determined by your state's capacity regulations and local market rates.
                 </p>
             </div>
         </Container>
     </section>
 
     <!-- FACTORS SECTION -->
-    <section class="py-8 md:py-16">
+    <section class="pro-section bg-gray-50/50">
         <Container size="md">
-            <div
-                class="glass-panel rounded-2xl md:rounded-3xl p-6 md:p-10 mb-6 md:mb-8"
-            >
-                <h2
-                    class="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6"
-                >
+            <div class="pro-card mb-3 md:mb-8">
+                <h2 class="text-base md:text-2xl font-bold text-gray-900 mb-2 md:mb-6 uppercase tracking-wider">
                     What Affects Your Income
                 </h2>
-                <div
-                    class="space-y-4 text-sm md:text-base text-gray-600 leading-relaxed"
-                >
+                <div class="space-y-3 text-xs md:text-base text-gray-600 leading-relaxed font-medium">
                     <p>
-                        Your income ceiling is set by your state's capacity
-                        limits for family childcare providers. Some states allow
-                        12 children with an assistant, others cap you at 6
-                        without help. This single regulation can double or halve
-                        your maximum revenue.
+                        Your ceiling is set by state capacity limits for family providers. Some states allow 12 children with an assistant, others cap you at 6. This single rule can double or halve your revenue.
                     </p>
                     <p>
-                        Local market rates create the other half of the
-                        equation. Affluent suburbs might support premium pricing
-                        that dramatically increases your per-child revenue.
-                        Rural areas or lower-income communities might require
-                        competitive pricing that limits what you can charge.
+                        Local market rates create the other half of the equation. Affluent suburbs support premium pricing, while lower-income communities may require more competitive rates.
                     </p>
-                    <p>
-                        Additional revenue streams matter too. CACFP
-                        reimbursement for meals can add significant income for
-                        providers serving eligible families. Before and after
-                        school care, drop-in rates, and summer programs create
-                        opportunities beyond traditional full-time enrollment.
+                    <p class="hidden md:block">
+                        Additional streams like CACFP reimbursement can add significant income. Before/after school care and summer programs create opportunities beyond traditional enrollment.
                     </p>
                 </div>
             </div>
@@ -77,36 +54,18 @@ import HeroImage from "../components/ui/HeroImage.astro";
     </section>
 
     <!-- WHY GENERIC FAILS SECTION -->
-    <section class="py-8 md:py-16">
+    <section class="pro-section">
         <Container size="md">
-            <div class="glass-panel rounded-2xl md:rounded-3xl p-6 md:p-10">
-                <h2
-                    class="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6"
-                >
-                    Why Online Advice Often Conflicts
+            <div class="pro-card">
+                <h2 class="text-base md:text-2xl font-bold text-gray-900 mb-2 md:mb-6 uppercase tracking-wider">
+                    Why Online Advice Conflicts
                 </h2>
-                <div
-                    class="space-y-4 text-sm md:text-base text-gray-600 leading-relaxed"
-                >
+                <div class="space-y-3 text-xs md:text-base text-gray-600 leading-relaxed font-medium">
                     <p>
-                        Generic income estimates for home daycares range from
-                        barely minimum wage to six-figure incomes. Both are
-                        possible, but they describe completely different
-                        regulatory environments, market conditions, and business
-                        models.
+                        Generic estimates range from minimum wage to six-figures. Both are possible, but they describe completely different regulatory environments and business models.
                     </p>
                     <p>
-                        The median income statistics you find online blend
-                        together providers at different capacity levels, in
-                        different markets, with different enrollment rates. They
-                        can't tell you what's possible for you specifically.
-                    </p>
-                    <p>
-                        You need to see numbers that reflect your state's
-                        capacity limits, your local market rates, and realistic
-                        enrollment scenarios. That's the only way to evaluate
-                        whether a home daycare represents a viable income
-                        opportunity for you.
+                        Generic stats blend providers at different capacity levels and markets. They can't tell you what's possible for you specifically.
                     </p>
                 </div>
             </div>
@@ -114,25 +73,21 @@ import HeroImage from "../components/ui/HeroImage.astro";
     </section>
 
     <!-- CTA SECTION -->
-    <section class="py-12 md:py-20">
+    <section class="pro-section">
         <Container size="md">
-            <div
-                class="glass-panel rounded-2xl md:rounded-3xl p-6 md:p-10 text-center border-2 border-teal-200/50 bg-gradient-to-br from-teal-50/50 to-white/50"
-            >
-                <h2
-                    class="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4"
-                >
-                    See How Much YOU Could Make in Your State
+            <div class="pro-card text-center border-2 border-teal-200/50 bg-gradient-to-br from-teal-50/20 to-white/50">
+                <h2 class="text-base md:text-2xl font-bold text-gray-900 mb-2 md:mb-4">
+                    See YOUR Actual Potential
                 </h2>
-                <p class="text-sm md:text-base text-gray-600 mb-4 md:mb-6">
-                    Get your personalized income estimate based on your state's
-                    family daycare regulations and local market rates.
+                <p class="text-xs md:text-base text-gray-600 mb-3 md:mb-6">
+                    Get your personalized income estimate based on your state's family daycare regulations and local market rates.
                 </p>
                 <a
                     href="/#calculator"
-                    class="inline-flex items-center justify-center rounded-full bg-teal-600 hover:bg-teal-700 text-white font-medium px-6 py-3 md:px-8 md:py-4 shadow-lg transition-all text-sm md:text-base"
+                    class="inline-flex items-center gap-1.5 justify-center rounded-full bg-teal-600 hover:bg-teal-700 text-white font-bold px-5 py-2 md:px-8 md:py-4 shadow-lg transition-all text-xs md:text-base group"
                 >
-                    Use the Free Calculator →
+                    Use the Free Calculator
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                 </a>
             </div>
         </Container>

@@ -36,30 +36,26 @@ const featuredCover =
     title="Blog | Childcare Business Plan"
     description="Expert insights and strategies for childcare business owners"
 >
-    <!-- BLOG HEADER -->
-    <section class="pt-8 pb-4 md:pt-12 md:pb-8">
-        <Container size="lg">
-            <h1 class="text-3xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
-                Childcare Business Plan Blog
-            </h1>
-            <p class="text-lg text-gray-600 max-w-2xl font-medium tracking-tight">
-                Expert strategies and resources for growing your childcare business.
-            </p>
-        </Container>
-    </section>
+    <section class="px-4 pt-4 pb-12">
+        <div class="max-w-5xl mx-auto space-y-6">
+            <div>
+                <h1 class="pro-heading-dense">
+                    Childcare Business Plan Blog
+                </h1>
+                <p class="text-[11px] font-bold text-gray-400 uppercase tracking-widest mt-1">
+                    Expert strategies for growing your business
+                </p>
+            </div>
 
-    <!-- POSTS SECTION -->
-    <section id="posts" class="py-8 md:py-16">
-        <Container size="lg">
             <BlogFilters
                 client:load
                 posts={postsForFilters}
                 categories={categories}
             />
 
-            <div class="mt-12 md:mt-20">
+            <div class="mt-8">
                 <BlogCTA />
             </div>
-        </Container>
+        </div>
     </section>
 </Layout>

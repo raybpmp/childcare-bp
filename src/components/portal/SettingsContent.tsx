@@ -27,51 +27,46 @@ export const SettingsContent = () => {
     }
 
     return (
-        <div className="max-w-4xl mx-auto space-y-6">
+        <div className="max-w-4xl mx-auto space-y-4">
             <div>
-                <h1 className="text-2xl font-bold tracking-tight text-gray-900">Settings</h1>
-                <p className="text-gray-500">Manage your account settings and preferences.</p>
+                <h1 className="pro-heading-dense">Settings</h1>
+                <p className="pro-text-meta">Manage your account settings and preferences.</p>
             </div>
             
-            <div className="grid md:grid-cols-2 gap-6">
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Appearance</CardTitle>
-                        <CardDescription>Customize the look and feel</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                        <div className="flex items-center justify-between">
-                            <span className="text-sm font-medium text-gray-700">Collapse Sidebar</span>
-                            <input type="checkbox" className="rounded border-gray-300 text-teal-600 focus:ring-teal-500" />
-                        </div>
-                    </CardContent>
-                </Card>
+            <div className="grid md:grid-cols-2 gap-3">
+                <div className="pro-card glass-panel shadow-sm">
+                    <div className="border-b border-gray-100/50 pb-2 mb-3">
+                        <h3 className="text-xs font-black uppercase tracking-[0.2em] text-gray-900">Appearance</h3>
+                    </div>
+                    <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-bold text-gray-700">Collapse Sidebar</span>
+                        <input type="checkbox" className="rounded border-gray-300 text-teal-600 focus:ring-teal-500" />
+                    </div>
+                </div>
                 
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Notifications</CardTitle>
-                        <CardDescription>Manage notification preferences</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                        <div className="flex items-center justify-between">
-                            <span className="text-sm font-medium text-gray-700">Enable Notifications</span>
-                            <input type="checkbox" defaultChecked className="rounded border-gray-300 text-teal-600 focus:ring-teal-500" />
-                        </div>
-                    </CardContent>
-                </Card>
+                <div className="pro-card glass-panel shadow-sm">
+                    <div className="border-b border-gray-100/50 pb-2 mb-3">
+                        <h3 className="text-xs font-black uppercase tracking-[0.2em] text-gray-900">Notifications</h3>
+                    </div>
+                    <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-bold text-gray-700">Enable Push</span>
+                        <input type="checkbox" defaultChecked className="rounded border-gray-300 text-teal-600 focus:ring-teal-500" />
+                    </div>
+                </div>
 
-                <Card className="md:col-span-2 border-red-200">
-                    <CardHeader>
-                        <CardTitle className="text-red-600">Data Management</CardTitle>
-                        <CardDescription>Manage your stored data</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <p className="text-sm text-gray-700 mb-4">This will permanently delete all your profile data, settings, and activity history.</p>
-                        <Button variant="destructive" className="w-full">
-                            Clear All Data
+                <div className="md:col-span-2 pro-card glass-panel shadow-sm border-red-100/50">
+                    <div className="border-b border-red-50 pb-2 mb-3">
+                        <h3 className="text-xs font-black uppercase tracking-[0.2em] text-red-600">Danger Zone</h3>
+                    </div>
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <p className="text-[10px] font-bold text-gray-400 uppercase leading-relaxed max-w-sm">
+                            Permanently wipe profile, settings, and history. This action is irreversible.
+                        </p>
+                        <Button variant="destructive" className="h-9 px-6 text-[10px] font-black uppercase tracking-widest rounded-xl shadow-lg border-0">
+                            Wipe Account
                         </Button>
-                    </CardContent>
-                </Card>
+                    </div>
+                </div>
             </div>
         </div>
     );

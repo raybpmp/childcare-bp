@@ -5,10 +5,6 @@ import { Button } from '@/components/ui/button';
 
 /**
  * BusinessPlanApp — 3-Stage Lead-Gen Wizard
- *
- * LAYOUT: Full page, not a card-in-a-void.
- * - Top: swipeable preview of actual plan sections
- * - Below: form steps (name/email first, then optional enrichment)
  */
 
 interface FormData {
@@ -147,21 +143,20 @@ export default function BusinessPlanApp() {
     // ──────────── GENERATING ────────────
     if (appState === 'generating') {
         return (
-            <div className="max-w-md mx-auto px-4 py-16">
-                <Card className="glass-panel border-0 overflow-hidden">
-                    <CardContent className="p-8">
+            <div className="max-w-md mx-auto">
+                <div className="pro-card glass-panel shadow-sm space-y-4 py-12">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="flex flex-col items-center text-center"
+                    >
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="flex flex-col items-center text-center"
-                        >
-                            <motion.div
-                                animate={{ rotate: [0, 5, -5, 5, 0], scale: [1, 1.05, 1, 1.05, 1] }}
-                                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                                className="text-5xl mb-4"
-                            >📋</motion.div>
-                            <h2 className="text-xl font-bold text-gray-900 mb-1">Building Your Plan...</h2>
-                            <p className="text-gray-500 text-sm mb-6">This takes just a moment.</p>
+                            animate={{ rotate: [0, 5, -5, 5, 0], scale: [1, 1.05, 1, 1.05, 1] }}
+                            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                            className="text-4xl mb-4"
+                        >📋</motion.div>
+                        <h2 className="pro-heading-dense mb-1">Building Your Plan...</h2>
+                        <p className="pro-text-meta mb-4">This takes just a moment.</p>
                             <div className="space-y-3 w-full max-w-xs text-left mb-6">
                                 {LOADING_STEPS.map((s, i) => (
                                     <motion.div
@@ -177,12 +172,11 @@ export default function BusinessPlanApp() {
                                     </motion.div>
                                 ))}
                             </div>
-                            <div className="h-2 bg-gray-100 rounded-full overflow-hidden w-full">
-                                <motion.div className="h-full bg-gradient-to-r from-teal-500 to-emerald-500 rounded-full" initial={{ width: '0%' }} animate={{ width: '100%' }} transition={{ duration: 5, ease: 'easeInOut' }} />
-                            </div>
-                        </motion.div>
-                    </CardContent>
-                </Card>
+                        <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden w-full">
+                            <motion.div className="h-full bg-teal-600 rounded-full" initial={{ width: '0%' }} animate={{ width: '100%' }} transition={{ duration: 5, ease: 'easeInOut' }} />
+                        </div>
+                    </motion.div>
+                </div>
             </div>
         );
     }
@@ -190,14 +184,13 @@ export default function BusinessPlanApp() {
     // ──────────── SUCCESS ────────────
     if (appState === 'success') {
         return (
-            <div className="max-w-md mx-auto px-4 py-16">
-                <Card className="glass-panel border-0 overflow-hidden">
-                    <CardContent className="p-8">
-                        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center text-center">
-                            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 200, damping: 12 }} className="text-5xl mb-4">🎉</motion.div>
-                            <h2 className="text-2xl font-black text-gray-900 mb-2 tracking-tight">Your Plan is Ready!</h2>
-                            <p className="text-gray-500 text-sm mb-1">We sent a copy to <strong className="text-gray-700">{form.email}</strong></p>
-                            <p className="text-gray-400 text-xs mb-6">Check your inbox for the full 23-page PDF.</p>
+            <div className="max-w-md mx-auto">
+                <div className="pro-card glass-panel shadow-sm space-y-4 py-10">
+                    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center text-center">
+                        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 200, damping: 12 }} className="text-4xl mb-4">🎉</motion.div>
+                        <h2 className="pro-heading-dense mb-2">Your Plan is Ready!</h2>
+                        <p className="pro-text-meta mb-1">Sent to <strong className="text-gray-700">{form.email}</strong></p>
+                        <p className="text-[11px] text-gray-400 font-bold mb-4">Check your inbox for the full 23-page PDF.</p>
                             {pdfUrl && (
                                 <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={handleDownload}
                                     className="w-full py-4 px-6 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white text-lg font-bold rounded-2xl shadow-xl shadow-teal-600/20 transition-all min-h-[56px] flex items-center justify-center gap-3 mb-4"
@@ -208,26 +201,22 @@ export default function BusinessPlanApp() {
                                     Download PDF
                                 </motion.button>
                             )}
-                            <a href="/tools" className="text-sm font-semibold text-teal-600 hover:text-teal-800 transition-colors">← Back to Tools</a>
                         </motion.div>
-                    </CardContent>
-                </Card>
-            </div>
+                    </div>
+                </div>
         );
     }
 
     // ──────────── ERROR ────────────
     if (appState === 'error') {
         return (
-            <div className="max-w-md mx-auto px-4 py-16">
-                <Card className="glass-panel border-0 overflow-hidden">
-                    <CardContent className="p-8 text-center">
-                        <div className="text-5xl mb-4">⚠️</div>
-                        <h2 className="text-xl font-bold text-gray-900 mb-2">Something went wrong</h2>
-                        <p className="text-gray-500 mb-6">{errorMsg}</p>
-                        <button onClick={() => { setAppState('form'); setStep(0); }} className="px-6 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors">Try Again</button>
-                    </CardContent>
-                </Card>
+            <div className="max-w-md mx-auto">
+                <div className="pro-card glass-panel shadow-sm space-y-4 py-10 text-center">
+                    <div className="text-4xl mb-4">⚠️</div>
+                    <h2 className="pro-heading-dense mb-2">Something went wrong</h2>
+                    <p className="pro-text-meta mb-6">{errorMsg}</p>
+                    <button onClick={() => { setAppState('form'); setStep(0); }} className="px-6 py-3 bg-gray-900 text-white font-bold rounded-xl text-sm transition-colors">Try Again</button>
+                </div>
             </div>
         );
     }
@@ -237,22 +226,19 @@ export default function BusinessPlanApp() {
     const isFirstStep = step === 0;
 
     return (
-        <div className="max-w-lg mx-auto px-4 space-y-8">
-
-
-            {/* SECTION 2: Headline */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-center">
-                <h2 className="text-2xl font-black text-gray-900 tracking-tight mb-1">
-                    Free 23-Page{' '}
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-500">Daycare Business Plan</span>
-                </h2>
-                <p className="text-gray-500 text-sm">Customized with your details. Emailed as a PDF.</p>
-            </motion.div>
+        <div className="max-w-md mx-auto space-y-4 pt-4">
+            {/* Headline */}
+            <div className="text-center">
+                <h1 className="pro-heading-dense">
+                    Free 23-Page Business Plan
+                </h1>
+                <p className="pro-text-meta mt-1">Customized with your details. Emailed as a PDF.</p>
+            </div>
 
             {/* SECTION 3: Form Card */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-                <Card className="glass-panel border-0 overflow-hidden">
-                    <CardContent className="p-6">
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+                <div className="pro-card glass-panel shadow-sm">
+                    <div className="space-y-4">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={step}
@@ -262,14 +248,14 @@ export default function BusinessPlanApp() {
                                 transition={{ duration: 0.25 }}
                             >
                                 {/* Progress */}
-                                <div className="mb-5">
-                                    <div className="flex justify-between text-xs text-gray-500 mb-2">
+                                <div className="mb-4">
+                                    <div className="flex justify-between pro-text-meta mb-1.5">
                                         <span>Step {step + 1} of {STEPS.length}</span>
                                         <span>{Math.round(((step + 1) / STEPS.length) * 100)}%</span>
                                     </div>
-                                    <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                                    <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                                         <motion.div
-                                            className="h-full bg-gradient-to-r from-teal-500 to-emerald-500"
+                                            className="h-full bg-teal-600"
                                             animate={{ width: `${((step + 1) / STEPS.length) * 100}%` }}
                                             transition={{ duration: 0.3 }}
                                         />
@@ -277,24 +263,24 @@ export default function BusinessPlanApp() {
                                 </div>
 
                                 {/* Step header */}
-                                <div className="flex items-center gap-3 mb-4">
+                                <div className="flex items-center gap-3 mb-3">
                                     <motion.div
                                         initial={{ scale: 0 }}
                                         animate={{ scale: 1 }}
                                         transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-                                        className="text-3xl"
+                                        className="text-2xl"
                                     >{current.emoji}</motion.div>
                                     <div>
-                                        <h3 className="text-base font-bold text-gray-900">{current.title}</h3>
-                                        <p className="text-xs text-gray-500">{current.subtitle}</p>
+                                        <h3 className="pro-text-meta uppercase font-bold text-gray-900 leading-none">{current.title}</h3>
+                                        <p className="text-[10px] text-gray-400 font-bold tracking-tight">{current.subtitle}</p>
                                     </div>
                                 </div>
 
                                 {/* Fields */}
-                                <div className="space-y-4">
+                                <div className="space-y-3">
                                     {current.fields.map((field, fi) => (
                                         <div key={field.key}>
-                                            <label htmlFor={`bp-${field.key}`} className="block text-sm font-semibold text-gray-700 mb-1.5">
+                                            <label htmlFor={`bp-${field.key}`} className="pro-text-meta mb-1.5 block">
                                                 {field.label}
                                                 {field.required && <span className="text-red-400 ml-0.5">*</span>}
                                             </label>
@@ -306,7 +292,7 @@ export default function BusinessPlanApp() {
                                                 onChange={e => updateField(field.key, e.target.value)}
                                                 required={field.required}
                                                 autoFocus={fi === 0}
-                                                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/80 text-base text-gray-900 placeholder:text-gray-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 outline-none transition-all min-h-[48px]"
+                                                className="w-full px-4 py-2.5 rounded-lg border border-gray-100 bg-white shadow-sm text-sm text-gray-900 focus:ring-2 focus:ring-teal-50 outline-none transition-all min-h-[44px]"
                                                 onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handleNext(); } }}
                                             />
                                         </div>
@@ -314,35 +300,33 @@ export default function BusinessPlanApp() {
                                 </div>
 
                                 {/* Navigation */}
-                                <div className="mt-6 space-y-2">
-                                    <div className="flex gap-3">
+                                <div className="mt-5 space-y-2">
+                                    <div className="flex gap-2">
                                         {step > 0 && (
-                                            <button onClick={() => setStep(s => s - 1)} className="px-4 py-3 rounded-xl border border-gray-200 text-gray-500 font-semibold hover:bg-gray-50 transition-colors min-h-[48px]">←</button>
+                                            <button onClick={() => setStep(s => s - 1)} className="px-4 py-2.5 rounded-xl border border-gray-100 text-gray-400 font-bold hover:bg-gray-50 transition-colors min-h-[48px]">←</button>
                                         )}
-                                        <motion.button
-                                            whileHover={stepValid() ? { scale: 1.02 } : {}}
-                                            whileTap={stepValid() ? { scale: 0.98 } : {}}
+                                        <button
                                             onClick={handleNext}
                                             disabled={!stepValid()}
-                                            className={`flex-1 py-3 px-6 text-base font-bold rounded-xl transition-all min-h-[48px] ${
+                                            className={`flex-1 py-3 px-6 text-sm font-bold rounded-xl transition-all min-h-[48px] ${
                                                 stepValid()
-                                                    ? 'bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white shadow-lg shadow-teal-600/20'
-                                                    : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                                                    ? 'bg-gradient-to-r from-teal-600 to-emerald-600 text-white shadow-lg shadow-teal-600/20'
+                                                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                                             }`}
                                         >
                                             {step === STEPS.length - 1 ? 'Generate My Plan →' : 'Next →'}
-                                        </motion.button>
+                                        </button>
                                     </div>
                                     {!isFirstStep && (
-                                        <button onClick={handleSkip} className="w-full text-center text-sm text-gray-400 hover:text-gray-600 transition-colors py-1">
+                                        <button onClick={handleSkip} className="w-full text-center pro-text-meta tracking-normal text-gray-400 hover:text-gray-600 transition-colors py-1">
                                             {step === STEPS.length - 1 ? 'Skip & generate now' : 'Skip this step'}
                                         </button>
                                     )}
                                 </div>
                             </motion.div>
                         </AnimatePresence>
-                    </CardContent>
-                </Card>
+                    </div>
+                </div>
             </motion.div>
         </div>
     );

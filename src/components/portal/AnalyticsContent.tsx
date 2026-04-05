@@ -26,17 +26,15 @@ export const AnalyticsContent = () => {
     }
 
     return (
-        <div className="max-w-6xl mx-auto space-y-6">
+        <div className="max-w-6xl mx-auto space-y-4">
             <div>
-                <h1 className="text-2xl font-bold tracking-tight text-gray-900">Analytics Dashboard</h1>
-                <p className="text-gray-500">View your activity statistics and insights.</p>
+                <h1 className="pro-heading-dense">Analytics Dashboard</h1>
+                <p className="pro-text-meta">View your activity statistics and insights.</p>
             </div>
             
-            <Card>
-                <CardContent className="flex items-center justify-center min-h-[40vh] pt-6">
-                    <p className="text-gray-500 font-medium text-lg">Analytics module under construction</p>
-                </CardContent>
-            </Card>
+            <div className="pro-card glass-panel shadow-sm flex items-center justify-center min-h-[30vh]">
+                <p className="text-[11px] font-black uppercase tracking-widest text-gray-400">module under construction</p>
+            </div>
         </div>
     );
 };

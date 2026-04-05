@@ -81,107 +81,101 @@ export const DashboardContent = () => {
     }
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4">
             <div>
-                <h1 className="text-2xl font-bold tracking-tight text-gray-900">Dashboard</h1>
-                <p className="text-gray-500">Overview of your account and activities.</p>
+                <h1 className="pro-heading-dense">Dashboard</h1>
+                <p className="pro-text-meta">Overview of your account and activities.</p>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <Card className="border-white/20 shadow-sm bg-white/50 backdrop-blur-md">
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium text-gray-500">Total Logins</CardTitle>
-                        <Users className="h-4 w-4 text-gray-400" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold text-gray-900">{stats.logins}</div>
-                        <p className="text-xs text-gray-500 text-teal-600 font-medium">Verified Account</p>
-                    </CardContent>
-                </Card>
-                <Card className="border-white/20 shadow-sm bg-white/50 backdrop-blur-md">
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium text-gray-500">Activities</CardTitle>
-                        <Activity className="h-4 w-4 text-gray-400" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold text-gray-900">{stats.activities}</div>
-                        <p className="text-xs text-gray-500">Recorded sessions</p>
-                    </CardContent>
-                </Card>
-                <Card className="border-white/20 shadow-sm bg-white/50 backdrop-blur-md">
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium text-gray-500">Role</CardTitle>
-                        <ShieldCheck className="h-4 w-4 text-gray-400" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-xl font-bold text-gray-900">{stats.role}</div>
-                        <p className="text-xs text-gray-500">Portal Access Level</p>
-                    </CardContent>
-                </Card>
-                <Card className="border-white/20 shadow-sm bg-white/50 backdrop-blur-md">
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium text-gray-500">Last Active</CardTitle>
-                        <Clock className="h-4 w-4 text-gray-400" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-xl font-bold text-gray-900">{stats.lastActive}</div>
-                        <p className="text-xs text-gray-500">System timestamp</p>
-                    </CardContent>
-                </Card>
+            <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
+                <div className="pro-card glass-panel shadow-sm">
+                    <div className="flex flex-row items-center justify-between space-y-0 pb-1">
+                        <span className="pro-text-meta">Total Logins</span>
+                        <Users className="h-3.5 w-3.5 text-gray-400" />
+                    </div>
+                    <div>
+                        <div className="text-xl font-black text-gray-900 tracking-tighter">{stats.logins}</div>
+                        <p className="text-[10px] text-teal-600 font-bold uppercase tracking-wider">Verified</p>
+                    </div>
+                </div>
+                <div className="pro-card glass-panel shadow-sm">
+                    <div className="flex flex-row items-center justify-between space-y-0 pb-1">
+                        <span className="pro-text-meta">Activities</span>
+                        <Activity className="h-3.5 w-3.5 text-gray-400" />
+                    </div>
+                    <div>
+                        <div className="text-xl font-black text-gray-900 tracking-tighter">{stats.activities}</div>
+                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Sessions</p>
+                    </div>
+                </div>
+                <div className="pro-card glass-panel shadow-sm leading-tight">
+                    <div className="flex flex-row items-center justify-between space-y-0 pb-1">
+                        <span className="pro-text-meta">Role</span>
+                        <ShieldCheck className="h-3.5 w-3.5 text-gray-400" />
+                    </div>
+                    <div>
+                        <div className="text-lg font-black text-gray-900 tracking-tight">{stats.role}</div>
+                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Access Level</p>
+                    </div>
+                </div>
+                <div className="pro-card glass-panel shadow-sm leading-tight">
+                    <div className="flex flex-row items-center justify-between space-y-0 pb-1">
+                        <span className="pro-text-meta">Last Active</span>
+                        <Clock className="h-3.5 w-3.5 text-gray-400" />
+                    </div>
+                    <div>
+                        <div className="text-lg font-black text-gray-900 tracking-tight">{stats.lastActive}</div>
+                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Timestamp</p>
+                    </div>
+                </div>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-7">
-                <Card className="md:col-span-4 border-white/20 shadow-sm bg-white/50 backdrop-blur-md">
-                    <CardHeader className="flex flex-row items-center justify-between">
-                        <div>
-                            <CardTitle>Recent Activity</CardTitle>
-                            <CardDescription>Your latest actions and events</CardDescription>
-                        </div>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="space-y-4">
-                            {recentActivities.length > 0 ? (
-                                recentActivities.map((act, index) => (
-                                    <div key={index} className="flex justify-between p-4 bg-white/40 rounded-xl border border-white/40 items-center">
-                                        <div className="flex items-center gap-4">
-                                            <div className="h-8 w-8 rounded-full bg-teal-50 flex items-center justify-center">
-                                                <Activity className="h-4 w-4 text-teal-600" />
-                                            </div>
-                                            <div>
-                                                <p className="text-sm font-medium text-gray-900">{act.description}</p>
-                                                <p className="text-xs text-gray-500">{new Date(act.created_at).toLocaleString()}</p>
-                                            </div>
+            <div className="grid gap-3 md:grid-cols-7">
+                <div className="md:col-span-4 pro-card glass-panel shadow-sm">
+                    <div className="border-b border-gray-100/50 pb-2 mb-3">
+                        <h3 className="text-xs font-black uppercase tracking-[0.2em] text-gray-900">Recent Activity</h3>
+                        <p className="pro-text-meta">Latest account actions</p>
+                    </div>
+                    <div className="space-y-2">
+                        {recentActivities.length > 0 ? (
+                            recentActivities.map((act, index) => (
+                                <div key={index} className="flex justify-between p-2.5 bg-white/40 rounded-xl border border-white/40 items-center">
+                                    <div className="flex items-center gap-3">
+                                        <div className="h-7 w-7 rounded-full bg-teal-50 flex items-center justify-center">
+                                            <Activity className="h-3.5 w-3.5 text-teal-600" />
                                         </div>
-                                        <span className="inline-flex items-center rounded-full bg-teal-600 px-2.5 py-0.5 text-xs font-semibold text-white">
-                                            {act.type}
-                                        </span>
+                                        <div>
+                                            <p className="text-[11px] font-bold text-gray-900 leading-tight">{act.description}</p>
+                                            <p className="text-[9px] text-gray-400 font-bold uppercase tracking-wide">{new Date(act.created_at).toLocaleDateString()}</p>
+                                        </div>
                                     </div>
-                                ))
-                            ) : (
-                                <p className="text-sm text-gray-500 py-4 text-center">No recent activities found.</p>
-                            )}
-                        </div>
-                    </CardContent>
-                </Card>
+                                    <span className="px-2 py-0.5 rounded-full bg-teal-600 text-[8px] font-black uppercase tracking-widest text-white">
+                                        {act.type}
+                                    </span>
+                                </div>
+                            ))
+                        ) : (
+                            <p className="text-[10px] font-bold text-gray-400 py-4 text-center">No trace found.</p>
+                        )}
+                    </div>
+                </div>
 
-                <Card className="md:col-span-3 border-white/20 shadow-sm bg-white/50 backdrop-blur-md">
-                    <CardHeader>
-                        <CardTitle>Quick Actions</CardTitle>
-                        <CardDescription>Manage your account</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                        <Button
-                            variant="outline"
-                            className="w-full justify-start text-gray-700 bg-white/50 hover:bg-white font-medium rounded-xl h-12 transition-all"
-                            onClick={async () => {
-                                await portalApi.post('/v1/activities', { uid: user.uid, type: 'manual', description: 'User triggered manual task' });
-                                window.location.reload();
-                            }}
-                        >
-                            <Plus className="mr-2 h-4 w-4 text-teal-600" /> Create Activity
-                        </Button>
-                    </CardContent>
-                </Card>
+                <div className="md:col-span-3 pro-card glass-panel shadow-sm">
+                    <div className="border-b border-gray-100/50 pb-2 mb-3">
+                        <h3 className="text-xs font-black uppercase tracking-[0.2em] text-gray-900">Quick Actions</h3>
+                        <p className="pro-text-meta">Manage your account</p>
+                    </div>
+                    <Button
+                        variant="outline"
+                        className="w-full justify-start text-xs font-bold text-gray-700 bg-white/50 hover:bg-white rounded-xl h-10 transition-all border-teal-100"
+                        onClick={async () => {
+                            await portalApi.post('/v1/activities', { uid: user.uid, type: 'manual', description: 'User triggered manual task' });
+                            window.location.reload();
+                        }}
+                    >
+                        <Plus className="mr-2 h-3.5 w-3.5 text-teal-600" /> Create Activity
+                    </Button>
+                </div>
             </div>
         </div>
     );

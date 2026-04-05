@@ -1,23 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { auth, onAuthStateChanged, signOut } from '@/lib/firebase-client';
+import { useStore } from '@nanostores/react';
+import { $authStore } from '../../store/authStore';
+import { auth, signOut } from '@/lib/firebase-client';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { LayoutDashboard, User as UserIcon, Settings, BarChart3, LogOut, LogIn, Shield } from 'lucide-react';
-
 import { AuthModal } from './AuthModal';
 
 export const UserNav = () => {
-    const [user, setUser] = useState<any>(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-            setLoading(false);
-        });
-        return () => unsubscribe();
-    }, []);
+    const user = useStore($authStore);
 
     const handleLogout = async () => {
         try {
@@ -28,15 +19,11 @@ export const UserNav = () => {
         }
     };
 
-    if (loading) {
-        return <div className="w-24 h-9 bg-gray-100/50 animate-pulse rounded-full"></div>;
-    }
-
     return (
         <div className="flex items-center gap-3">
             <AnimatePresence mode="wait">
                 {user ? (
-                    <motion.div 
+                    <motion.div
                         key="logged-in"
                         initial={{ opacity: 0, x: 10 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -55,12 +42,12 @@ export const UserNav = () => {
                                     )}
                                 </Button>
                             </PopoverTrigger>
-                            <PopoverContent align="end" className="w-56 p-2 rounded-xl bg-white/90 backdrop-blur-xl border border-white/40 shadow-2xl glass-panel">
+                            <PopoverContent align="end" className="w-52 p-2 rounded-xl bg-white/90 backdrop-blur-xl border border-white/40 shadow-2xl glass-panel">
                                 <div className="px-2 pb-2 mb-2 border-b border-gray-100/50">
-                                    <p className="text-sm font-semibold text-gray-900 truncate">
+                                    <p className="text-xs font-black text-gray-900 truncate uppercase tracking-tight">
                                         {user.displayName || 'Portal User'}
                                     </p>
-                                    <p className="text-xs text-gray-500 truncate">
+                                    <p className="pro-text-meta truncate lowercase">
                                         {user.email}
                                     </p>
                                 </div>
@@ -81,8 +68,8 @@ export const UserNav = () => {
                                         <Settings className="h-4 w-4" />
                                         <span>Settings</span>
                                     </a>
-                                    <Button 
-                                        variant="ghost" 
+                                    <Button
+                                        variant="ghost"
                                         onClick={handleLogout}
                                         className="w-full justify-start gap-2 px-2 py-2 mt-1 h-9 rounded-lg text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors font-medium border-0"
                                     >
@@ -94,15 +81,15 @@ export const UserNav = () => {
                         </Popover>
                     </motion.div>
                 ) : (
-                    <motion.div 
+                    <motion.div
                         key="logged-out"
                         initial={{ opacity: 0, x: 10 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -10 }}
                         className="flex items-center gap-2"
                     >
-                        <AuthModal 
-                            mode="login" 
+                        <AuthModal
+                            mode="login"
                             trigger={
                                 <Button variant="ghost" className="h-8 px-2.5 sm:px-4 text-xs font-bold text-gray-700 hover:text-teal-600 hover:bg-teal-50 rounded-lg sm:rounded-full transition-all">
                                     <span className="flex items-center gap-1.5">
@@ -112,8 +99,8 @@ export const UserNav = () => {
                                 </Button>
                             }
                         />
-                        <AuthModal 
-                            mode="signup" 
+                        <AuthModal
+                            mode="signup"
                             trigger={
                                 <Button className="h-8 px-2.5 sm:px-4 text-xs font-bold bg-gray-900 hover:bg-gray-800 text-white shadow-md rounded-lg sm:rounded-full transition-all">
                                     <span className="flex items-center gap-1.5">

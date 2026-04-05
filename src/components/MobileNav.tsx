@@ -1,19 +1,21 @@
-import * as React from "react";
-import { 
-    Menu, 
-    LogOut, 
-    User, 
-    LayoutDashboard, 
-    Home, 
-    FileText, 
-    MessageSquare, 
+import React, { useState } from "react";
+import { useStore } from '@nanostores/react';
+import { $authStore } from '../store/authStore';
+import {
+    Menu,
+    LogOut,
+    User,
+    LayoutDashboard,
+    Home,
+    FileText,
+    MessageSquare,
     ChevronRight,
     Settings,
     BarChart3,
     Shield,
     LogIn
 } from "lucide-react";
-import { auth, onAuthStateChanged, signOut } from "@/lib/firebase-client";
+import { auth, signOut } from "@/lib/firebase-client";
 import { Button } from "@/components/ui/button";
 import {
     Sheet,
@@ -42,16 +44,7 @@ const portalNavLinks = [
 import { AuthModal } from "./auth/AuthModal";
 
 export function MobileNav() {
-    const [user, setUser] = React.useState<any>(null);
-    const [loading, setLoading] = React.useState(true);
-
-    React.useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-            setLoading(false);
-        });
-        return () => unsubscribe();
-    }, []);
+    const user = useStore($authStore);
 
     const handleLogout = async () => {
         try {
@@ -61,8 +54,6 @@ export function MobileNav() {
             console.error("Logout failed:", error);
         }
     };
-
-    if (loading) return null;
 
     return (
         <Sheet>
@@ -120,7 +111,7 @@ export function MobileNav() {
 
                     <AnimatePresence>
                         {user && (
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 className="mb-4"
@@ -164,23 +155,23 @@ export function MobileNav() {
                         </Button>
                     ) : (
                         <div className="flex flex-col gap-2">
-                            <AuthModal 
-                                mode="signup" 
+                            <AuthModal
+                                mode="signup"
                                 trigger={
                                     <Button className="w-full h-10 flex items-center justify-center gap-2 rounded-xl bg-gray-900 hover:bg-gray-800 text-white text-xs font-bold transition-all shadow-md active:scale-95">
                                         <Shield className="w-3.5 h-3.5" />
                                         <span>Create Account</span>
                                     </Button>
-                                } 
+                                }
                             />
-                            <AuthModal 
-                                mode="login" 
+                            <AuthModal
+                                mode="login"
                                 trigger={
                                     <Button variant="ghost" className="w-full h-10 flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white/50 hover:bg-white text-gray-700 text-xs font-bold transition-all active:scale-95">
                                         <LogIn className="w-3.5 h-3.5" />
                                         <span>Sign In</span>
                                     </Button>
-                                } 
+                                }
                             />
                         </div>
                     )}

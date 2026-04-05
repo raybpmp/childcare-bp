@@ -1,29 +1,26 @@
 ---
 import { Container } from "../layout/Container";
+import { ArrowRight } from "lucide-react";
 ---
 
 <!-- FINAL CLOSING -->
-<section class="py-16 md:py-24">
+<section class="pro-section">
     <Container size="md">
-        <div class="text-center">
-            <div
-                class="glass-panel rounded-3xl p-10 md:p-14 border-2 border-teal-200/50 bg-gradient-to-br from-teal-50/30 to-white/50"
-            >
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    Your Daycare Journey Starts with Clarity
-                </h2>
-                <p class="text-lg md:text-xl text-gray-600 mb-8">
-                    You don't need to have it all figured out. You just need to
-                    know if the numbers work. Everything else comes after.
-                </p>
+        <div class="pro-card text-center border-2 border-teal-200/50 bg-gradient-to-br from-teal-50/20 to-white/50">
+            <h2 class="text-xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">
+                Your Daycare Journey Starts with Clarity
+            </h2>
+            <p class="text-sm md:text-lg text-gray-600 mb-4 md:mb-8 max-w-2xl mx-auto leading-relaxed">
+                You don't need to have it all figured out. You just need to know if the numbers work. Everything else comes after.
+            </p>
 
-                <a
-                    href="#calculator"
-                    class="inline-block bg-teal-600 hover:bg-teal-700 text-white text-lg font-semibold px-10 py-4 rounded-full shadow-xl shadow-teal-600/30 transition-all hover:shadow-2xl hover:-translate-y-1"
-                >
-                    See What's Possible for Me
-                </a>
-            </div>
+            <a
+                href="#calculator"
+                class="inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white text-sm md:text-lg font-bold px-6 py-2.5 md:px-10 md:py-4 rounded-full shadow-lg shadow-teal-600/20 transition-all hover:shadow-xl hover:-translate-y-0.5"
+            >
+                See What's Possible for Me
+                <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
+            </a>
         </div>
     </Container>
 </section>

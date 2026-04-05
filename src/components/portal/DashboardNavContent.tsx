@@ -36,13 +36,13 @@ export const DashboardNavContent = ({ className = "" }: { className?: string }) 
                     <a
                         key={item.name}
                         href={item.href}
-                        className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
+                        className={`flex items-center gap-2 px-3 py-1.5 text-[10px] font-black uppercase tracking-wider rounded-lg transition-all duration-200 ${
                             isActive
-                                ? "bg-teal-600 text-white shadow-lg shadow-teal-600/20"
-                                : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                                ? "bg-teal-50/80 text-teal-700 border-l-2 border-teal-600 shadow-sm"
+                                : "text-gray-500 hover:bg-gray-100/50 hover:text-gray-900"
                         }`}
                     >
-                        <item.icon className={`h-5 w-5 ${isActive ? "text-white" : "text-gray-500"}`} />
+                        <item.icon className={`h-4 w-4 ${isActive ? "text-teal-600" : "text-gray-400"}`} />
                         <span>{item.name}</span>
                     </a>
                 );

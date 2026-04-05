@@ -32,25 +32,25 @@ export function BlogFilters({ posts: initialPosts, categories }: Props) {
     return (
         <div className="w-full">
             {/* Filters Section */}
-            <div className="mb-10 md:mb-16">
-                {/* Category Pills - premium horizontal scroll */}
-                <div className="flex flex-wrap items-start md:justify-start gap-2.5 mb-10">
+            <div className="mb-6 md:mb-8">
+                {/* Category Pills - Tiny Wrapping */}
+                <div className="flex flex-wrap items-center justify-center gap-1.5 mb-4 px-1">
                     <button
                         onClick={() => setSelectedCategory(null)}
-                        className={`group relative px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 border-2 shadow-sm ${!selectedCategory
-                            ? 'bg-teal-600 text-white border-teal-600 shadow-teal-500/20 scale-105'
-                            : 'bg-gray-100 text-gray-700 border-transparent hover:bg-teal-50 hover:text-teal-700 hover:border-teal-200'
+                        className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider transition-all border ${!selectedCategory
+                            ? 'bg-teal-600 text-white border-teal-600 shadow-sm'
+                            : 'bg-white/50 text-gray-500 border-gray-100'
                             }`}
                     >
-                        <span>All Posts</span>
+                        All
                     </button>
                     {categories.map(category => (
                         <button
                             key={category}
                             onClick={() => setSelectedCategory(category)}
-                            className={`group relative px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 border-2 shadow-sm ${selectedCategory === category
-                                ? 'bg-teal-600 text-white border-teal-600 shadow-teal-500/20 scale-105'
-                                : 'bg-gray-100 text-gray-700 border-transparent hover:bg-teal-50 hover:text-teal-700 hover:border-teal-200'
+                            className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider transition-all border ${selectedCategory === category
+                                ? 'bg-teal-600 text-white border-teal-600 shadow-sm'
+                                : 'bg-white/50 text-gray-500 border-gray-100'
                                 }`}
                         >
                             {category}
@@ -67,93 +67,68 @@ export function BlogFilters({ posts: initialPosts, categories }: Props) {
                     </div>
                     <input
                         type="search"
-                        placeholder="Search strategies & insights..."
+                        placeholder="Search strategies..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full pl-12 pr-6 py-4 rounded-2xl bg-white/30 backdrop-blur-xl border-2 border-white/40 focus:outline-none focus:ring-4 focus:ring-teal-500/10 focus:border-teal-500 transition-all text-lg shadow-xl placeholder-gray-400"
+                        className="w-full pl-9 pr-4 py-2 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 focus:outline-none focus:ring-4 focus:ring-teal-500/5 focus:border-teal-500/50 transition-all text-xs shadow-sm placeholder-gray-400"
                     />
                 </div>
 
                 {/* Results count indicator */}
-                <div className="mt-8 flex items-center justify-center gap-2">
-                    <div className="h-px w-8 bg-teal-200"></div>
-                    <p className="text-gray-500 font-medium tracking-wide">
+                <div className="mt-4 flex items-center justify-center gap-2">
+                    <div className="h-px w-6 bg-teal-200"></div>
+                    <p className="pro-text-meta">
                         {filteredPosts.length} Results Found
                     </p>
-                    <div className="h-px w-8 bg-teal-200"></div>
+                    <div className="h-px w-6 bg-teal-200"></div>
                 </div>
             </div>
 
-            {/* Post Grid - Premium Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+            {/* Post Grid - Ultra High Density 2-Col */}
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2">
                 {filteredPosts.length > 0 ? (
                     filteredPosts.map((post) => (
                         <article
                             key={post.slug}
-                            className="group relative flex flex-col bg-white/40 backdrop-blur-md rounded-3xl border-2 border-white/60 overflow-hidden hover:border-teal-200/60 hover:shadow-2xl hover:shadow-teal-500/5 transition-all duration-500"
+                            className="pro-card group relative flex flex-col p-0 overflow-hidden border-teal-50/50"
                         >
-                            <a href={`/blog/${post.slug}`} className="cursor-pointer">
-                                {/* Image Container */}
-                                <div className="aspect-[16/10] overflow-hidden relative">
+                            <a href={`/blog/${post.slug}`} className="cursor-pointer flex flex-col h-full">
+                                {/* Image */}
+                                <div className="aspect-[4/3] overflow-hidden relative shrink-0">
                                     <img
                                         src={post.coverImage || '/images/blog/default-cover.webp'}
                                         alt={getSeoAlt(post.title, post.category)}
-                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                                         loading="lazy"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                                    {/* Category Floating Badge */}
+                                    {/* Category Floating Badge - Mini */}
                                     {post.category && (
-                                        <div className="absolute top-4 left-4">
-                                            <span className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg backdrop-blur-md ${getCategoryStyle(post.category)}`}>
+                                        <div className="absolute top-1.5 left-1.5">
+                                            <span className={`px-1.5 py-0.5 rounded-md text-[8px] font-black uppercase tracking-[0.1em] shadow-lg backdrop-blur-md ${getCategoryStyle(post.category)}`}>
                                                 {post.category}
                                             </span>
                                         </div>
                                     )}
                                 </div>
 
-                                <div className="flex-1 p-6 md:p-8 flex flex-col">
-                                    {/* Published Date & Read Time */}
-                                    <div className="flex items-center gap-3 text-sm font-semibold text-teal-600 mb-4">
-                                        <time dateTime={post.date} className="flex items-center gap-1.5">
-                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                            </svg>
-                                            {new Date(post.date + "T12:00:00").toLocaleDateString('en-US', {
-                                                month: 'short',
-                                                day: 'numeric',
-                                                year: 'numeric',
-                                            })}
-                                        </time>
-                                        <span className="w-1 h-1 rounded-full bg-teal-200"></span>
-                                        <span className="flex items-center gap-1.5">
-                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                            {post.readTime}
-                                        </span>
-                                    </div>
+                                <div className="flex-1 p-2 flex flex-col">
+                                    {/* Date */}
+                                    <time dateTime={post.date} className="text-[9px] font-bold text-teal-600/50 uppercase tracking-wider mb-1">
+                                        {new Date(post.date + "T12:00:00").toLocaleDateString('en-US', {
+                                            month: 'short',
+                                            day: 'numeric'
+                                        })}
+                                    </time>
 
-                                    {/* Title */}
-                                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-teal-600 transition-colors duration-300 leading-tight">
+                                    {/* Title - Dense 2-Line */}
+                                    <h3 className="text-[11px] font-black text-gray-900 leading-tight mb-1 line-clamp-2">
                                         {post.title}
                                     </h3>
 
-                                    {/* Excerpt */}
-                                    <p className="text-gray-600 text-base leading-relaxed mb-6 line-clamp-2">
+                                    {/* Excerpt - HIDDEN ON MOBILE GRID */}
+                                    <p className="hidden md:block text-gray-500 text-[10px] leading-tight mb-2 line-clamp-2">
                                         {post.excerpt}
                                     </p>
-
-                                    {/* Footer / Read More */}
-                                    <div className="mt-auto pt-4 border-t border-white/40 flex items-center justify-between">
-                                        <span className="text-teal-600 font-bold flex items-center gap-2 group-hover:gap-3 transition-all duration-300">
-                                            Read Article
-                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                            </svg>
-                                        </span>
-                                    </div>
                                 </div>
                             </a>
                         </article>

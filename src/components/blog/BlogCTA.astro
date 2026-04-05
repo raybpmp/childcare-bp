@@ -14,19 +14,19 @@ const {
 } = Astro.props;
 ---
 
-<div class="blog-cta-card">
-    <h2
-        class="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-3 md:mb-4"
-    >
+<div class="pro-card glass-panel shadow-sm space-y-3 text-center border-teal-100/50">
+    <h2 class="pro-heading-dense">
         {title}
     </h2>
-    <p class="text-sm md:text-base text-gray-600 mb-6 max-w-xl mx-auto">
+    <p class="pro-text-meta max-w-xs mx-auto">
         {description}
     </p>
-    <a
-        href={buttonHref}
-        class="inline-block bg-teal-600 hover:bg-teal-700 text-white text-sm md:text-base font-semibold px-6 py-3 rounded-full shadow-lg shadow-teal-600/20 transition-all hover:shadow-xl hover:shadow-teal-600/30 hover:-translate-y-0.5 min-h-[44px]"
-    >
-        {buttonText}
-    </a>
+    <div class="pt-2">
+        <a
+            href={buttonHref}
+            class="inline-block bg-teal-600 text-white text-xs font-bold px-6 py-2.5 rounded-full shadow-lg shadow-teal-600/20 transition-all hover:opacity-90 min-h-[40px] uppercase tracking-wider"
+        >
+            {buttonText}
+        </a>
+    </div>
 </div>

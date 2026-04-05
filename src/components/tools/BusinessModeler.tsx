@@ -54,195 +54,140 @@ const StartupCalculator = () => {
   const netProfit = monthlyRevenue - totalMonthlyExpenses;
 
   return (
-    <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 font-sans">
-      <div className="bg-blue-900 p-6 text-white">
-        <div className="flex items-center gap-2 mb-2">
-          <Calculator className="w-6 h-6" />
-          <h2 className="text-xl font-bold">2026 Childcare Business Modeler</h2>
+    <div className="max-w-md mx-auto">
+      <div className="pro-card glass-panel shadow-sm space-y-4">
+        {/* Header */}
+        <div className="text-center space-y-1">
+          <h2 className="pro-heading-dense flex items-center justify-center gap-2">
+            <Calculator className="w-5 h-5 text-teal-600" />
+            Business Modeler
+          </h2>
+          <p className="pro-text-meta">2026 Startup cost & profit estimates</p>
         </div>
-        <p className="text-blue-200 text-sm">
-          Estimate your startup costs and profitability in the post-inflation economy.
-        </p>
-      </div>
 
-      <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Left Column: Inputs */}
-        <div className="space-y-6">
-
-          {/* Mode Selector */}
-          <div className="flex bg-gray-100 p-1 rounded-lg">
+        {/* Inputs */}
+        <div className="space-y-4">
+          <div className="flex bg-gray-100/50 p-1 rounded-md glass-panel">
             <button
               onClick={() => handleModeChange('home')}
-              className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-md text-sm font-medium transition-all ${mode === 'home' ? 'bg-white shadow text-blue-900' : 'text-gray-500 hover:text-gray-700'
-                }`}
+              className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-sm text-xs font-bold transition-all ${mode === 'home' ? 'bg-teal-600 text-white shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
             >
-              <Home className="w-4 h-4" /> Home-Based
+              <Home className="w-3 h-3" /> Home
             </button>
             <button
               onClick={() => handleModeChange('center')}
-              className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-md text-sm font-medium transition-all ${mode === 'center' ? 'bg-white shadow text-blue-900' : 'text-gray-500 hover:text-gray-700'
-                }`}
+              className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-sm text-xs font-bold transition-all ${mode === 'center' ? 'bg-teal-600 text-white shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
             >
-              <Building2 className="w-4 h-4" /> Commercial Center
+              <Building2 className="w-3 h-3" /> Center
             </button>
           </div>
 
-          <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-2">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Licensed Capacity (Children)</label>
+              <label className="pro-text-meta mb-1 block">Capacity</label>
               <input
                 type="number"
                 value={capacity}
                 onChange={(e) => setCapacity(Number(e.target.value))}
-                className="w-full border-gray-300 rounded-md shadow-sm p-2 border focus:ring-blue-500 focus:border-blue-500"
+                className="w-full bg-white/50 border-gray-200 rounded p-2 text-sm focus:ring-teal-500 outline-none"
               />
             </div>
-
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Weekly Tuition (Avg per Child)</label>
+              <label className="pro-text-meta mb-1 block">Weekly Rate</label>
               <div className="relative">
-                <span className="absolute left-3 top-2 text-gray-500">$</span>
+                <span className="absolute left-2 top-2 text-gray-400 text-sm">$</span>
                 <input
                   type="number"
                   value={tuition}
                   onChange={(e) => setTuition(Number(e.target.value))}
-                  className="w-full border-gray-300 rounded-md shadow-sm p-2 pl-7 border focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full bg-white/50 border-gray-200 rounded p-2 pl-5 text-sm focus:ring-teal-500 outline-none"
                 />
               </div>
             </div>
+          </div>
 
-            <div className="border-t pt-4">
-              <h3 className="font-semibold text-gray-800 mb-3">Expense Assumptions</h3>
-
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1">Staff Count</label>
-                  <input
-                    type="number"
-                    value={staffCount}
-                    onChange={(e) => setStaffCount(Number(e.target.value))}
-                    className="w-full border p-2 rounded text-sm"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1">Hourly Wage ($)</label>
-                  <input
-                    type="number"
-                    value={hourlyWage}
-                    onChange={(e) => setHourlyWage(Number(e.target.value))}
-                    className="w-full border p-2 rounded text-sm"
-                  />
-                </div>
-              </div>
-
+          <div className="space-y-2">
+            <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Base Monthly Rent/Mortgage</label>
-                <div className="relative">
-                  <span className="absolute left-3 top-2 text-gray-400 text-xs">$</span>
-                  <input
-                    type="number"
-                    value={rent}
-                    onChange={(e) => setRent(Number(e.target.value))}
-                    className="w-full border p-2 pl-6 rounded text-sm"
-                  />
-                </div>
+                <label className="pro-text-meta mb-1 block">Staff</label>
+                <input
+                  type="number"
+                  value={staffCount}
+                  onChange={(e) => setStaffCount(Number(e.target.value))}
+                  className="w-full bg-white/50 border-gray-200 rounded p-2 text-sm"
+                />
+              </div>
+              <div>
+                <label className="pro-text-meta mb-1 block">Wage ($/hr)</label>
+                <input
+                  type="number"
+                  value={hourlyWage}
+                  onChange={(e) => setHourlyWage(Number(e.target.value))}
+                  className="w-full bg-white/50 border-gray-200 rounded p-2 text-sm"
+                />
               </div>
             </div>
-
-            {/* The 2026 Reality Check Toggle */}
-            <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4 text-amber-600" />
-                  <span className="text-sm font-bold text-amber-900">Apply 2026 Market Conditions?</span>
-                </div>
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={applyInflation}
-                    onChange={() => setApplyInflation(!applyInflation)}
-                    className="sr-only peer"
-                  />
-                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-600"></div>
-                </label>
+            <div>
+              <label className="pro-text-meta mb-1 block">Monthly Rent / Mortgage</label>
+              <div className="relative">
+                <span className="absolute left-2 top-2 text-gray-400 text-xs">$</span>
+                <input
+                  type="number"
+                  value={rent}
+                  onChange={(e) => setRent(Number(e.target.value))}
+                  className="w-full bg-white/50 border-gray-200 rounded p-2 pl-5 text-sm"
+                />
               </div>
-              <p className="text-xs text-amber-700 mt-2">
-                Simulates the "Hard Market" insurance spike (+150%) and construction inflation (+35%) seen in 2024-2026.
-              </p>
             </div>
-
           </div>
         </div>
 
-        {/* Right Column: Results */}
-        <div className="bg-slate-50 rounded-lg p-6 flex flex-col justify-between border border-slate-100">
-          <div>
-            <h3 className="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-blue-600" />
-              Financial Projection
-            </h3>
+        {/* Results */}
+        <div className="pt-4 border-t border-gray-100 space-y-3">
+          <div className="bg-teal-50/30 rounded-lg p-3 border border-teal-100/50 space-y-3">
+            <div className="flex justify-between items-center">
+              <span className="pro-text-meta">Monthly Revenue</span>
+              <span className="text-lg font-bold text-teal-600">
+                ${monthlyRevenue.toLocaleString('en-US', { maximumFractionDigits: 0 })}
+              </span>
+            </div>
 
-            <div className="space-y-4">
-              <div className="flex justify-between items-center pb-2 border-b border-slate-200">
-                <span className="text-sm text-slate-600">Est. Monthly Revenue</span>
-                <span className="font-semibold text-green-700 text-lg">
-                  ${monthlyRevenue.toLocaleString('en-US', { maximumFractionDigits: 0 })}
+            <div className="space-y-1.5 pt-2 border-t border-teal-100/20">
+              <div className="flex justify-between items-center text-xs">
+                <span className="text-gray-500">Labor Cost</span>
+                <span className="text-gray-800 font-bold">${monthlyLabor.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between items-center text-xs">
+                <span className="text-gray-500">Rent & Fixed</span>
+                <span className="text-gray-800 font-bold">${(rent + 500).toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between items-center text-xs">
+                <span className="text-gray-500">Insurance</span>
+                <span className="text-gray-800 font-bold">${(adjustedInsurance / 12).toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+              </div>
+            </div>
+
+            <div className="pt-2 border-t border-teal-200 mt-1">
+              <div className="flex justify-between items-center">
+                <span className="text-sm font-bold text-teal-900">Est. Net Profit</span>
+                <span className={`text-xl font-bold tracking-tighter ${netProfit > 0 ? 'text-teal-600' : 'text-red-600'}`}>
+                  ${netProfit.toLocaleString('en-US', { maximumFractionDigits: 0 })}/mo
                 </span>
               </div>
-
-              <div className="space-y-2">
-                <div className="flex justify-between items-center text-sm">
-                  <span className="text-slate-500">Monthly Labor</span>
-                  <span className="text-slate-700 font-medium">${monthlyLabor.toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between items-center text-sm">
-                  <span className="text-slate-500">Rent & Utilities</span>
-                  <span className="text-slate-700 font-medium">${(rent + 500).toLocaleString()}</span>
-                </div>
-                <div className={`flex justify-between items-center text-sm ${applyInflation ? 'bg-amber-100 p-1 -mx-1 rounded' : ''}`}>
-                  <span className="text-slate-500 flex items-center gap-1">
-                    Insurance
-                    {applyInflation && <Info className="w-3 h-3 text-amber-600" />}
-                  </span>
-                  <span className={`font-medium ${applyInflation ? 'text-amber-700' : 'text-slate-700'}`}>
-                    ${(adjustedInsurance / 12).toLocaleString(undefined, { maximumFractionDigits: 0 })}/mo
-                  </span>
-                </div>
-              </div>
-
-              <div className="pt-4 border-t border-slate-200 mt-4">
-                <div className="flex justify-between items-center">
-                  <span className="font-bold text-slate-800">Est. Monthly Net Profit</span>
-                  <span className={`text-xl font-bold ${netProfit > 0 ? 'text-blue-700' : 'text-red-600'}`}>
-                    ${netProfit.toLocaleString('en-US', { maximumFractionDigits: 0 })}
-                  </span>
-                </div>
-              </div>
             </div>
           </div>
 
-          <div className="mt-8">
-            <h4 className="text-sm font-semibold text-slate-700 mb-3">Startup Capital Required</h4>
-            <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="p-2 bg-blue-100 rounded-full">
-                  <DollarSign className="w-5 h-5 text-blue-600" />
-                </div>
-                <div>
-                  <p className="text-xs text-slate-500">Estimated Initial Investment</p>
-                  <p className="text-lg font-bold text-slate-900">
-                    ${(adjustedRenovations + 5000 + (adjustedInsurance / 4)).toLocaleString(undefined, { maximumFractionDigits: 0 })}
-                  </p>
-                </div>
-              </div>
-              {applyInflation && (
-                <div className="text-xs text-red-500 mt-1">
-                  *Includes +${(adjustedRenovations - renovations).toLocaleString()} inflation adjustment on build-out.
-                </div>
-              )}
+          <div className="p-3 bg-white/60 rounded border border-teal-100 flex items-center justify-between">
+            <div>
+              <p className="pro-text-meta">Startup Capital</p>
+              <p className="text-lg font-bold text-teal-900 leading-none">
+                ${(adjustedRenovations + 5000 + (adjustedInsurance / 4)).toLocaleString(undefined, { maximumFractionDigits: 0 })}
+              </p>
+            </div>
+            <div className="bg-teal-600 p-1.5 rounded-full shadow-sm shadow-teal-600/20">
+              <DollarSign className="w-4 h-4 text-white" />
             </div>
           </div>
-
         </div>
       </div>
     </div>

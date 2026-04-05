@@ -150,45 +150,44 @@ export default function IncomeBuilderTool() {
     // VIEW 1: Input form
     if (!showResults) {
         return (
-            <div className="max-w-md mx-auto px-4">
-                <Card className="glass-panel">
-                    <CardContent className="p-6 space-y-6">
-                        {/* Business Type Selector */}
-                        <div className="space-y-3">
-                            <h1 className="text-xl font-bold text-center">
-                                {businessType === 'home' ? 'Home Daycare' : 'Childcare Center'} Income Builder
-                            </h1>
-                            <div className="flex gap-2 p-1 glass-panel rounded-lg">
-                                <button
-                                    onClick={() => {
-                                        setBusinessType('home');
-                                        setSelectedState('');
-                                        setShowResults(false);
-                                    }}
-                                    className={`flex-1 py-3 text-sm font-medium rounded-md transition-all ${businessType === 'home' ? 'glass-panel text-teal-700 shadow-lg' : 'text-gray-600 hover:text-gray-900 hover:bg-white/40'}`}
-                                >
-                                    🏠 Home-Based
-                                </button>
-                                <button
-                                    onClick={() => {
-                                        setBusinessType('center');
-                                        setSelectedState('');
-                                        setShowResults(false);
-                                    }}
-                                    className={`flex-1 py-3 text-sm font-medium rounded-md transition-all ${businessType === 'center' ? 'glass-panel text-teal-700 shadow-lg' : 'text-gray-600 hover:text-gray-900 hover:bg-white/40'}`}
-                                >
-                                    🏢 Center-Based
-                                </button>
-                            </div>
-                            <p className="text-xs text-gray-500 text-center">
-                                {businessType === 'home' ? 'For new home-based daycares' : 'For childcare centers & preschools'}
-                            </p>
-                            <div className="mt-3 p-3 glass-panel rounded-lg">
-                                <p className="text-sm text-center text-teal-800 font-medium">
-                                    💰 See your potential revenue based on your state's rates
-                                </p>
-                            </div>
+            <div className="max-w-md mx-auto">
+                <div className="pro-card glass-panel shadow-sm space-y-4">
+                    {/* Business Type Selector */}
+                    <div className="space-y-2">
+                        <h1 className="pro-heading-dense text-center">
+                            {businessType === 'home' ? 'Home Daycare' : 'Childcare Center'} Income Builder
+                        </h1>
+                        <div className="flex gap-1 p-1 glass-panel rounded-md">
+                            <button
+                                onClick={() => {
+                                    setBusinessType('home');
+                                    setSelectedState('');
+                                    setShowResults(false);
+                                }}
+                                className={`flex-1 py-2 text-xs font-bold rounded transition-all ${businessType === 'home' ? 'bg-teal-600 text-white shadow-sm' : 'text-gray-500 hover:text-gray-900 hover:bg-white/40'}`}
+                            >
+                                🏠 Home
+                            </button>
+                            <button
+                                onClick={() => {
+                                    setBusinessType('center');
+                                    setSelectedState('');
+                                    setShowResults(false);
+                                }}
+                                className={`flex-1 py-2 text-xs font-bold rounded transition-all ${businessType === 'center' ? 'bg-teal-600 text-white shadow-sm' : 'text-gray-500 hover:text-gray-900 hover:bg-white/40'}`}
+                            >
+                                🏢 Center
+                            </button>
                         </div>
+                        <p className="pro-text-meta text-center">
+                            {businessType === 'home' ? 'For new small daycares' : 'For commercial centers'}
+                        </p>
+                        <div className="mt-1 p-2 glass-panel rounded-md border-teal-100 bg-teal-50/20">
+                            <p className="text-[11px] text-center text-teal-800 font-bold tracking-tight">
+                                💰 Live Rate Estimates Based on Your State
+                            </p>
+                        </div>
+                    </div>
 
                         {/* State */}
                         <div>
@@ -422,15 +421,18 @@ export default function IncomeBuilderTool() {
                             </div>
                         )}
 
-                        <Button
-                            onClick={() => setShowResults(true)}
-                            disabled={!canCalculate}
-                            className="w-full bg-teal-600 hover:bg-teal-700"
-                        >
-                            Calculate My Revenue
-                        </Button>
-                    </CardContent>
-                </Card>
+                    <button
+                        onClick={() => setShowResults(true)}
+                        disabled={!canCalculate}
+                        className={`w-full py-3.5 px-6 text-sm font-bold rounded-xl transition-all min-h-[48px] ${
+                            canCalculate 
+                                ? 'bg-gradient-to-r from-teal-600 to-emerald-600 text-white shadow-lg shadow-teal-600/20 hover:opacity-90' 
+                                : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                        }`}
+                    >
+                        Calculate My Revenue →
+                    </button>
+                </div>
             </div>
         );
     }
@@ -439,19 +441,18 @@ export default function IncomeBuilderTool() {
     if (businessType === 'home') {
         // HOME-BASED RESULTS
         return (
-            <div className="max-w-md mx-auto px-4">
-                <Card className="glass-panel">
-                    <CardContent className="p-6 space-y-6">
-                        <div className="text-center">
-                            <p className="text-sm text-gray-500 mb-1">{stateInfo?.name} • {totalKids} kids</p>
-                            <div className="text-4xl font-bold text-teal-600">
-                                ${(Math.max(minMonthlyIncome, maxMonthlyIncome) * 12).toLocaleString()}
-                            </div>
-                            <p className="text-gray-600">potential revenue yearly</p>
-                            <p className="text-2xl font-semibold text-teal-500 mt-2">
-                                ${Math.min(minMonthlyIncome, maxMonthlyIncome).toLocaleString()} - ${Math.max(minMonthlyIncome, maxMonthlyIncome).toLocaleString()}/month
-                            </p>
+            <div className="max-w-md mx-auto">
+                <div className="pro-card glass-panel shadow-sm space-y-4">
+                    <div className="text-center">
+                        <p className="pro-text-meta mb-1">{stateInfo?.name} • {totalKids} kids</p>
+                        <div className="text-3xl font-bold text-teal-600 tracking-tighter">
+                            ${(Math.max(minMonthlyIncome, maxMonthlyIncome) * 12).toLocaleString()}
                         </div>
+                        <p className="pro-text-meta lowercase">potential revenue yearly</p>
+                        <p className="text-xl font-bold text-teal-500 mt-1">
+                            ${Math.min(minMonthlyIncome, maxMonthlyIncome).toLocaleString()} - ${Math.max(minMonthlyIncome, maxMonthlyIncome).toLocaleString()}/mo
+                        </p>
+                    </div>
 
                         <div className="glass-panel rounded-lg p-4 text-center">
                             <p className="text-sm text-gray-600 leading-relaxed">
@@ -481,8 +482,7 @@ export default function IncomeBuilderTool() {
                         >
                             ← Start Over
                         </button>
-                    </CardContent>
-                </Card>
+                </div>
 
                 <p className="text-xs text-gray-400 text-center mt-4">
                     Source: Federal Government HHS/OCC
@@ -493,17 +493,16 @@ export default function IncomeBuilderTool() {
 
     // CENTER-BASED RESULTS
     return (
-        <div className="max-w-md mx-auto px-4">
-            <Card className="glass-panel">
-                <CardContent className="p-6 space-y-6">
+            <div className="max-w-md mx-auto">
+                <div className="pro-card glass-panel shadow-sm space-y-4">
                     <div className="text-center">
-                        <p className="text-sm text-gray-500 mb-1">{stateInfo?.name} • {centerTotalKids} enrolled</p>
-                        <div className="text-5xl font-bold text-purple-600">
+                        <p className="pro-text-meta mb-1">{stateInfo?.name} • {centerTotalKids} enrolled</p>
+                        <div className="text-4xl font-bold text-teal-600 tracking-tighter">
                             ${centerAnnualGross.toLocaleString()}
                         </div>
-                        <p className="text-gray-600 text-lg">potential revenue yearly</p>
-                        <p className="text-2xl font-semibold text-purple-500 mt-2">
-                            ${centerMonthlyGross.toLocaleString()}/month
+                        <p className="pro-text-meta lowercase">potential revenue yearly</p>
+                        <p className="text-xl font-bold text-teal-500 mt-1">
+                            ${centerMonthlyGross.toLocaleString()}/mo
                         </p>
                     </div>
 
@@ -546,12 +545,11 @@ export default function IncomeBuilderTool() {
                     >
                         ← Start Over
                     </button>
-                </CardContent>
-            </Card>
+                </div>
 
-            <p className="text-xs text-gray-400 text-center mt-4">
-                Source: Federal Government HHS/OCC Market Rate Survey
-            </p>
-        </div>
-    );
-}
+                <p className="text-xs text-gray-400 text-center mt-4">
+                    Source: Federal Government HHS/OCC Market Rate Survey
+                </p>
+            </div>
+        );
+    }

@@ -134,6 +134,39 @@ Before making ANY changes, verify:
 
 ---
 
+## 5. Ultra-High Density Mandate (MANDATORY)
+
+**Rule: All components MUST be optimized for 320px ultra-high density.**
+
+1. **Zero-Waste Spacing**:
+   - Global padding (`pt-4`, `px-4`) must be minimal. 
+   - Internal card padding (`p-3`) must be tight.
+   - Vertical gaps (`gap-3`, `space-y-4`) must pull content above the fold.
+   - NO desktop-centric whitespace (e.g. `py-12`, `mb-24`).
+
+2. **Micro-Typography**:
+   - Density Base: `text-[11px]` or `text-xs`.
+   - Labels/Meta: `text-[10px] uppercase font-black`.
+   - Alignment: Use `.pro-heading-dense` and `.pro-text-meta` utilities.
+
+3. **Glassmorphic Brand**:
+   - Use `.pro-card` for all container surfaces.
+   - Use `.glass-panel` for blurred backdrops.
+
+---
+
+## 6. Component Logic-Lock Mandate
+
+**Rule: Styling refactors MUST NOT alter underlying component structure or logic.**
+
+1. **No Structural Merging**: Do not merge distinct logical sections into a single dashboard component unless explicitly authorized.
+2. **Logic Preservation**: Calculation functions, state management, and data-fetching hooks MUST remain 1:1 with the original source.
+3. **Audit Requirement**: Any visual refactor must also include a logic-check to verify that all original functional components (e.g. `MetricTile`, `RaceItem`) are intact.
+
+**Violation of these rules is a full task failure.**
+
+---
+
 ## Quick Reference
 
 | Priority | Action |

@@ -207,14 +207,13 @@ export default function MarketReportTool() {
   // VIEW 1: Input Form
   if (!showResults) {
     return (
-      <div className="max-w-md mx-auto px-4">
-        <h1 className="text-2xl font-bold text-center mb-8 text-gray-900 tracking-tight">
-          Market Intelligence Tool
+      <div className="max-w-md mx-auto">
+        <h1 className="pro-heading-dense text-center mb-3">
+          Market Intelligence
         </h1>
 
-        <Card className="glass-panel">
-          <CardContent className="p-6 space-y-6">
-            <div className="bg-teal-50 p-4 rounded-xl border border-teal-100 flex items-center gap-3">
+        <div className="pro-card glass-panel shadow-sm space-y-4">
+          <div className="bg-teal-50/50 p-3 rounded-lg border border-teal-100/50 flex items-center gap-3">
               <div className="bg-white p-2 rounded-lg shadow-sm border border-teal-100 items-center justify-center flex text-xl">
                 📊
               </div>
@@ -297,20 +296,23 @@ export default function MarketReportTool() {
               </div>
             </div>
 
-            <Button
+            <button
               onClick={generateReport}
               disabled={!selectedCounty || dataLoading}
-              className="w-full h-14 bg-teal-600 hover:bg-teal-700 text-lg font-black uppercase shadow-xl shadow-teal-600/20"
+              className={`w-full py-3.5 px-6 text-sm font-bold rounded-xl transition-all min-h-[48px] ${
+                !selectedCounty || dataLoading
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  : 'bg-gradient-to-r from-teal-600 to-emerald-600 text-white shadow-lg shadow-teal-600/20 hover:opacity-90'
+              }`}
             >
-              {dataLoading ? "ASSEMBLING REPORT..." : "VIEW MARKET REPORT"}
-            </Button>
+              {dataLoading ? "ASSEMBLING REPORT..." : "VIEW MARKET REPORT →"}
+            </button>
 
-            <p className="text-[10px] text-gray-400 text-center uppercase tracking-widest font-black pt-2 leading-relaxed">
+            <p className="pro-text-meta text-center leading-relaxed">
               Based on U.S. Dept of Labor Women’s Bureau<br />Latest Federal Report
             </p>
-          </CardContent>
-        </Card>
-      </div>
+          </div>
+        </div>
     );
   }
 
@@ -319,39 +321,37 @@ export default function MarketReportTool() {
   const currentPriceData = (reportData as any)[currentType.id] as CareTypeData;
 
   return (
-    <div className="max-w-md mx-auto px-4 pb-20 space-y-8">
-      <div className="text-center pt-2">
-        <p className="text-sm font-bold text-gray-400 mb-1 uppercase tracking-widest">{reportData?.stateName}</p>
-        <h2 className="text-3xl font-black text-gray-900 tracking-tight leading-none">{reportData?.countyName}</h2>
+    <div className="max-w-md mx-auto pb-10 space-y-3">
+      <div className="text-center bg-teal-600 rounded-xl py-2 px-4 shadow-sm border border-teal-500">
+        <p className="text-[10px] font-black text-teal-100 uppercase tracking-widest">{reportData?.stateName}</p>
+        <h2 className="text-lg font-black text-white uppercase tracking-tight leading-none">{reportData?.countyName}</h2>
       </div>
 
       {/* PRICE DISCOVERY SLIDER (SOT Polish) */}
-      <Card className="glass-panel border-teal-100/40 shadow-xl">
-        <CardContent className="p-6 space-y-6">
-          <div className="text-center space-y-1 mb-2">
-            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Selected Care Format</p>
-            <h3 className="text-xl font-black text-teal-700 uppercase tracking-tight">{currentType.label}</h3>
-          </div>
+      <div className="pro-card glass-panel shadow-sm space-y-3">
+        <div className="text-center space-y-1">
+          <p className="pro-text-meta">Care Format Selection</p>
+          <h3 className="pro-heading-dense text-teal-700 uppercase tracking-tight">{currentType.label}</h3>
+        </div>
 
-          <div className="px-2 pt-2 relative">
-            <Slider
-              value={typeIndex}
-              onValueChange={setTypeIndex}
-              min={0}
-              max={7}
-              step={1}
-              className="py-4"
-            />
-          </div>
+        <div className="px-2 relative">
+          <Slider
+            value={typeIndex}
+            onValueChange={setTypeIndex}
+            min={0}
+            max={7}
+            step={1}
+            className="py-2"
+          />
+        </div>
 
-          <div className="flex justify-between items-center px-1 text-[9px] font-black text-gray-300 uppercase tracking-[0.2em]">
-            <span className={typeIndex[0] < 2 ? "text-teal-500" : ""}>Infants</span>
-            <span className={typeIndex[0] >= 2 && typeIndex[0] < 4 ? "text-teal-500" : ""}>Toddlers</span>
-            <span className={typeIndex[0] >= 4 && typeIndex[0] < 6 ? "text-teal-500" : ""}>Preschool</span>
-            <span className={typeIndex[0] >= 6 ? "text-teal-500" : ""}>Schoolage</span>
-          </div>
-        </CardContent>
-      </Card>
+        <div className="flex justify-between items-center px-1 pro-text-meta text-gray-300">
+          <span className={typeIndex[0] < 2 ? "text-teal-500 font-bold" : ""}>Infant</span>
+          <span className={typeIndex[0] >= 2 && typeIndex[0] < 4 ? "text-teal-500 font-bold" : ""}>Toddler</span>
+          <span className={typeIndex[0] >= 4 && typeIndex[0] < 6 ? "text-teal-500 font-bold" : ""}>Pre-K</span>
+          <span className={typeIndex[0] >= 6 ? "text-teal-500 font-bold" : ""}>School</span>
+        </div>
+      </div>
 
       {/* SECTION 1: PRICE CONTEXT */}
       <div className="space-y-4">
@@ -359,49 +359,47 @@ export default function MarketReportTool() {
           <div className="h-1 w-3 bg-teal-200 mr-2 rounded-full" />
           Price Context
         </h4>
-        <Card className="glass-panel">
-          <CardContent className="p-6 space-y-6">
-            <div className="text-center py-2">
-              <motion.div
-                key={currentType.id}
-                initial={{ opacity: 0, y: 5 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-5xl font-black text-teal-600 tracking-tighter"
-              >
-                {formatCurrency(currentPriceData.p24)}
-              </motion.div>
-              <p className="text-xs font-bold text-gray-500 mt-2 uppercase tracking-widest">Estimated Price (Latest Federal Data)</p>
+        <div className="pro-card glass-panel shadow-sm space-y-3">
+          <div className="text-center">
+            <motion.div
+              key={currentType.id}
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-4xl font-bold text-teal-600 tracking-tighter"
+            >
+              {formatCurrency(currentPriceData.p24)}
+            </motion.div>
+            <p className="pro-text-meta lowercase">Estimated Price (Latest Federal Data)</p>
+          </div>
+
+            <div className="grid grid-cols-2 gap-2">
+              <div className="p-2 glass-panel-warm rounded-lg text-center">
+                <p className="pro-text-meta lowercase leading-tight mb-1">Median Price<br />(Latest Report)</p>
+                <p className="text-lg font-bold text-gray-900 tracking-tight">{formatCurrency(currentPriceData.p22)}</p>
+              </div>
+              <div className="p-2 glass-panel-warm rounded-lg text-center">
+                <p className="pro-text-meta lowercase leading-tight mb-1">Income<br />Share</p>
+                <p className="text-lg font-bold text-teal-600 tracking-tight">{currentPriceData.share}</p>
+              </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div className="glass-panel-warm p-4 rounded-2xl text-center">
-                <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1 leading-tight">Median Yearly Price<br />(Latest Report)</p>
-                <p className="text-xl font-bold text-gray-900 tracking-tight">{formatCurrency(currentPriceData.p22)}</p>
+            <div className="space-y-1">
+              <div className="flex justify-between items-center pro-text-meta">
+                <span>Income share</span>
+                <span className="text-teal-600 font-bold">{currentPriceData.share}</span>
               </div>
-              <div className="glass-panel-warm p-4 rounded-2xl text-center">
-                <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1 leading-tight">Family Income<br />Share</p>
-                <p className="text-xl font-bold text-teal-600 tracking-tight">{currentPriceData.share}</p>
-              </div>
-            </div>
-
-            <div className="space-y-2 pt-2">
-              <div className="flex justify-between text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                <span className="text-[9px]">Childcare price as share of median family income</span>
-                <span className="text-teal-600">{currentPriceData.share}</span>
-              </div>
-              <div className="h-2 w-full bg-teal-50 rounded-full overflow-hidden border border-teal-100/50">
+              <div className="h-1.5 w-full bg-teal-50 rounded-full overflow-hidden border border-teal-100/50">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${Math.min(parseFloat(currentPriceData.share) * 3, 100)}%` }}
-                  className="h-full bg-teal-500 rounded-full"
+                  className="h-full bg-teal-500"
                 />
               </div>
             </div>
-          </CardContent>
-        </Card>
-      </div>
+          </div>
+        </div>
 
-      {/* SECTION 2: ECONOMIC CHARACTERISTICS */}
+        {/* SECTION 2: ECONOMIC CHARACTERISTICS */}
       <div className="space-y-4">
         <h4 className="text-[10px] font-black uppercase text-teal-900/20 tracking-[0.3em] flex items-center ml-1">
           <div className="h-1 w-3 bg-teal-200 mr-2 rounded-full" />
@@ -419,40 +417,38 @@ export default function MarketReportTool() {
       <div className="space-y-4">
         <h4 className="text-[10px] font-black uppercase text-teal-900/20 tracking-[0.3em] flex items-center ml-1">
           <div className="h-1 w-3 bg-teal-200 mr-2 rounded-full" />
-          County Demographic Characteristics
+          Demographics
         </h4>
-        <Card className="glass-panel">
-          <CardContent className="p-6 space-y-6">
-            <div className="flex justify-between items-center border-b border-teal-50 pb-4">
-              <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">Total population</span>
-              <span className="text-3xl font-black text-gray-900 tracking-tighter">{new Intl.NumberFormat('en-US').format(parseInt(reportData?.totalpop || "0"))}</span>
+        <div className="pro-card glass-panel shadow-sm space-y-4">
+          <div className="flex justify-between items-center border-b border-teal-50 pb-2">
+            <span className="pro-text-meta">Total population</span>
+            <span className="text-2xl font-bold text-gray-900 tracking-tighter">{new Intl.NumberFormat('en-US').format(parseInt(reportData?.totalpop || "0"))}</span>
+          </div>
+
+          <div className="space-y-4">
+            <div className="h-1.5 w-full flex rounded-full overflow-hidden border border-teal-100/30">
+              <div style={{ flex: parseFloat(reportData?.oneraceW || "0") }} className="bg-teal-600" />
+              <div style={{ flex: parseFloat(reportData?.oneraceB || "0") }} className="bg-teal-500" />
+              <div style={{ flex: parseFloat(reportData?.oneraceA || "0") }} className="bg-teal-400" />
+              <div style={{ flex: parseFloat(reportData?.hispanic || "0") }} className="bg-teal-300" />
+              <div className="bg-teal-100 flex-grow" />
             </div>
 
-            <div className="space-y-5 pt-1">
-              <div className="h-2 w-full flex rounded-full overflow-hidden border border-teal-100/30 shadow-inner">
-                <div style={{ flex: parseFloat(reportData?.oneraceW || "0") }} className="bg-teal-600" />
-                <div style={{ flex: parseFloat(reportData?.oneraceB || "0") }} className="bg-teal-500" />
-                <div style={{ flex: parseFloat(reportData?.oneraceA || "0") }} className="bg-teal-400" />
-                <div style={{ flex: parseFloat(reportData?.hispanic || "0") }} className="bg-teal-300" />
-                <div className="bg-teal-100 flex-grow" />
-              </div>
-
-              <div className="grid grid-cols-2 gap-y-4 gap-x-6">
-                <RaceItem color="bg-teal-600" label="Percent White" value={reportData?.oneraceW || "0"} />
-                <RaceItem color="bg-teal-500" label="Percent Black" value={reportData?.oneraceB || "0"} />
-                <RaceItem color="bg-teal-400" label="Percent Asian" value={reportData?.oneraceA || "0"} />
-                <RaceItem color="bg-teal-300" label="Percent Hispanic (of any race)" value={reportData?.hispanic || "0"} />
-              </div>
+            <div className="grid grid-cols-2 gap-y-3 gap-x-4">
+              <RaceItem color="bg-teal-600" label="White" value={reportData?.oneraceW || "0"} />
+              <RaceItem color="bg-teal-500" label="Black" value={reportData?.oneraceB || "0"} />
+              <RaceItem color="bg-teal-400" label="Asian" value={reportData?.oneraceA || "0"} />
+              <RaceItem color="bg-teal-300" label="Hispanic" value={reportData?.hispanic || "0"} />
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
 
-      <div className="pt-10 flex flex-col items-center">
-        <button onClick={reset} className="text-[10px] font-black text-teal-600 hover:text-teal-700 uppercase tracking-[0.3em] transition-colors py-4 px-8 bg-teal-50/50 rounded-full border border-teal-100">
+
+      <div className="pt-6 flex flex-col items-center">
+        <button onClick={reset} className="pro-text-meta transition-colors py-3 px-6 bg-teal-50/50 rounded-full border border-teal-100">
           ← SWITCH COUNTY
         </button>
-        <p className="text-[9px] font-black text-gray-300 uppercase tracking-[0.5em] mt-10">ANTIGRAVITY MARKET DATA</p>
       </div>
     </div>
   );
@@ -460,18 +456,18 @@ export default function MarketReportTool() {
 
 // Internal Pure Helpers
 const MetricTile = ({ label, value }: { label: string, value: string }) => (
-  <div className="glass-panel p-4 rounded-2xl flex flex-col justify-between h-full border-teal-100/20">
-    <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest leading-tight mb-3 line-clamp-2">{label}</span>
-    <span className="text-xl font-black text-gray-900 tracking-tight">{value}</span>
+  <div className="pro-card glass-panel flex flex-col justify-between h-full">
+    <span className="pro-text-meta leading-tight mb-2 line-clamp-2">{label}</span>
+    <span className="text-lg font-bold text-gray-900 tracking-tight">{value}</span>
   </div>
 );
 
 const RaceItem = ({ color, label, value }: any) => (
-  <div className="flex items-center gap-3">
-    <div className={`h-2.5 w-2.5 rounded-full ${color} shrink-0 shadow-sm`} />
+  <div className="flex items-center gap-2">
+    <div className={`h-2 w-2 rounded-full ${color} shrink-0`} />
     <div className="flex flex-col">
-      <span className="text-[9px] font-black text-gray-400 uppercase tracking-wider leading-none mb-1">{label}</span>
-      <span className="text-sm font-bold text-gray-800 tracking-tight">{parseFloat(value).toFixed(1)}%</span>
+      <span className="pro-text-meta lowercase leading-none mb-0.5">{label}</span>
+      <span className="text-xs font-bold text-gray-800 tracking-tight">{parseFloat(value).toFixed(1)}%</span>
     </div>
   </div>
 );

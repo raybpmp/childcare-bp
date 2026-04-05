@@ -49,11 +49,25 @@ Before implementing any UI code, verify that removing ALL breakpoint prefixes (`
 
 All interactive elements (buttons, links, clickable cards) must have a minimum touch target of 44px x 44px on mobile. Use `min-h-[44px]` and adequate padding.
 
-## Rule 6: Font Sizes
+## Rule 6: Ultra-High Density Typography
 
-- Mobile base: `text-base` (16px) or `text-lg` (18px) for body text
-- Never use `text-xs` for body content
-- Headings start at `text-2xl` or `text-3xl` on mobile, grow with `md:` and `lg:`
+- **Density Base**: Use `text-xs` (12px) or `text-[11px]` for dashboard labels and meta-information.
+- **Pro Labeling**: Use `text-[10px] font-black uppercase tracking-wider` for navigational elements and status indicators.
+- **Micro-Meta**: Use `text-[9px] font-bold uppercase tracking-widest text-gray-400` for secondary metadata (e.g. timestamps).
+- **Headings**: Use `.pro-heading-dense` (custom utility) or `text-sm/text-base font-black uppercase` for tool subheaders. Never allow a heading to exceed `text-xl` on mobile viewports.
+
+## Rule 7: Glassmorphism (.pro-card)
+
+All primary UI containers must use the glassmorphic card system:
+- Use `.pro-card` for standard containers.
+- Use `.glass-panel` or `.glass-panel-dark` for backdrop-blur effects.
+- Ensure `border-white/20` and `backdrop-blur-xl` are consistent across the platform.
+
+## Rule 8: Spacing Purge (No-Waste)
+
+- **Global Padding**: Top-level page padding must be minimal on mobile (`pt-4`, `px-4`). Never use `pt-24` or `py-12` on mobile tools or dashboard pages.
+- **Component Padding**: Internal card padding should be `p-3` or `p-4` maximum for mobile. Use `gap-2` or `gap-3` for grid spacing.
+- **Vertical Flow**: Use `space-y-4` or `space-y-3` for vertical layout stacks. Slashing desktop-centric whitespace is mandatory.
 
 ## Enforcement
 

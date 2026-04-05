@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { Container } from "@/components/layout/Container";
 import HeroImage from "../components/ui/HeroImage.astro";
+import { ArrowRight } from "lucide-react";
 ---
 
 <Layout
@@ -9,57 +10,40 @@ import HeroImage from "../components/ui/HeroImage.astro";
     description="Learn how offering the right employee benefits can improve retention and ROI for your childcare business."
 >
     <!-- HERO SECTION -->
-    <section class="pt-8 pb-12 md:pt-12 md:pb-20">
+    <section class="pro-section">
         <Container size="md">
             <HeroImage
                 src="/images/growth/childcare-employee-benefits.webp"
                 alt="Professional staff training session demonstrating high-value childcare employee benefits for team retention"
-                className="mb-8 md:mb-12"
+                className="mb-4 md:mb-12"
             />
-            <div class="text-center mb-8 md:mb-12">
-                <span
-                    class="inline-block px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-semibold mb-3"
-                >
+            <div class="text-center">
+                <span class="pro-text-meta mb-2 block text-purple-600">
                     Team Building
                 </span>
-                <h1
-                    class="text-2xl md:text-5xl font-bold text-gray-900 mb-4 md:mb-6"
-                >
+                <h1 class="text-xl md:text-5xl font-bold text-gray-900 mb-2 md:mb-6">
                     YOUR Employee Retention
                 </h1>
-                <p class="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">
-                    Building a loyal team isn't just about luck—it's about
-                    creating an environment where staff feel valued and secure
-                    through strategic benefits.
+                <p class="text-sm md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                    Building a loyal team isn't just about luck—it's about creating an environment where staff feel valued and secure through strategic benefits.
                 </p>
             </div>
         </Container>
     </section>
 
     <!-- FACTORS SECTION -->
-    <section class="py-8 md:py-16">
+    <section class="pro-section bg-gray-50/50">
         <Container size="md">
-            <div
-                class="glass-panel rounded-2xl md:rounded-3xl p-6 md:p-10 mb-6 md:mb-8"
-            >
-                <h2
-                    class="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6"
-                >
+            <div class="pro-card mb-3 md:mb-8">
+                <h2 class="text-base md:text-2xl font-bold text-gray-900 mb-2 md:mb-6 uppercase tracking-wider">
                     What Affects Your Retention ROI
                 </h2>
-                <div
-                    class="space-y-4 text-sm md:text-base text-gray-600 leading-relaxed"
-                >
+                <div class="space-y-3 text-xs md:text-base text-gray-600 leading-relaxed font-medium">
                     <p>
-                        The return on investment for employee benefits varies
-                        widely based on your local market rates, the specific
-                        mix of benefits you offer, and the long-term cost of
-                        turnover in your area.
+                        The return on investment for benefits varies widely based on your local market rates, the specific mix you offer, and the long-term cost of turnover.
                     </p>
                     <p>
-                        Every center's financial capacity and staff demographics
-                        create a unique landscape for what works best. What
-                        attracts teachers in one market may not work in another.
+                        Every center's financial capacity and staff demographics create a unique landscape. What attracts teachers in one market may not work in another.
                     </p>
                 </div>
             </div>
@@ -67,26 +51,18 @@ import HeroImage from "../components/ui/HeroImage.astro";
     </section>
 
     <!-- WHY GENERIC FAILS SECTION -->
-    <section class="py-8 md:py-16">
+    <section class="pro-section">
         <Container size="md">
-            <div class="glass-panel rounded-2xl md:rounded-3xl p-6 md:p-10">
-                <h2
-                    class="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6"
-                >
-                    Why Online Advice Often Conflicts
+            <div class="pro-card">
+                <h2 class="text-base md:text-2xl font-bold text-gray-900 mb-2 md:mb-6 uppercase tracking-wider">
+                    Why Advice Conflicts
                 </h2>
-                <div
-                    class="space-y-4 text-sm md:text-base text-gray-600 leading-relaxed"
-                >
+                <div class="space-y-3 text-xs md:text-base text-gray-600 leading-relaxed font-medium">
                     <p>
-                        Generic articles often suggest expensive packages that
-                        don't match the reality of a small to mid-sized
-                        childcare business.
+                        Generic articles often suggest expensive packages that don't match the reality of a small to mid-sized childcare business.
                     </p>
                     <p>
-                        Your strategy needs to be tailored to your specific
-                        budget and the actual needs of your team, not a
-                        one-size-fits-all corporate playbook.
+                        Your strategy needs to be tailored to your specific budget and the actual needs of your team, not a corporate playbook.
                     </p>
                 </div>
             </div>
@@ -94,25 +70,21 @@ import HeroImage from "../components/ui/HeroImage.astro";
     </section>
 
     <!-- CTA SECTION -->
-    <section class="py-12 md:py-20">
+    <section class="pro-section">
         <Container size="md">
-            <div
-                class="glass-panel rounded-2xl md:rounded-3xl p-6 md:p-10 text-center border-2 border-purple-200/50 bg-gradient-to-br from-purple-50/50 to-white/50"
-            >
-                <h2
-                    class="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4"
-                >
-                    See How Much YOU Could Make in Your State
+            <div class="pro-card text-center border-2 border-purple-200/50 bg-gradient-to-br from-purple-50/20 to-white/50">
+                <h2 class="text-base md:text-2xl font-bold text-gray-900 mb-2 md:mb-4">
+                    See YOUR Budget for Benefits
                 </h2>
-                <p class="text-sm md:text-base text-gray-600 mb-4 md:mb-6">
-                    Get your personalized income estimate to see what budget you
-                    have for benefits.
+                <p class="text-xs md:text-base text-gray-600 mb-3 md:mb-6">
+                    Get your personalized income estimate to see what budget you have for benefits.
                 </p>
                 <a
                     href="/#calculator"
-                    class="inline-flex items-center justify-center rounded-full bg-purple-600 hover:bg-purple-700 text-white font-medium px-6 py-3 md:px-8 md:py-4 shadow-lg transition-all text-sm md:text-base"
+                    class="inline-flex items-center gap-1.5 justify-center rounded-full bg-purple-600 hover:bg-purple-700 text-white font-bold px-5 py-2 md:px-8 md:py-4 shadow-lg transition-all text-xs md:text-base group"
                 >
-                    Use the Free Calculator →
+                    Use the Free Calculator
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                 </a>
             </div>
         </Container>

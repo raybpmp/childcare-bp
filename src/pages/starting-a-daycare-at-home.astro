@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { Container } from "@/components/layout/Container";
 import HeroImage from "../components/ui/HeroImage.astro";
+import { ArrowRight } from "lucide-react";
 ---
 
 <Layout
@@ -9,68 +10,43 @@ import HeroImage from "../components/ui/HeroImage.astro";
     description="Your home-based daycare opportunity depends on your state's regulations, zoning laws, and local market. Get personalized insights for your situation."
 >
     <!-- HERO SECTION -->
-    <section class="pt-8 pb-12 md:pt-12 md:pb-20">
+    <section class="pro-section">
         <Container size="md">
             <HeroImage
                 src="/images/startup/starting-a-daycare-at-home.webp"
                 alt="Home office setup with licensing documents, essential for the starting a daycare center checklist phase"
-                className="mb-8 md:mb-12"
+                className="mb-4 md:mb-12"
             />
-            <div class="text-center mb-8 md:mb-12">
-                <span
-                    class="inline-block px-3 py-1 rounded-full bg-teal-100 text-teal-700 text-xs font-semibold mb-3"
-                >
+            <div class="text-center">
+                <span class="pro-text-meta mb-2 block">
                     Home-Based Business
                 </span>
-                <h1
-                    class="text-2xl md:text-5xl font-bold text-gray-900 mb-4 md:mb-6"
-                >
+                <h1 class="text-xl md:text-5xl font-bold text-gray-900 mb-2 md:mb-6">
                     YOUR Home-Based Daycare
                 </h1>
-                <p class="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">
-                    Running a daycare from home offers flexibility and lower
-                    startup costs, but your actual opportunity depends entirely
-                    on your state's family childcare regulations and your local
-                    market.
+                <p class="text-sm md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                    Running a daycare from home offers flexibility and lower startup costs, but your actual opportunity depends entirely on your state's family childcare regulations.
                 </p>
             </div>
         </Container>
     </section>
 
     <!-- FACTORS SECTION -->
-    <section class="py-8 md:py-16">
+    <section class="pro-section bg-gray-50/50">
         <Container size="md">
-            <div
-                class="glass-panel rounded-2xl md:rounded-3xl p-6 md:p-10 mb-6 md:mb-8"
-            >
-                <h2
-                    class="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6"
-                >
+            <div class="pro-card mb-3 md:mb-8">
+                <h2 class="text-base md:text-2xl font-bold text-gray-900 mb-2 md:mb-6 uppercase tracking-wider">
                     What Affects Your Home Daycare
                 </h2>
-                <div
-                    class="space-y-4 text-sm md:text-base text-gray-600 leading-relaxed"
-                >
+                <div class="space-y-3 text-xs md:text-base text-gray-600 leading-relaxed font-medium">
                     <p>
-                        Home-based daycares operate under family childcare
-                        licensing, which varies dramatically by state. Some
-                        states allow you to care for up to 12 children with an
-                        assistant, while others cap you at 3 without one. These
-                        capacity limits directly determine your income ceiling.
+                        Home-based daycares operate under family childcare licensing, which varies dramatically by state. Some allow up to 12 children with an assistant, while others cap you at 3. This directly sets your income ceiling.
                     </p>
                     <p>
-                        Your home's zoning classification matters too.
-                        Residential zoning might restrict business operations,
-                        require special permits, or limit the number of
-                        non-family members allowed on your property during
-                        business hours.
+                        Your home's zoning classification matters too. Residential zoning might restrict operations, require special permits, or limit the number of non-family members allowed.
                     </p>
-                    <p>
-                        Beyond regulations, your home's layout, available
-                        outdoor space, and proximity to your target market all
-                        affect viability. The work-life boundaries you can
-                        maintain create a unique business equation for every
-                        provider.
+                    <p class="hidden md:block">
+                        Beyond regulations, your layouts, outdoor space, and proximity to families affect viability. The work-life boundaries you maintain create a unique business equation.
                     </p>
                 </div>
             </div>
@@ -78,35 +54,18 @@ import HeroImage from "../components/ui/HeroImage.astro";
     </section>
 
     <!-- WHY GENERIC FAILS SECTION -->
-    <section class="py-8 md:py-16">
+    <section class="pro-section">
         <Container size="md">
-            <div class="glass-panel rounded-2xl md:rounded-3xl p-6 md:p-10">
-                <h2
-                    class="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6"
-                >
-                    Why Online Advice Often Conflicts
+            <div class="pro-card">
+                <h2 class="text-base md:text-2xl font-bold text-gray-900 mb-2 md:mb-6 uppercase tracking-wider">
+                    Why Advice Conflicts
                 </h2>
-                <div
-                    class="space-y-4 text-sm md:text-base text-gray-600 leading-relaxed"
-                >
+                <div class="space-y-3 text-xs md:text-base text-gray-600 leading-relaxed font-medium">
                     <p>
-                        Search for "starting a home daycare" and you'll find
-                        wildly different estimates for income potential, startup
-                        costs, and viability. Some sources make it sound like
-                        easy money, others paint it as barely profitable.
+                        A home daycare that thrives in one state might be financially impossible in another due to capacity rules. A profitable model in a suburb might fail in a rural community.
                     </p>
                     <p>
-                        A family daycare that thrives in one state might be
-                        financially impossible in another due to capacity
-                        restrictions. A profitable model in a suburban area
-                        might fail in a rural community with different
-                        demographics.
-                    </p>
-                    <p>
-                        You can't evaluate your opportunity using someone else's
-                        numbers. Your state's regulations, your local market
-                        rates, and your home's suitability require personalized
-                        analysis.
+                        You can't evaluate your opportunity using someone else's numbers. Your state's regulations, local market rates, and home's suitability require personalized analysis.
                     </p>
                 </div>
             </div>
@@ -114,25 +73,21 @@ import HeroImage from "../components/ui/HeroImage.astro";
     </section>
 
     <!-- CTA SECTION -->
-    <section class="py-12 md:py-20">
+    <section class="pro-section">
         <Container size="md">
-            <div
-                class="glass-panel rounded-2xl md:rounded-3xl p-6 md:p-10 text-center border-2 border-teal-200/50 bg-gradient-to-br from-teal-50/50 to-white/50"
-            >
-                <h2
-                    class="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4"
-                >
-                    See How Much YOU Could Make in Your State
+            <div class="pro-card text-center border-2 border-teal-200/50 bg-gradient-to-br from-teal-50/20 to-white/50">
+                <h2 class="text-base md:text-2xl font-bold text-gray-900 mb-2 md:mb-4">
+                    See Real Home Daycare Potential
                 </h2>
-                <p class="text-sm md:text-base text-gray-600 mb-4 md:mb-6">
-                    Get your personalized income estimate based on your state's
-                    family childcare regulations.
+                <p class="text-xs md:text-base text-gray-600 mb-3 md:mb-6">
+                    Get your personalized income estimate based on your state's family childcare regulations.
                 </p>
                 <a
                     href="/#calculator"
-                    class="inline-flex items-center justify-center rounded-full bg-teal-600 hover:bg-teal-700 text-white font-medium px-6 py-3 md:px-8 md:py-4 shadow-lg transition-all text-sm md:text-base"
+                    class="inline-flex items-center gap-1.5 justify-center rounded-full bg-teal-600 hover:bg-teal-700 text-white font-bold px-5 py-2 md:px-8 md:py-4 shadow-lg transition-all text-xs md:text-base group"
                 >
-                    Use the Free Calculator →
+                    Use the Free Calculator
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                 </a>
             </div>
         </Container>

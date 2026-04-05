@@ -3,7 +3,7 @@ import { auth, onAuthStateChanged, signOut } from '@/lib/firebase-client';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { LayoutDashboard, User as UserIcon, Settings, BarChart3, LogOut } from 'lucide-react';
+import { LayoutDashboard, User as UserIcon, Settings, BarChart3, LogOut, LogIn, Shield } from 'lucide-react';
 
 import { AuthModal } from './AuthModal';
 
@@ -101,8 +101,28 @@ export const UserNav = () => {
                         exit={{ opacity: 0, x: -10 }}
                         className="flex items-center gap-2"
                     >
-                        <AuthModal mode="login" />
-                        <AuthModal mode="signup" />
+                        <AuthModal 
+                            mode="login" 
+                            trigger={
+                                <Button variant="ghost" className="h-8 px-2.5 sm:px-4 text-xs font-bold text-gray-700 hover:text-teal-600 hover:bg-teal-50 rounded-lg sm:rounded-full transition-all">
+                                    <span className="flex items-center gap-1.5">
+                                        <LogIn className="w-3.5 h-3.5" />
+                                        <span>Sign In</span>
+                                    </span>
+                                </Button>
+                            }
+                        />
+                        <AuthModal 
+                            mode="signup" 
+                            trigger={
+                                <Button className="h-8 px-2.5 sm:px-4 text-xs font-bold bg-gray-900 hover:bg-gray-800 text-white shadow-md rounded-lg sm:rounded-full transition-all">
+                                    <span className="flex items-center gap-1.5">
+                                        <Shield className="w-3.5 h-3.5" />
+                                        <span>Join Free</span>
+                                    </span>
+                                </Button>
+                            }
+                        />
                     </motion.div>
                 )}
             </AnimatePresence>

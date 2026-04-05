@@ -1,0 +1,260 @@
+02:38:29 [@astrojs/node] Enabling sessions with filesystem storage
+02:38:30 [content] Syncing content
+02:38:30 [content] Synced content
+02:38:30 [types] Generated 617ms
+02:38:30 [check] Getting diagnostics for Astro files in /home/leader/Documents/Websites/Child Care Business Plan...
+[96mgate1-test.js[0m:[93m4[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'FROM_ADDRESS' is declared but its value is never read.
+
+[7m4[0m const FROM_ADDRESS = 'hello@childcarebusinessplan.com';
+[7m [0m [93m      ~~~~~~~~~~~~[0m
+
+[96msrc/content.config.ts[0m:[93m14[0m:[93m19[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m14[0m         featured: z.boolean().optional().default(false),
+[7m  [0m [93m                  ~[0m
+[96msrc/content.config.ts[0m:[93m13[0m:[93m23[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m13[0m         tags: z.array(z.string()).optional(),
+[7m  [0m [93m                      ~[0m
+[96msrc/content.config.ts[0m:[93m13[0m:[93m15[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m13[0m         tags: z.array(z.string()).optional(),
+[7m  [0m [93m              ~[0m
+[96msrc/content.config.ts[0m:[93m12[0m:[93m19[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m12[0m         category: z.string().optional(),
+[7m  [0m [93m                  ~[0m
+[96msrc/content.config.ts[0m:[93m11[0m:[93m17[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m11[0m         author: z.string().default('junya-herron'),
+[7m  [0m [93m                ~[0m
+[96msrc/content.config.ts[0m:[93m10[0m:[93m21[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m10[0m         coverImage: z.string().optional(),
+[7m  [0m [93m                    ~[0m
+[96msrc/content.config.ts[0m:[93m9[0m:[93m18[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m9[0m         excerpt: z.string(),
+[7m [0m [93m                 ~[0m
+[96msrc/content.config.ts[0m:[93m8[0m:[93m15[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m8[0m         date: z.string(),
+[7m [0m [93m              ~[0m
+[96msrc/content.config.ts[0m:[93m7[0m:[93m16[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m7[0m         title: z.string(),
+[7m [0m [93m               ~[0m
+[96msrc/content.config.ts[0m:[93m6[0m:[93m13[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m6[0m     schema: z.object({
+[7m [0m [93m            ~[0m
+[96msrc/content.config.ts[0m:[93m1[0m:[93m28[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m1[0m import { defineCollection, z } from 'astro:content';
+[7m [0m [93m                           ~[0m
+
+[96msrc/components/EmailCaptureModal.tsx[0m:[93m22[0m:[93m42[0m - [93mwarning[0m[90m ts(6385): [0m'FormEvent' is deprecated.
+
+[7m22[0m     const handleSubmit = async (e: React.FormEvent) => {
+[7m  [0m [93m                                         ~~~~~~~~~[0m
+[96msrc/components/EmailCaptureModal.tsx[0m:[93m6[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'XMarkIcon' is declared but its value is never read.
+
+[7m6[0m import { XMarkIcon } from '@heroicons/react/24/outline'; // Need to make sure this is installed or use svg
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/components/EmailModal.tsx[0m:[93m28[0m:[93m42[0m - [93mwarning[0m[90m ts(6385): [0m'FormEvent' is deprecated.
+
+[7m28[0m     const handleSubmit = async (e: React.FormEvent) => {
+[7m  [0m [93m                                         ~~~~~~~~~[0m
+
+[96msrc/components/EmbeddedCheckoutForm.tsx[0m:[93m1[0m:[93m8[0m - [93mwarning[0m[90m ts(6133): [0m'React' is declared but its value is never read.
+
+[7m1[0m import React, { useState, useCallback } from 'react';
+[7m [0m [93m       ~~~~~[0m
+
+[96msrc/components/HeroSplit.tsx[0m:[93m1[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'React' is declared but its value is never read.
+
+[7m1[0m import React from 'react';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/components/HeroSplitSection.tsx[0m:[93m1[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'React' is declared but its value is never read.
+
+[7m1[0m import React from 'react';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/components/MobileNav.tsx[0m:[93m1[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'React' is declared but its value is never read.
+
+[7m1[0m import * as React from "react";
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/components/TestimonialCarousel.tsx[0m:[93m1[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'React' is declared but its value is never read.
+
+[7m1[0m import React from 'react';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/components/blog/BlogCard.astro[0m:[93m14[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'Content' is declared but its value is never read.
+
+[7m14[0m const { Content } = await render(post);
+[7m  [0m [93m      ~~~~~~~~~~~[0m
+
+[96msrc/components/blog/BlogCategoryPills.tsx[0m:[93m1[0m:[93m8[0m - [93mwarning[0m[90m ts(6133): [0m'React' is declared but its value is never read.
+
+[7m1[0m import React, { useState } from 'react';
+[7m [0m [93m       ~~~~~[0m
+
+[96msrc/components/blog/BlogFilters.tsx[0m:[93m2[0m:[93m10[0m - [93mwarning[0m[90m ts(6133): [0m'BLOG_CATEGORIES' is declared but its value is never read.
+
+[7m2[0m import { BLOG_CATEGORIES, getCategoryStyle, getSeoAlt } from '@/config/blog';
+[7m [0m [93m         ~~~~~~~~~~~~~~~[0m
+[96msrc/components/blog/BlogFilters.tsx[0m:[93m1[0m:[93m8[0m - [93mwarning[0m[90m ts(6133): [0m'React' is declared but its value is never read.
+
+[7m1[0m import React, { useState } from 'react';
+[7m [0m [93m       ~~~~~[0m
+
+[96msrc/components/layout/ResponsiveStack.tsx[0m:[93m36[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'gapClass' is declared but its value is never read.
+
+[7m36[0m     const gapClass = `gap-4 ${breakpointClasses[breakpoint].replace('flex-row', `gap-${gap}`)}`;
+[7m  [0m [93m          ~~~~~~~~[0m
+
+[96msrc/components/tools/BusinessModeler.tsx[0m:[93m10[0m:[93m10[0m - [93mwarning[0m[90m ts(6133): [0m'sqFt' is declared but its value is never read.
+
+[7m10[0m   const [sqFt, setSqFt] = useState(mode === 'home' ? 0 : 2500);
+[7m  [0m [93m         ~~~~[0m
+[96msrc/components/tools/BusinessModeler.tsx[0m:[93m1[0m:[93m27[0m - [93mwarning[0m[90m ts(6133): [0m'useEffect' is declared but its value is never read.
+
+[7m1[0m import React, { useState, useEffect } from 'react';
+[7m [0m [93m                          ~~~~~~~~~[0m
+[96msrc/components/tools/BusinessModeler.tsx[0m:[93m1[0m:[93m8[0m - [93mwarning[0m[90m ts(6133): [0m'React' is declared but its value is never read.
+
+[7m1[0m import React, { useState, useEffect } from 'react';
+[7m [0m [93m       ~~~~~[0m
+
+[96msrc/components/tools/BusinessPlanApp.tsx[0m:[93m223[0m:[93m12[0m - [93mwarning[0m[90m ts(6133): [0m'submitting' is declared but its value is never read.
+
+[7m223[0m     const [submitting, setSubmitting] = useState(false);
+[7m   [0m [93m           ~~~~~~~~~~[0m
+[96msrc/components/tools/BusinessPlanApp.tsx[0m:[93m4[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'Button' is declared but its value is never read.
+
+[7m4[0m import { Button } from '@/components/ui/button';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/components/tools/CalculatorDeep.tsx[0m:[93m33[0m:[93m10[0m - [93mwarning[0m[90m ts(6133): [0m'sqFt' is declared but its value is never read.
+
+[7m33[0m   const [sqFt, setSqFt] = useState(mode === 'home' ? 0 : 2500);
+[7m  [0m [93m         ~~~~[0m
+[96msrc/components/tools/CalculatorDeep.tsx[0m:[93m1[0m:[93m8[0m - [93mwarning[0m[90m ts(6133): [0m'React' is declared but its value is never read.
+
+[7m1[0m import React, { useState } from 'react';
+[7m [0m [93m       ~~~~~[0m
+
+[96msrc/components/tools/IncomeBuilderTool.tsx[0m:[93m119[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'monthlyIncome' is declared but its value is never read.
+
+[7m119[0m     const monthlyIncome = Math.round(totalWeekly * 4.33);
+[7m   [0m [93m          ~~~~~~~~~~~~~[0m
+[96msrc/components/tools/IncomeBuilderTool.tsx[0m:[93m1[0m:[93m8[0m - [93mwarning[0m[90m ts(6133): [0m'React' is declared but its value is never read.
+
+[7m1[0m import React, { useState } from 'react';
+[7m [0m [93m       ~~~~~[0m
+
+[96msrc/components/tools/MarketReportTool.tsx[0m:[93m192[0m:[93m9[0m - [93mwarning[0m[90m ts(6133): [0m'formatPercent' is declared but its value is never read.
+
+[7m192[0m   const formatPercent = (val: string) => {
+[7m   [0m [93m        ~~~~~~~~~~~~~[0m
+[96msrc/components/tools/MarketReportTool.tsx[0m:[93m2[0m:[93m18[0m - [93mwarning[0m[90m ts(6133): [0m'AnimatePresence' is declared but its value is never read.
+
+[7m2[0m import { motion, AnimatePresence } from 'framer-motion';
+[7m [0m [93m                 ~~~~~~~~~~~~~~~[0m
+[96msrc/components/tools/MarketReportTool.tsx[0m:[93m1[0m:[93m8[0m - [93mwarning[0m[90m ts(6133): [0m'React' is declared but its value is never read.
+
+[7m1[0m import React, { useState, useEffect, useMemo } from 'react';
+[7m [0m [93m       ~~~~~[0m
+
+[96msrc/components/tools/QuizFunnel.tsx[0m:[93m206[0m:[93m17[0m - [93mwarning[0m[90m ts(6133): [0m'min' is declared but its value is never read.
+
+[7m206[0m         const { min, max } = calculateRevenue();
+[7m   [0m [93m                ~~~[0m
+[96msrc/components/tools/QuizFunnel.tsx[0m:[93m201[0m:[93m47[0m - [93mwarning[0m[90m ts(6385): [0m'FormEvent' is deprecated.
+
+[7m201[0m     const handleEmailSubmit = async (e: React.FormEvent) => {
+[7m   [0m [93m                                              ~~~~~~~~~[0m
+
+[96msrc/components/ui/MetricChip.astro[0m:[93m12[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'colorStyles' is declared but its value is never read.
+
+[7m12[0m const colorStyles = {
+[7m  [0m [93m      ~~~~~~~~~~~[0m
+[96msrc/components/ui/MetricChip.astro[0m:[93m10[0m:[93m53[0m - [93mwarning[0m[90m ts(6133): [0m'color' is declared but its value is never read.
+
+[7m10[0m const { label, value, trend, trendDirection = 'up', color = 'brand' } = Astro.props;
+[7m  [0m [93m                                                    ~~~~~[0m
+
+[96msrc/lib/firebase-admin.ts[0m:[93m47[0m:[93m45[0m - [91merror[0m[90m ts(2554): [0mExpected 0-1 arguments, but got 2.
+
+[7m47[0m export const db = getFirestore(admin.app(), 'default');
+[7m  [0m [91m                                            ~~~~~~~~~[0m
+
+[96msrc/lib/email/index.ts[0m:[93m2[0m:[93m28[0m - [93mwarning[0m[90m ts(6133): [0m'COLORS' is declared but its value is never read.
+
+[7m2[0m import { renderBaseLayout, COLORS } from './templates/layout';
+[7m [0m [93m                           ~~~~~~[0m
+
+[96msrc/pages/api/webhooks/stripe.ts[0m:[93m18[0m:[93m5[0m - [91merror[0m[90m ts(2322): [0mType '"2025-12-15.clover"' is not assignable to type '"2026-02-25.clover"'.
+
+[7m18[0m     apiVersion: '2025-12-15.clover',
+[7m  [0m [91m    ~~~~~~~~~~[0m
+[96msrc/pages/api/webhooks/stripe.ts[0m:[93m111[0m:[93m15[0m - [93mwarning[0m[90m ts(6133): [0m'existingUser' is declared but its value is never read.
+
+[7m111[0m         const existingUser = await callFrappeAPI(`/api/resource/User/${email}`);
+[7m   [0m [93m              ~~~~~~~~~~~~[0m
+
+[96msrc/pages/blog/[slug].astro[0m:[93m132[0m:[93m13[0m - [93mwarning[0m[90m astro(4000): [0mThis script will be treated as if it has the `is:inline` directive because it contains an attribute. Therefore, features that require processing (e.g. using TypeScript or npm packages in the script) are unavailable.
+
+See docs for more details: https://docs.astro.build/en/guides/client-side-scripts/#script-processing.
+
+Add the `is:inline` directive explicitly to silence this hint.
+
+[7m132[0m     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+[7m   [0m [93m            ~~~~[0m
+
+[96msrc/pages/blog/index.astro[0m:[93m28[0m:[93m33[0m - [91merror[0m[90m ts(2345): [0mArgument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+
+[7m28[0m     readTime: calculateReadTime(post.body),
+[7m  [0m [91m                                ~~~~~~~~~[0m
+[96msrc/pages/blog/index.astro[0m:[93m25[0m:[93m9[0m - [91merror[0m[90m ts(2358): [0mThe left-hand side of an 'instanceof' expression must be of type 'any', an object type or a type parameter.
+
+[7m25[0m         post.data.date instanceof Date
+[7m  [0m [91m        ~~~~~~~~~~~~~~[0m
+[96msrc/pages/blog/index.astro[0m:[93m31[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'featuredCover' is declared but its value is never read.
+
+[7m31[0m const featuredCover =
+[7m  [0m [93m      ~~~~~~~~~~~~~[0m
+
+[96msrc/pages/tools/business-modeler.astro[0m:[93m3[0m:[93m8[0m - [91merror[0m[90m ts(2440): [0mImport declaration conflicts with local declaration of 'BusinessModeler'.
+
+[7m3[0m import BusinessModeler from "../../components/tools/BusinessModeler";
+[7m [0m [91m       ~~~~~~~~~~~~~~~[0m
+
+[96msrc/pdf/components/PDFLayout.tsx[0m:[93m9[0m:[93m65[0m - [93mwarning[0m[90m ts(6133): [0m'title' is declared but its value is never read.
+
+[7m9[0m export const PDFLayout: React.FC<PDFLayoutProps> = ({ children, title }) => {
+[7m [0m [93m                                                                ~~~~~[0m
+
+[96msrc/remotion/HomeDaycare/Economics.tsx[0m:[93m17[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'baseY' is declared but its value is never read.
+
+[7m17[0m     const baseY = height * 0.7;
+[7m  [0m [93m          ~~~~~[0m
+[96msrc/remotion/HomeDaycare/Economics.tsx[0m:[93m7[0m:[93m18[0m - [93mwarning[0m[90m ts(6133): [0m'width' is declared but its value is never read.
+
+[7m7[0m     const { fps, width, height } = useVideoConfig();
+[7m [0m [93m                 ~~~~~[0m
+
+[96msrc/remotion/HomeDaycare/Hook.tsx[0m:[93m8[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'durationInFrames' is declared but its value is never read.
+
+[7m8[0m     const { durationInFrames } = useVideoConfig();
+[7m [0m [93m          ~~~~~~~~~~~~~~~~~~~~[0m
+
+Result (148 files): 
+- 5 errors
+- 0 warnings
+- 49 hints
+

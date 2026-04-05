@@ -38,21 +38,21 @@ const {
 	</head>
 	<body class="min-h-screen flex flex-col">
 		<!-- GLOBAL HEADER -->
-		<header class="fixed top-0 left-0 right-0 z-50 p-4">
+		<header class="fixed top-0 left-0 right-0 z-50 p-2 sm:p-4">
 			<nav
-				class="glass-header mx-auto max-w-7xl rounded-full px-4 sm:px-6 py-3 flex items-center justify-between shadow-lg shadow-black/5"
+				class="glass-header mx-auto max-w-7xl rounded-full px-3 sm:px-6 py-1.5 sm:py-3 flex items-center justify-between shadow-lg shadow-black/5"
 			>
 				<!-- Left: Mobile Menu + Logo -->
-				<div class="flex items-center gap-1 sm:gap-2">
+				<div class="flex items-center gap-0.5 sm:gap-2">
 					<MobileNav client:load />
-					<a href="/" class="flex items-center gap-2 group transition-all">
+					<a href="/" class="flex items-center gap-1.5 group transition-all shrink min-w-0">
 						<div
-							class="w-8 h-8 bg-gradient-to-br from-teal-400 to-teal-600 rounded-lg flex items-center justify-center text-white font-bold group-hover:scale-105 transition-transform"
+							class="w-8 h-8 bg-gradient-to-br from-teal-400 to-teal-600 rounded-lg flex-shrink-0 flex items-center justify-center text-white font-bold group-hover:scale-105 transition-transform"
 						>
 							C
 						</div>
 						<span
-							class="font-bold text-gray-900 tracking-tight text-sm sm:text-base hidden min-[400px]:block"
+							class="font-bold text-gray-900 tracking-tight text-xs sm:text-base whitespace-nowrap"
 							>Childcare Business Plan</span
 						>
 					</a>
@@ -75,7 +75,7 @@ const {
 				</div>
 
 				<!-- Right: Actions (Tools + Dashboard) -->
-				<div class="flex items-center gap-1 sm:gap-2">
+				<div class="flex items-center gap-0.5 sm:gap-2">
 					<ToolsGridMenu client:load />
 					<UserNav client:load />
 				</div>

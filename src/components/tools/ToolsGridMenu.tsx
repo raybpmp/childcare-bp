@@ -58,10 +58,10 @@ export const ToolsGridMenu = () => {
                 <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="rounded-full hover:bg-gray-100/80 text-gray-700 active:scale-90 transition-all w-9 h-9 md:w-10 md:h-10"
+                    className="rounded-full hover:bg-gray-100/80 text-gray-700 active:scale-90 transition-all w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10"
                     aria-label="Toggle Apps Menu"
                 >
-                    <LayoutGrid className="w-5 h-5 md:w-6 h-6" />
+                    <LayoutGrid className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 h-6" />
                 </Button>
             </DialogTrigger>
             

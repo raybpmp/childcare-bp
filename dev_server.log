@@ -1,0 +1,16 @@
+
+> child-care-business-plan@0.0.1 dev
+> astro dev --port 4327
+
+02:44:15 [@astrojs/node] Enabling sessions with filesystem storage
+[vite] connected.
+02:44:18 [types] Generated 1ms
+[vite] connected.
+02:44:18 [content] Syncing content
+02:44:18 [content] Synced content
+02:44:18 [vite] Re-optimizing dependencies because vite config has changed
+02:44:18 [vite] Port 4327 is in use, trying another one...
+ astro  v6.1.2 ready in 3639 ms
+┃ Local    http://localhost:4328/
+┃ Network  use --host to expose
+02:44:18 watching for file changes...

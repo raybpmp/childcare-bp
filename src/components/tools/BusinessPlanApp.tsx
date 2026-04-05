@@ -66,153 +66,8 @@ const LOADING_STEPS = [
     { icon: '✅', text: 'Preparing your download...' },
 ];
 
-/** Preview slides — designed representations of actual plan sections */
-const PREVIEW_SLIDES = [
-    {
-        label: 'Cover Page',
-        accent: 'from-teal-600 to-teal-800',
-        content: (
-            <div className="h-full flex flex-col justify-between p-5">
-                <div>
-                    <div className="w-10 h-1 bg-teal-400 rounded mb-3" />
-                    <div className="text-[11px] uppercase tracking-[0.2em] text-teal-300 font-bold mb-1">Strategic Business Plan</div>
-                    <div className="text-white text-lg font-black leading-tight">Daycare<br />Business Plan</div>
-                </div>
-                <div className="space-y-2">
-                    <div className="text-[8px] uppercase tracking-widest text-teal-300 font-bold">Prepared For</div>
-                    <div className="h-[1px] bg-teal-400/30 w-full" />
-                    <div className="text-[9px] text-teal-200">Company Name</div>
-                    <div className="h-[1px] bg-teal-400/30 w-full" />
-                    <div className="text-[9px] text-teal-200">Owner / Director</div>
-                </div>
-                <div className="text-[7px] text-teal-400 mt-auto pt-3">Confidential • 23 Pages</div>
-            </div>
-        ),
-        bg: 'bg-gradient-to-br from-gray-900 to-teal-900',
-    },
-    {
-        label: 'Executive Summary',
-        accent: 'from-teal-500 to-emerald-500',
-        content: (
-            <div className="h-full p-5">
-                <div className="text-teal-600 text-xs font-black uppercase tracking-widest mb-2">Executive Summary</div>
-                <div className="space-y-2">
-                    <div className="h-1.5 w-full bg-gray-200 rounded-full" />
-                    <div className="h-1.5 w-11/12 bg-gray-200 rounded-full" />
-                    <div className="h-1.5 w-4/5 bg-gray-200 rounded-full" />
-                    <div className="h-1.5 w-full bg-gray-200 rounded-full" />
-                    <div className="h-1.5 w-3/4 bg-gray-200 rounded-full" />
-                </div>
-                <div className="mt-4 border-l-2 border-teal-400 pl-2">
-                    <div className="text-[8px] font-bold text-gray-600 mb-1">Mission Statement</div>
-                    <div className="space-y-1">
-                        <div className="h-1 w-full bg-teal-100 rounded-full" />
-                        <div className="h-1 w-5/6 bg-teal-100 rounded-full" />
-                        <div className="h-1 w-2/3 bg-teal-100 rounded-full" />
-                    </div>
-                </div>
-                <div className="mt-3">
-                    <div className="text-[8px] font-bold text-gray-600 mb-1">Key Objectives</div>
-                    <div className="space-y-1.5 pl-2">
-                        {['Revenue targets', 'Enrollment goals', 'Market positioning'].map((t, i) => (
-                            <div key={i} className="flex items-center gap-1.5">
-                                <div className="w-1.5 h-1.5 rounded-full bg-teal-400 flex-shrink-0" />
-                                <div className="text-[7px] text-gray-500">{t}</div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        ),
-        bg: 'bg-white',
-    },
-    {
-        label: 'Financial Analysis',
-        accent: 'from-blue-500 to-teal-500',
-        content: (
-            <div className="h-full p-5">
-                <div className="text-teal-600 text-xs font-black uppercase tracking-widest mb-3">Revenue & Profitability</div>
-                {/* Mini chart representation */}
-                <div className="flex items-end gap-1 h-16 mb-3">
-                    {[40, 55, 45, 65, 70, 80, 75, 90, 85, 95].map((h, i) => (
-                        <div key={i} className="flex-1 bg-gradient-to-t from-teal-500 to-teal-300 rounded-t-sm" style={{ height: `${h}%` }} />
-                    ))}
-                </div>
-                <div className="flex justify-between text-[7px] text-gray-400 mb-3">
-                    <span>Q1</span><span>Q2</span><span>Q3</span><span>Q4</span>
-                </div>
-                {/* Table preview */}
-                <div className="border border-gray-100 rounded-md overflow-hidden">
-                    {['Full-Time Tuition', 'Part-Time Revenue', 'Subsidy Income', 'USDA Food Program'].map((label, i) => (
-                        <div key={i} className={`flex justify-between px-2 py-1 text-[7px] ${i % 2 ? 'bg-gray-50' : 'bg-white'}`}>
-                            <span className="text-gray-600">{label}</span>
-                            <span className="text-gray-400 font-mono">$XX,XXX</span>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        ),
-        bg: 'bg-white',
-    },
-];
 
-/** Swipeable preview carousel */
-const PlanPreviewCarousel = () => {
-    const [active, setActive] = useState(0);
-    const touchRef = useRef<{ x: number } | null>(null);
 
-    const handleTouchStart = (e: React.TouchEvent) => {
-        touchRef.current = { x: e.touches[0].clientX };
-    };
-    const handleTouchEnd = (e: React.TouchEvent) => {
-        if (!touchRef.current) return;
-        const dx = e.changedTouches[0].clientX - touchRef.current.x;
-        if (Math.abs(dx) > 40) {
-            if (dx < 0 && active < PREVIEW_SLIDES.length - 1) setActive(a => a + 1);
-            if (dx > 0 && active > 0) setActive(a => a - 1);
-        }
-        touchRef.current = null;
-    };
-
-    return (
-        <div className="w-full">
-            <div
-                className="relative w-full aspect-[3/4] max-w-[240px] mx-auto rounded-xl shadow-2xl shadow-gray-900/10 overflow-hidden"
-                onTouchStart={handleTouchStart}
-                onTouchEnd={handleTouchEnd}
-            >
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={active}
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -50 }}
-                        transition={{ duration: 0.25 }}
-                        className={`absolute inset-0 ${PREVIEW_SLIDES[active].bg}`}
-                    >
-                        {PREVIEW_SLIDES[active].content}
-                    </motion.div>
-                </AnimatePresence>
-                {/* Page label badge */}
-                <div className="absolute bottom-2 left-2 bg-black/50 backdrop-blur-sm rounded-full px-2.5 py-1 text-[9px] font-bold text-white">
-                    {PREVIEW_SLIDES[active].label}
-                </div>
-            </div>
-            {/* Dots + swipe hint */}
-            <div className="flex justify-center gap-2 mt-3">
-                {PREVIEW_SLIDES.map((_, i) => (
-                    <button
-                        key={i}
-                        onClick={() => setActive(i)}
-                        className={`h-2 rounded-full transition-all duration-300 ${i === active ? 'bg-teal-500 w-5' : 'bg-gray-300 w-2'}`}
-                        aria-label={`Preview page ${i + 1}`}
-                    />
-                ))}
-            </div>
-            <p className="text-[10px] text-gray-400 text-center mt-1">Swipe to preview</p>
-        </div>
-    );
-};
 
 export default function BusinessPlanApp() {
     const [form, setForm] = useState<FormData>(INITIAL);
@@ -383,10 +238,7 @@ export default function BusinessPlanApp() {
 
     return (
         <div className="max-w-lg mx-auto px-4 space-y-8">
-            {/* SECTION 1: Live Preview Carousel */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-                <PlanPreviewCarousel />
-            </motion.div>
+
 
             {/* SECTION 2: Headline */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-center">

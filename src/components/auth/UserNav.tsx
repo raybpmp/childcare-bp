@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { auth, onAuthStateChanged, signOut } from '@/lib/firebase-client';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { LayoutDashboard, User as UserIcon, Settings, BarChart3, LogOut } from 'lucide-react';
+
+import { AuthModal } from './AuthModal';
 
 export const UserNav = () => {
     const [user, setUser] = useState<any>(null);
@@ -39,18 +43,55 @@ export const UserNav = () => {
                         exit={{ opacity: 0, x: -10 }}
                         className="flex items-center gap-3"
                     >
-                        <a href="/portal">
-                            <Button className="rounded-full bg-teal-600 hover:bg-teal-700 text-white shadow-lg shadow-teal-600/20 px-6">
-                                Dashboard
-                            </Button>
-                        </a>
-                        <Button 
-                            variant="ghost" 
-                            onClick={handleLogout}
-                            className="rounded-full text-gray-600 hover:text-red-600 hover:bg-red-50 transition-colors"
-                        >
-                            Logout
-                        </Button>
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button className="relative rounded-full h-10 w-10 p-0 overflow-hidden bg-gray-900 hover:bg-gray-800 text-white shadow-lg border border-gray-200 focus-visible:ring-2 focus-visible:ring-teal-500 transition-transform hover:scale-105 active:scale-95">
+                                    {user.photoURL ? (
+                                        <img src={user.photoURL} alt="User Avatar" className="w-full h-full object-cover" />
+                                    ) : (
+                                        <span className="font-bold text-sm">
+                                            {(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
+                                        </span>
+                                    )}
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent align="end" className="w-56 p-2 rounded-xl bg-white/90 backdrop-blur-xl border border-white/40 shadow-2xl glass-panel">
+                                <div className="px-2 pb-2 mb-2 border-b border-gray-100/50">
+                                    <p className="text-sm font-semibold text-gray-900 truncate">
+                                        {user.displayName || 'Portal User'}
+                                    </p>
+                                    <p className="text-xs text-gray-500 truncate">
+                                        {user.email}
+                                    </p>
+                                </div>
+                                <div className="flex flex-col gap-1">
+                                    <a href="/portal" className="flex items-center gap-2 px-2 py-2 text-sm text-gray-700 rounded-lg hover:bg-teal-50 hover:text-teal-700 transition-colors">
+                                        <LayoutDashboard className="h-4 w-4" />
+                                        <span>Dashboard</span>
+                                    </a>
+                                    <a href="/portal/profile" className="flex items-center gap-2 px-2 py-2 text-sm text-gray-700 rounded-lg hover:bg-teal-50 hover:text-teal-700 transition-colors">
+                                        <UserIcon className="h-4 w-4" />
+                                        <span>Profile</span>
+                                    </a>
+                                    <a href="/portal/analytics" className="flex items-center gap-2 px-2 py-2 text-sm text-gray-700 rounded-lg hover:bg-teal-50 hover:text-teal-700 transition-colors">
+                                        <BarChart3 className="h-4 w-4" />
+                                        <span>Analytics</span>
+                                    </a>
+                                    <a href="/portal/settings" className="flex items-center gap-2 px-2 py-2 text-sm text-gray-700 rounded-lg hover:bg-teal-50 hover:text-teal-700 transition-colors">
+                                        <Settings className="h-4 w-4" />
+                                        <span>Settings</span>
+                                    </a>
+                                    <Button 
+                                        variant="ghost" 
+                                        onClick={handleLogout}
+                                        className="w-full justify-start gap-2 px-2 py-2 mt-1 h-9 rounded-lg text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors font-medium border-0"
+                                    >
+                                        <LogOut className="h-4 w-4" />
+                                        <span>Logout</span>
+                                    </Button>
+                                </div>
+                            </PopoverContent>
+                        </Popover>
                     </motion.div>
                 ) : (
                     <motion.div 
@@ -60,16 +101,8 @@ export const UserNav = () => {
                         exit={{ opacity: 0, x: -10 }}
                         className="flex items-center gap-2"
                     >
-                        <a href="/login">
-                            <Button variant="ghost" className="rounded-full text-gray-700 hover:text-teal-600 transition-colors">
-                                Login
-                            </Button>
-                        </a>
-                        <a href="/login?mode=signup">
-                            <Button className="rounded-full bg-gray-900 hover:bg-gray-800 text-white shadow-lg px-6">
-                                Join Free
-                            </Button>
-                        </a>
+                        <AuthModal mode="login" />
+                        <AuthModal mode="signup" />
                     </motion.div>
                 )}
             </AnimatePresence>

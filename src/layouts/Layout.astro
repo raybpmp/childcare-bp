@@ -1,8 +1,9 @@
 ---
 import "../styles/global.css";
 import { Separator } from "@/components/ui/separator";
-import { MobileNav } from "@/components/MobileNav";
 import { UserNav } from "@/components/auth/UserNav";
+import { MobileNav } from "@/components/MobileNav";
+import { ToolsGridMenu } from "@/components/tools/ToolsGridMenu";
 
 interface Props {
 	title: string;
@@ -41,20 +42,24 @@ const {
 			<nav
 				class="glass-header mx-auto max-w-7xl rounded-full px-4 sm:px-6 py-3 flex items-center justify-between shadow-lg shadow-black/5"
 			>
-				<a href="/" class="flex items-center gap-2 group">
-					<div
-						class="w-8 h-8 bg-gradient-to-br from-teal-400 to-teal-600 rounded-lg flex items-center justify-center text-white font-bold group-hover:scale-105 transition-transform"
-					>
-						C
-					</div>
-					<span
-						class="font-bold text-gray-900 tracking-tight text-sm sm:text-base"
-						>Childcare Business Plan</span
-					>
-				</a>
+				<!-- Left: Mobile Menu + Logo -->
+				<div class="flex items-center gap-1 sm:gap-2">
+					<MobileNav client:load />
+					<a href="/" class="flex items-center gap-2 group transition-all">
+						<div
+							class="w-8 h-8 bg-gradient-to-br from-teal-400 to-teal-600 rounded-lg flex items-center justify-center text-white font-bold group-hover:scale-105 transition-transform"
+						>
+							C
+						</div>
+						<span
+							class="font-bold text-gray-900 tracking-tight text-sm sm:text-base hidden min-[400px]:block"
+							>Childcare Business Plan</span
+						>
+					</a>
+				</div>
 
-				<!-- Desktop Links -->
-				<div class="hidden md:flex items-center gap-6">
+				<!-- Center: Desktop Links (Hidden on Mobile) -->
+				<div class="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
 					<a
 						href="/childcarebusinessplans"
 						class="text-sm font-medium text-gray-700 hover:text-teal-600 transition-colors"
@@ -62,24 +67,18 @@ const {
 						Plans
 					</a>
 					<a
-						href="/tools"
-						class="text-sm font-medium text-gray-700 hover:text-teal-600 transition-colors"
-					>
-						Tools
-					</a>
-					<a
 						href="/blog"
 						class="text-sm font-medium text-gray-700 hover:text-teal-600 transition-colors"
 					>
 						Blog
 					</a>
-					
-					<!-- User Navigation -->
-					<UserNav client:load />
 				</div>
 
-				<!-- Mobile nav -->
-				<MobileNav client:load />
+				<!-- Right: Actions (Tools + Dashboard) -->
+				<div class="flex items-center gap-1 sm:gap-2">
+					<ToolsGridMenu client:load />
+					<UserNav client:load />
+				</div>
 			</nav>
 		</header>
 

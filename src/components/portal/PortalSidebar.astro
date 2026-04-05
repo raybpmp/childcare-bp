@@ -7,13 +7,12 @@ const navLinks = [
   { href: '/portal/profile', label: 'Profile', icon: User },
   { href: '/portal/settings', label: 'Settings', icon: Settings },
 ];
-
 ---
 
 <aside id="portal-sidebar" class="bg-[#fcfdfd] border-r border-[#eef2f6] w-64 fixed h-full z-30 transition-transform -translate-x-full md:translate-x-0">
   <div class="h-16 flex items-center gap-3 px-6 border-b border-transparent">
-    <div class="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center text-white font-bold">
-      P
+    <div class="w-8 h-8 bg-gradient-to-br from-teal-400 to-teal-600 rounded-lg flex items-center justify-center text-white font-bold">
+      C
     </div>
     <span class="font-bold text-gray-900 text-xl tracking-tight">Portal</span>
   </div>
@@ -36,16 +35,16 @@ const navLinks = [
 
   <div class="absolute bottom-0 w-full p-4 border-t border-[#eef2f6] bg-[#fcfdfd]">
     <div class="flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-8 h-8 bg-gray-900 rounded-full flex items-center justify-center text-white text-sm font-medium">
+      <div class="flex items-center gap-3 overflow-hidden">
+        <div id="sidebar-avatar" class="w-8 h-8 bg-gray-900 rounded-full flex items-center justify-center text-white text-sm font-medium shrink-0 overflow-hidden">
           U
         </div>
-        <div class="flex flex-col">
-          <span class="text-sm font-medium text-gray-900 leading-tight">User</span>
-          <span class="text-xs text-gray-500">Role</span>
+        <div class="flex flex-col truncate">
+          <span id="sidebar-username" class="text-sm font-medium text-gray-900 leading-tight truncate">Loading...</span>
+          <span id="sidebar-role" class="text-xs text-gray-500">Member</span>
         </div>
       </div>
-      <button id="logout-button" class="text-gray-400 hover:text-gray-600 transition-colors p-1" title="Logout">
+      <button id="logout-button" class="text-gray-400 hover:text-red-500 transition-colors p-1" title="Logout">
         <LogOut className="h-4 w-4" />
       </button>
     </div>
@@ -56,12 +55,14 @@ const navLinks = [
 <div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-20 hidden md:hidden"></div>
 
 <script>
+  import { auth, onAuthStateChanged } from '@/lib/firebase-client';
+
   // Simple sidebar toggle logic
   const sidebar = document.getElementById('portal-sidebar');
   const toggleBtn = document.getElementById('mobile-sidebar-toggle');
   const overlay = document.getElementById('mobile-overlay');
 
-  if (toggleBtn && sidebar && overlay) {
+  if (sidebar && overlay) {
     const toggleSidebar = () => {
       const isClosed = sidebar.classList.contains('-translate-x-full');
       if (isClosed) {
@@ -73,7 +74,15 @@ const navLinks = [
       }
     };
 
-    toggleBtn.addEventListener('click', toggleSidebar);
+    // Since toggleBtn is in the Header (different file), we listen for it carefully
+    // We can also attach a global event listener just in case it loads async
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.closest('#mobile-sidebar-toggle')) {
+         toggleSidebar();
+      }
+    });
+    
     overlay.addEventListener('click', toggleSidebar);
   }
 
@@ -81,8 +90,24 @@ const navLinks = [
   const logoutBtn = document.getElementById('logout-button');
   if (logoutBtn) {
     logoutBtn.addEventListener('click', async () => {
-      // Dispatch an event so React islands can handle the Firebase sign out
       window.dispatchEvent(new Event('portal-logout'));
     });
   }
+
+  // Handle Dynamic User Data
+  const avatar = document.getElementById('sidebar-avatar');
+  const username = document.getElementById('sidebar-username');
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      if (username) username.textContent = user.displayName || user.email || 'Portal User';
+      if (avatar) {
+        if (user.photoURL) {
+            avatar.innerHTML = `<img src="${user.photoURL}" alt="User" class="w-full h-full object-cover" />`;
+        } else {
+            avatar.textContent = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
+        }
+      }
+    }
+  });
 </script>

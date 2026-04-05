@@ -1,8 +1,11 @@
 ---
-import PortalLayout from '@/layouts/PortalLayout.astro';
+import Layout from '@/layouts/Layout.astro';
+import { PortalWrapper } from '@/components/portal/PortalWrapper';
 import { DashboardContent } from '@/components/portal/DashboardContent';
 ---
 
-<PortalLayout title="Dashboard | Portal">
-    <DashboardContent client:load />
-</PortalLayout>
+<Layout title="Dashboard | Portal">
+    <PortalWrapper>
+        <DashboardContent client:load />
+    </PortalWrapper>
+</Layout>

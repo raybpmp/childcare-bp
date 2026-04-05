@@ -5,18 +5,19 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 
-export const LoginForm = () => {
-    const [isLogin, setIsLogin] = useState(true);
+interface LoginFormProps {
+    initialMode?: 'login' | 'signup';
+}
+
+export const LoginForm = ({ initialMode = 'login' }: LoginFormProps) => {
+    const [isLogin, setIsLogin] = useState(initialMode === 'login');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
     React.useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        if (params.get('mode') === 'signup') {
-            setIsLogin(false);
-        }
+        // Initial state is controlled locally by the toggle button/props
     }, []);
 
     const handleEmailSubmit = async (e: React.FormEvent) => {
@@ -29,6 +30,7 @@ export const LoginForm = () => {
             } else {
                 await createUserWithEmailAndPassword(auth, email, password);
             }
+            // SUCCESS: Redirect to dashboard instantly
             window.location.href = '/portal';
         } catch (err: any) {
             setError(err.message || `Failed to ${isLogin ? 'login' : 'sign up'}`);
@@ -41,6 +43,7 @@ export const LoginForm = () => {
         setLoading(true);
         try {
             await signInWithPopup(auth, googleProvider);
+            // SUCCESS: Redirect to dashboard instantly
             window.location.href = '/portal';
         } catch (err: any) {
             setError(err.message || 'Failed to authenticate with Google');

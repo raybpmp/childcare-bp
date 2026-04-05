@@ -43,7 +43,7 @@ if (!admin.apps.length) {
     }
 }
 
-// Explicitly target the 'default' database (distinct from '(default)')
-export const db = getFirestore(admin.app(), 'default');
+// @ts-ignore: Target 'default' specifically even if types for v10.x don't reflect multi-db support
+export const db = getFirestore(admin.app(), 'default' as any);
 export const auth = admin.auth();
 export default admin;

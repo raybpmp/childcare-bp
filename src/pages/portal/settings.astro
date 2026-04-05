@@ -1,8 +1,11 @@
 ---
-import PortalLayout from '@/layouts/PortalLayout.astro';
+import Layout from '@/layouts/Layout.astro';
+import { PortalWrapper } from '@/components/portal/PortalWrapper';
 import { SettingsContent } from '@/components/portal/SettingsContent';
 ---
 
-<PortalLayout title="Settings | Portal">
-    <SettingsContent client:load />
-</PortalLayout>
+<Layout title="Settings | Portal">
+    <PortalWrapper>
+        <SettingsContent client:load />
+    </PortalWrapper>
+</Layout>

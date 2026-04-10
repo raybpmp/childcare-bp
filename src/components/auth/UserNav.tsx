@@ -86,23 +86,21 @@ export const UserNav = () => {
                         initial={{ opacity: 0, x: 10 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -10 }}
-                        className="flex items-center gap-2"
+                        className="flex items-center gap-1"
                     >
                         <AuthModal
                             mode="login"
                             trigger={
-                                <Button variant="ghost" className="h-8 px-2.5 sm:px-4 text-xs font-bold text-gray-700 hover:text-teal-600 hover:bg-teal-50 rounded-lg sm:rounded-full transition-all">
-                                    <span className="flex items-center gap-1.5">
-                                        <LogIn className="w-3.5 h-3.5" />
-                                        <span>Sign In</span>
-                                    </span>
+                                <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-700 hover:text-teal-600 hover:bg-teal-50 rounded-lg transition-all">
+                                    <LogIn className="w-3.5 h-3.5" />
+                                    <span className="sr-only">Sign In</span>
                                 </Button>
                             }
                         />
                         <AuthModal
                             mode="signup"
                             trigger={
-                                <Button className="h-8 px-2.5 sm:px-4 text-xs font-bold bg-gray-900 hover:bg-gray-800 text-white shadow-md rounded-lg sm:rounded-full transition-all">
+                                <Button className="h-8 px-2.5 text-[10px] font-black uppercase tracking-wider bg-gray-900 hover:bg-gray-800 text-white shadow-md rounded-lg transition-all">
                                     <span className="flex items-center gap-1.5">
                                         <Shield className="w-3.5 h-3.5" />
                                         <span>Join Free</span>

@@ -42,7 +42,7 @@ export const DashboardNavContent = ({ className = "" }: { className?: string }) 
                                 : "text-gray-500 hover:bg-gray-100/50 hover:text-gray-900"
                         }`}
                     >
-                        <item.icon className={`h-4 w-4 ${isActive ? "text-teal-600" : "text-gray-400"}`} />
+                        <item.icon className={`h-3.5 w-3.5 ${isActive ? "text-teal-600" : "text-gray-400"}`} />
                         <span>{item.name}</span>
                     </a>
                 );

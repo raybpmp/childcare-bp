@@ -158,7 +158,7 @@ export function MobileNav() {
                             <AuthModal
                                 mode="signup"
                                 trigger={
-                                    <Button className="w-full h-10 flex items-center justify-center gap-2 rounded-xl bg-gray-900 hover:bg-gray-800 text-white text-xs font-bold transition-all shadow-md active:scale-95">
+                                    <Button className="w-full h-8 flex items-center justify-center gap-1.5 rounded-lg bg-gray-900 hover:bg-gray-800 text-white text-[10px] font-black uppercase tracking-wider transition-all shadow-md active:scale-95">
                                         <Shield className="w-3.5 h-3.5" />
                                         <span>Create Account</span>
                                     </Button>
@@ -167,7 +167,7 @@ export function MobileNav() {
                             <AuthModal
                                 mode="login"
                                 trigger={
-                                    <Button variant="ghost" className="w-full h-10 flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white/50 hover:bg-white text-gray-700 text-xs font-bold transition-all active:scale-95">
+                                    <Button variant="ghost" className="w-full h-8 flex items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white/50 hover:bg-white text-gray-700 text-[10px] font-black uppercase tracking-wider transition-all active:scale-95">
                                         <LogIn className="w-3.5 h-3.5" />
                                         <span>Sign In</span>
                                     </Button>

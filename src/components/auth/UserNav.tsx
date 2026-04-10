@@ -4,7 +4,7 @@ import { auth, signOut } from '@/lib/firebase-client';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { LayoutDashboard, User as UserIcon, Settings, BarChart3, LogOut, LogIn, Shield } from 'lucide-react';
+import { LayoutDashboard, User as UserIcon, Settings, BarChart3, LogOut, LogIn } from 'lucide-react';
 import { AuthModal } from './AuthModal';
 
 export const UserNav = () => {
@@ -20,7 +20,7 @@ export const UserNav = () => {
     };
 
     return (
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1 sm:gap-2">
             <AnimatePresence mode="wait">
                 {user ? (
                     <motion.div
@@ -28,7 +28,7 @@ export const UserNav = () => {
                         initial={{ opacity: 0, x: 10 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -10 }}
-                        className="flex items-center gap-3"
+                        className="flex items-center gap-1 sm:gap-2"
                     >
                         <Popover>
                             <PopoverTrigger asChild>
@@ -86,13 +86,13 @@ export const UserNav = () => {
                         initial={{ opacity: 0, x: 10 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -10 }}
-                        className="flex items-center gap-1"
+                        className="flex items-center gap-0.5"
                     >
                         <AuthModal
                             mode="login"
                             trigger={
-                                <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-700 hover:text-teal-600 hover:bg-teal-50 rounded-lg transition-all">
-                                    <LogIn className="w-3.5 h-3.5" />
+                                <Button variant="ghost" size="icon" className="h-7 w-7 sm:h-8 sm:w-8 text-gray-700 hover:text-teal-600 hover:bg-teal-50 rounded-lg transition-all">
+                                    <LogIn className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                                     <span className="sr-only">Sign In</span>
                                 </Button>
                             }
@@ -100,11 +100,8 @@ export const UserNav = () => {
                         <AuthModal
                             mode="signup"
                             trigger={
-                                <Button className="h-8 px-2.5 text-[10px] font-black uppercase tracking-wider bg-gray-900 hover:bg-gray-800 text-white shadow-md rounded-lg transition-all">
-                                    <span className="flex items-center gap-1.5">
-                                        <Shield className="w-3.5 h-3.5" />
-                                        <span>Join Free</span>
-                                    </span>
+                                <Button className="h-7 px-2 text-[9px] sm:text-[10px] font-black uppercase tracking-wide bg-teal-600 hover:bg-teal-700 text-white rounded-full transition-all shadow-sm whitespace-nowrap">
+                                    Join Free
                                 </Button>
                             }
                         />

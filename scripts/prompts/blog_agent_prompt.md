@@ -75,7 +75,8 @@ The site has an automated daily post system. See `scripts/auto_blog.py` for the 
 ---
 
 ## Content Rules
-1.  **No Manual CTAs:** The `BlogCTA` component is automatically appended by the layout. Do not add `<div class="cta-box">` or manual buttons.
+1.  **Post Length: Every post must be at least 1,500 words.** Do not summarize.
+2.  **No Manual CTAs:** The `BlogCTA` component is automatically appended by the layout. Do not add `<div class="cta-box">` or manual buttons.
 2.  **MDX Syntax:**
     *   Escape all `<` characters as `&lt;` or use text equivalents ("less than").
     *   Escape `{` and `}` if not being used for variables/expressions.

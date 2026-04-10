@@ -38,7 +38,7 @@ LOGS_DIR = REPO_ROOT / "src" / "content" / "logs"
 SEO_KEYWORDS_FILE = REPO_ROOT / "scripts" / "seo_keywords.json"
 PROMPT_AGENT = REPO_ROOT / "scripts" / "prompts" / "blog_agent_prompt.md"
 
-MODEL = "gemini-3.1-flash-lite-preview"
+MODEL = "gemma-4-31b-it"
 
 PILLAR_SLUG_MAP = {
     "Startup Guides": "startup-guides",

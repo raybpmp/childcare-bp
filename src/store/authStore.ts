@@ -22,12 +22,19 @@ export const $authStore = persistentAtom<any | null>(
 );
 
 if (typeof window !== 'undefined') {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
         if (user) {
-            // Store the full serializable JSON version without hard-coding fields.
-            $authStore.set(user.toJSON());
+            // Force-refresh token to always get latest Custom Claims
+            // Claims are set by the claims-api service (port 4100)
+            const tokenResult = await user.getIdTokenResult(true);
+            $authStore.set({
+                ...user.toJSON(),
+                role: (tokenResult.claims.role as string) || 'Member',
+                tierId: (tokenResult.claims.tierId as number) || 3
+            });
         } else {
             $authStore.set(null);
         }
     });
 }
+

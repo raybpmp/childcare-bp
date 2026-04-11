@@ -108,10 +108,11 @@ class PortalAPI {
     }
 
     /**
-     * Execute a raw SELECT query.
-     * @example portalApi.query('SELECT COUNT(*) as total FROM activities WHERE uid = ?', ['abc123'])
+     * POST /v1/_query
+     * Pure Mirror: Proxy any raw SQL query to MariaDB.
+     * Used for everything from simple SELECTs to DDL (CREATE/DROP).
      */
-    async query(sql: string, params?: any[]): Promise<any> {
+    async query(sql: string, params: any[] = []): Promise<any> {
         const headers = await this.getHeaders();
         const response = await fetch(`${API_BASE_URL}/v1/_query`, {
             method: 'POST',
@@ -121,39 +122,6 @@ class PortalAPI {
         if (!response.ok) {
             const body = await response.json().catch(() => ({}));
             throw new Error(body.error || `API query ${response.status}: ${response.statusText}`);
-        }
-        return response.json();
-    }
-
-    /**
-     * Get table schema (column definitions).
-     * @example portalApi.schema('users')
-     */
-    async schema(table: string): Promise<any> {
-        const headers = await this.getHeaders();
-        const response = await fetch(`${API_BASE_URL}/v1/_schema/${table}`, {
-            method: 'GET',
-            headers
-        });
-        if (!response.ok) {
-            const body = await response.json().catch(() => ({}));
-            throw new Error(body.error || `API schema ${response.status}: ${response.statusText}`);
-        }
-        return response.json();
-    }
-
-    /**
-     * List all tables in the database.
-     */
-    async tables(): Promise<any> {
-        const headers = await this.getHeaders();
-        const response = await fetch(`${API_BASE_URL}/v1/_tables`, {
-            method: 'GET',
-            headers
-        });
-        if (!response.ok) {
-            const body = await response.json().catch(() => ({}));
-            throw new Error(body.error || `API tables ${response.status}: ${response.statusText}`);
         }
         return response.json();
     }

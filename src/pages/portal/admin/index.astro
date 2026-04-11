@@ -1,0 +1,11 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { PortalWrapper } from '@/components/portal/PortalWrapper';
+import { AdminDashboard } from '@/components/portal/admin/AdminDashboard';
+---
+
+<Layout title="Admin CRM | Portal">
+    <PortalWrapper>
+        <AdminDashboard client:load />
+    </PortalWrapper>
+</Layout>

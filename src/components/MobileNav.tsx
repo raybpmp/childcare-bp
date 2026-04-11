@@ -45,6 +45,7 @@ import { AuthModal } from "./auth/AuthModal";
 
 export function MobileNav() {
     const user = useStore($authStore);
+    const isAdmin = user?.tierId !== undefined && user.tierId <= 2;
 
     const handleLogout = async () => {
         try {
@@ -137,6 +138,25 @@ export function MobileNav() {
                                             </SheetClose>
                                         </li>
                                     ))}
+                                    {isAdmin && (
+                                        <li>
+                                            <SheetClose asChild>
+                                                <motion.a
+                                                    href="/portal/admin"
+                                                    initial={{ opacity: 0, x: 10 }}
+                                                    animate={{ opacity: 1, x: 0 }}
+                                                    transition={{ delay: 0.1 + portalNavLinks.length * 0.03, duration: 0.2, ease: "easeOut" }}
+                                                    className="group flex items-center justify-between px-3 py-1.5 rounded-lg text-purple-700 hover:bg-purple-50/50 hover:text-purple-800 transition-all mt-2 bg-purple-50/30"
+                                                >
+                                                    <div className="flex items-center gap-2.5">
+                                                        <Shield className="w-4 h-4 text-purple-600/70 group-hover:text-purple-600 transition-colors" />
+                                                        <span className="font-medium text-[13px]">Admin CRM</span>
+                                                    </div>
+                                                    <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-purple-600" />
+                                                </motion.a>
+                                            </SheetClose>
+                                        </li>
+                                    )}
                                 </ul>
                             </motion.div>
                         )}

@@ -1,50 +1,76 @@
 ---
-import { LayoutDashboard, BarChart3, User, Settings, LogOut } from "lucide-react";
+import {
+  LayoutDashboard,
+  BarChart3,
+  User,
+  Settings,
+  LogOut,
+} from "lucide-react";
 
 const navLinks = [
-  { href: '/portal', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/portal/analytics', label: 'Analytics', icon: BarChart3 },
-  { href: '/portal/profile', label: 'Profile', icon: User },
-  { href: '/portal/settings', label: 'Settings', icon: Settings },
+  { href: "/portal", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/portal/analytics", label: "Analytics", icon: BarChart3 },
+  { href: "/portal/profile", label: "Profile", icon: User },
+  { href: "/portal/settings", label: "Settings", icon: Settings },
 ];
 ---
 
-<aside id="portal-sidebar" class="bg-[#fcfdfd] border-r border-[#eef2f6] w-64 fixed h-full z-30 transition-transform -translate-x-full md:translate-x-0">
+<aside
+  id="portal-sidebar"
+  class="bg-[#fcfdfd] border-r border-[#eef2f6] w-64 fixed h-full z-30 transition-transform -translate-x-full md:translate-x-0"
+>
   <div class="h-16 flex items-center gap-3 px-6 border-b border-transparent">
-    <div class="w-8 h-8 bg-gradient-to-br from-teal-400 to-teal-600 rounded-lg flex items-center justify-center text-white font-bold">
+    <div
+      class="w-8 h-8 bg-gradient-to-br from-teal-400 to-teal-600 rounded-lg flex items-center justify-center text-white font-bold"
+    >
       C
     </div>
     <span class="font-bold text-gray-900 text-xl tracking-tight">Portal</span>
   </div>
 
   <nav class="p-4 space-y-1">
-    {navLinks.map((link) => {
-      const Icon = link.icon;
-      const isActive = Astro.url.pathname === link.href;
-      return (
-        <a 
-          href={link.href} 
-          class={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${isActive ? 'bg-gray-100 text-gray-900 font-medium' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'}`}
-        >
-          <Icon className="h-5 w-5" />
-          <span>{link.label}</span>
-        </a>
-      );
-    })}
+    {
+      navLinks.map((link) => {
+        const Icon = link.icon;
+        const isActive = Astro.url.pathname === link.href;
+        return (
+          <a
+            href={link.href}
+            class={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${isActive ? "bg-gray-100 text-gray-900 font-medium" : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"}`}
+          >
+            <Icon className="h-5 w-5" />
+            <span>{link.label}</span>
+          </a>
+        );
+      })
+    }
   </nav>
 
-  <div class="absolute bottom-0 w-full p-4 border-t border-[#eef2f6] bg-[#fcfdfd]">
+  <div
+    class="absolute bottom-0 w-full p-4 border-t border-[#eef2f6] bg-[#fcfdfd]"
+  >
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-3 overflow-hidden">
-        <div id="sidebar-avatar" class="w-8 h-8 bg-gray-900 rounded-full flex items-center justify-center text-white text-sm font-medium shrink-0 overflow-hidden">
+        <div
+          id="sidebar-avatar"
+          class="w-8 h-8 bg-gray-900 rounded-full flex items-center justify-center text-white text-sm font-medium shrink-0 overflow-hidden"
+        >
           U
         </div>
         <div class="flex flex-col truncate">
-          <span id="sidebar-username" class="text-sm font-medium text-gray-900 leading-tight truncate">Loading...</span>
-          <span id="sidebar-role" class="text-xs text-gray-500">Member</span>
+          <span
+            id="sidebar-username"
+            class="text-sm font-medium text-gray-900 leading-tight truncate"
+            >...</span
+          >
+          <span id="sidebar-role" class="text-xs text-gray-500">...</span>
         </div>
       </div>
-      <button id="logout-button" class="text-gray-400 hover:text-red-500 transition-colors p-1" title="Logout">
+      <button
+        id="logout-button"
+        class="text-gray-400 hover:text-red-500 transition-colors p-1"
+        title="Logout"
+      >
         <LogOut className="h-4 w-4" />
       </button>
     </div>
@@ -52,61 +78,97 @@ const navLinks = [
 </aside>
 
 <!-- Mobile Overlay -->
-<div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-20 hidden md:hidden"></div>
+<div
+  id="mobile-overlay"
+  class="fixed inset-0 bg-black/50 z-20 hidden md:hidden"
+>
+</div>
 
 <script>
-  import { auth, onAuthStateChanged } from '@/lib/firebase-client';
+  import { auth, onAuthStateChanged } from "@/lib/firebase-client";
 
   // Simple sidebar toggle logic
-  const sidebar = document.getElementById('portal-sidebar');
-  const toggleBtn = document.getElementById('mobile-sidebar-toggle');
-  const overlay = document.getElementById('mobile-overlay');
+  const sidebar = document.getElementById("portal-sidebar");
+  const toggleBtn = document.getElementById("mobile-sidebar-toggle");
+  const overlay = document.getElementById("mobile-overlay");
 
   if (sidebar && overlay) {
     const toggleSidebar = () => {
-      const isClosed = sidebar.classList.contains('-translate-x-full');
+      const isClosed = sidebar.classList.contains("-translate-x-full");
       if (isClosed) {
-        sidebar.classList.remove('-translate-x-full');
-        overlay.classList.remove('hidden');
+        sidebar.classList.remove("-translate-x-full");
+        overlay.classList.remove("hidden");
       } else {
-        sidebar.classList.add('-translate-x-full');
-        overlay.classList.add('hidden');
+        sidebar.classList.add("-translate-x-full");
+        overlay.classList.add("hidden");
       }
     };
 
     // Since toggleBtn is in the Header (different file), we listen for it carefully
     // We can also attach a global event listener just in case it loads async
-    document.addEventListener('click', (e) => {
+    document.addEventListener("click", (e) => {
       const target = e.target as HTMLElement;
-      if (target.closest('#mobile-sidebar-toggle')) {
-         toggleSidebar();
+      if (target.closest("#mobile-sidebar-toggle")) {
+        toggleSidebar();
       }
     });
-    
-    overlay.addEventListener('click', toggleSidebar);
+
+    overlay.addEventListener("click", toggleSidebar);
   }
 
   // Handle logout
-  const logoutBtn = document.getElementById('logout-button');
+  const logoutBtn = document.getElementById("logout-button");
   if (logoutBtn) {
-    logoutBtn.addEventListener('click', async () => {
-      window.dispatchEvent(new Event('portal-logout'));
+    logoutBtn.addEventListener("click", async () => {
+      window.dispatchEvent(new Event("portal-logout"));
     });
   }
 
   // Handle Dynamic User Data
-  const avatar = document.getElementById('sidebar-avatar');
-  const username = document.getElementById('sidebar-username');
+  const avatar = document.getElementById("sidebar-avatar");
+  const username = document.getElementById("sidebar-username");
+  const userRole = document.getElementById("sidebar-role");
+  const nav = document.querySelector('nav');
 
-  onAuthStateChanged(auth, (user) => {
+  import { portalApi } from "@/lib/portal-api";
+
+  onAuthStateChanged(auth, async (user) => {
     if (user) {
-      if (username) username.textContent = user.displayName || user.email || 'Portal User';
+      if (username)
+        username.textContent = user.displayName || user.email || "Portal User";
       if (avatar) {
         if (user.photoURL) {
-            avatar.innerHTML = `<img src="${user.photoURL}" alt="User" class="w-full h-full object-cover" />`;
+          avatar.innerHTML = `<img src="${user.photoURL}" alt="User" class="w-full h-full object-cover" />`;
         } else {
-            avatar.textContent = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
+          avatar.textContent = (user.displayName || user.email || "U")
+            .charAt(0)
+            .toUpperCase();
         }
+      }
+
+      // AUTHORITATIVE ROLE FETCH (SOT)
+      try {
+          const dbResponse = await portalApi.get('/v1/users', { uid: user.uid });
+          if (dbResponse && dbResponse.length > 0) {
+              const dbUser = dbResponse[0];
+              if (userRole) userRole.textContent = dbUser.role || 'Member';
+
+              // Show Admin CRM link if Tier is 1 (Admin) or 2 (Employee)
+              const existingAdminLink = document.getElementById('admin-nav-link');
+              if (dbUser.tier_id <= 2 && nav && !existingAdminLink) {
+                  const adminLink = document.createElement('a');
+                  adminLink.id = 'admin-nav-link';
+                  adminLink.href = '/portal/admin';
+                  adminLink.className = `flex items-center gap-3 px-3 py-2 rounded-md transition-colors text-purple-600 hover:text-purple-900 hover:bg-purple-50 font-medium mt-4 border-t border-purple-100 pt-4`;
+                  adminLink.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+                    <span>Admin CRM</span>
+                  `;
+                  nav.appendChild(adminLink);
+              }
+          }
+      } catch (err) {
+          console.error('Sidebar DB Fetch Failed:', err);
       }
     }
   });

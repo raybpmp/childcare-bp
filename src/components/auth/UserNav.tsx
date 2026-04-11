@@ -4,11 +4,12 @@ import { auth, signOut } from '@/lib/firebase-client';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { LayoutDashboard, User as UserIcon, Settings, BarChart3, LogOut, LogIn } from 'lucide-react';
+import { LayoutDashboard, User as UserIcon, Settings, BarChart3, LogOut, LogIn, Shield } from 'lucide-react';
 import { AuthModal } from './AuthModal';
 
 export const UserNav = () => {
     const user = useStore($authStore);
+    const isAdmin = user?.tierId !== undefined && user.tierId <= 2;
 
     const handleLogout = async () => {
         try {
@@ -68,6 +69,12 @@ export const UserNav = () => {
                                         <Settings className="h-4 w-4" />
                                         <span>Settings</span>
                                     </a>
+                                    {isAdmin && (
+                                        <a href="/portal/admin" className="flex items-center gap-2 px-2 py-2 text-sm text-purple-700 rounded-lg hover:bg-purple-50 hover:text-purple-800 transition-colors bg-purple-50/50 mt-1">
+                                            <Shield className="h-4 w-4" />
+                                            <span>Admin CRM</span>
+                                        </a>
+                                    )}
                                     <Button
                                         variant="ghost"
                                         onClick={handleLogout}

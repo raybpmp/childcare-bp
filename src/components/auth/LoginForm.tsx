@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, googleProvider } from '@/lib/firebase-client';
+import { portalApi } from '@/lib/portal-api';
+
+const CLAIMS_API_URL = import.meta.env.PUBLIC_CLAIMS_API_URL || 'https://portal.childcarebusinessplan.com/claims-api/api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -26,11 +29,34 @@ export const LoginForm = ({ initialMode = 'login' }: LoginFormProps) => {
         setLoading(true);
         try {
             if (isLogin) {
-                await signInWithEmailAndPassword(auth, email, password);
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                await portalApi.query('UPDATE users SET logins = logins + 1 WHERE uid = ?', [userCredential.user.uid]);
+                await portalApi.post('/v1/login_history', { uid: userCredential.user.uid, user_agent: navigator.userAgent, login_method: 'email' });
+                // Force-refresh token to pick up latest Custom Claims
+                await userCredential.user.getIdToken(true);
             } else {
-                await createUserWithEmailAndPassword(auth, email, password);
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                // AUTHORITATIVE REGISTRATION: Create MariaDB record at sign-up
+                await portalApi.post('/v1/users', {
+                    uid: userCredential.user.uid,
+                    email: userCredential.user.email,
+                    name: email.split('@')[0],
+                    tier_id: 3 // Default to Free
+                });
+                // Set default Custom Claims via claims-api (non-blocking)
+                try {
+                    await fetch(`${CLAIMS_API_URL}/v1/set-claims`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ uid: userCredential.user.uid, role: 'Member', tierId: 3 })
+                    });
+                } catch (claimsErr) {
+                    console.error('Claims stamp failed (non-fatal):', claimsErr);
+                }
+                // Force-refresh token so claims are immediately available
+                await userCredential.user.getIdToken(true);
             }
-            // SUCCESS: Redirect to dashboard instantly
+            // SUCCESS: Redirect to dashboard
             window.location.href = '/portal';
         } catch (err: any) {
             setError(err.message || `Failed to ${isLogin ? 'login' : 'sign up'}`);
@@ -42,8 +68,33 @@ export const LoginForm = ({ initialMode = 'login' }: LoginFormProps) => {
         setError('');
         setLoading(true);
         try {
-            await signInWithPopup(auth, googleProvider);
-            // SUCCESS: Redirect to dashboard instantly
+            const result = await signInWithPopup(auth, googleProvider);
+            // AUTHORITATIVE REGISTRATION: Check/Create on Google Login
+            const dbCheck = await portalApi.get('/v1/users', { uid: result.user.uid });
+            if (!dbCheck || dbCheck.length === 0) {
+                await portalApi.post('/v1/users', {
+                    uid: result.user.uid,
+                    email: result.user.email,
+                    name: result.user.displayName,
+                    tier_id: 3
+                });
+                // Set default Custom Claims for new Google user (non-blocking)
+                try {
+                    await fetch(`${CLAIMS_API_URL}/v1/set-claims`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ uid: result.user.uid, role: 'Member', tierId: 3 })
+                    });
+                } catch (claimsErr) {
+                    console.error('Claims stamp failed (non-fatal):', claimsErr);
+                }
+            } else {
+                await portalApi.query('UPDATE users SET logins = logins + 1 WHERE uid = ?', [result.user.uid]);
+                await portalApi.post('/v1/login_history', { uid: result.user.uid, user_agent: navigator.userAgent, login_method: 'google' });
+            }
+            // Force-refresh token to pick up Custom Claims
+            await result.user.getIdToken(true);
+            // SUCCESS: Redirect to dashboard
             window.location.href = '/portal';
         } catch (err: any) {
             setError(err.message || 'Failed to authenticate with Google');
@@ -58,8 +109,8 @@ export const LoginForm = ({ initialMode = 'login' }: LoginFormProps) => {
                     {isLogin ? 'Welcome Back' : 'Create Account'}
                 </CardTitle>
                 <CardDescription className="text-gray-500 text-sm">
-                    {isLogin 
-                        ? 'Enter your email and password to access your portal' 
+                    {isLogin
+                        ? 'Enter your email and password to access your portal'
                         : 'Sign up to start your childcare business journey'}
                 </CardDescription>
             </CardHeader>
@@ -109,9 +160,9 @@ export const LoginForm = ({ initialMode = 'login' }: LoginFormProps) => {
                     </div>
                 </div>
 
-                <Button 
-                    type="button" 
-                    variant="outline" 
+                <Button
+                    type="button"
+                    variant="outline"
                     className="w-full bg-white hover:bg-gray-50 border-gray-200 text-gray-700 font-medium"
                     onClick={handleGoogleLogin}
                     disabled={loading}
@@ -141,7 +192,7 @@ export const LoginForm = ({ initialMode = 'login' }: LoginFormProps) => {
             <CardFooter className="flex flex-col space-y-4">
                 <div className="text-center text-sm">
                     {isLogin ? 'Don\'t have an account?' : 'Already have an account?'}
-                    <button 
+                    <button
                         onClick={() => setIsLogin(!isLogin)}
                         className="ml-1 text-teal-600 hover:text-teal-700 font-semibold"
                     >

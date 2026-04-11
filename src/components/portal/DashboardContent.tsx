@@ -10,8 +10,8 @@ export const DashboardContent = () => {
     const [stats, setStats] = useState({
         logins: 0,
         activities: 0,
-        role: 'Member',
-        lastActive: 'Never'
+        role: 'Pending...',
+        lastActive: '---'
     });
     const [recentActivities, setRecentActivities] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -32,21 +32,20 @@ export const DashboardContent = () => {
 
         const fetchDashboardData = async () => {
             try {
-                // Background fetch stats from MariaDB
-                let userData = await portalApi.get('/v1/users', { uid: user.uid });
-                
-                // NO BLOCKING SYNC: Only update stats if user exists in DB
+                // Fetch stats directly from MariaDB
+                const userData = await portalApi.get('/v1/users', { uid: user.uid });
+
                 if (userData && userData.length > 0) {
                     const dbUser = userData[0];
                     setStats(prev => ({
                         ...prev,
-                        logins: dbUser.logins || 1,
+                        logins: dbUser.logins || 0,
                         role: dbUser.role || 'Member',
-                        lastActive: dbUser.created_at ? new Date(dbUser.created_at).toLocaleDateString() : 'Today'
+                        lastActive: dbUser.created_at ? new Date(dbUser.created_at).toLocaleDateString() : 'Active Now'
                     }));
                 }
 
-                // Fetch activities separately
+                // Fetch activities directly from MariaDB
                 const activityData = await portalApi.get('/v1/activities', { uid: user.uid });
                 setRecentActivities(activityData || []);
                 setStats(prev => ({ ...prev, activities: (activityData || []).length }));
@@ -162,19 +161,36 @@ export const DashboardContent = () => {
 
                 <div className="md:col-span-3 pro-card glass-panel shadow-sm">
                     <div className="border-b border-gray-100/50 pb-2 mb-3">
-                        <h3 className="text-xs font-black uppercase tracking-[0.2em] text-gray-900">Quick Actions</h3>
-                        <p className="pro-text-meta">Manage your account</p>
+                        <h3 className="text-xs font-black uppercase tracking-[0.2em] text-gray-900">Sequence Pulse</h3>
+                        <p className="pro-text-meta">Record an operational marker</p>
                     </div>
-                    <Button
-                        variant="outline"
-                        className="w-full justify-start text-xs font-bold text-gray-700 bg-white/50 hover:bg-white rounded-xl h-10 transition-all border-teal-100"
-                        onClick={async () => {
-                            await portalApi.post('/v1/activities', { uid: user.uid, type: 'manual', description: 'User triggered manual task' });
-                            window.location.reload();
-                        }}
-                    >
-                        <Plus className="mr-2 h-3.5 w-3.5 text-teal-600" /> Create Activity
-                    </Button>
+                    <div className="space-y-4">
+                        <Button
+                            variant="outline"
+                            className="w-full justify-start text-xs font-bold text-gray-700 bg-white/50 hover:bg-white rounded-xl h-10 transition-all border-teal-100"
+                            onClick={async () => {
+                                try {
+                                    await portalApi.post('/v1/activities', {
+                                        uid: user.uid,
+                                        type: 'Check',
+                                        description: `Pulse recorded at ${new Date().toLocaleTimeString()}`
+                                    });
+                                    // Refetch activities reactively — no page reload
+                                    const freshActivities = await portalApi.get('/v1/activities', { uid: user.uid });
+                                    setRecentActivities(freshActivities || []);
+                                    setStats(prev => ({ ...prev, activities: (freshActivities || []).length }));
+                                } catch (err) {
+                                    console.error('Pulse Failed:', err);
+                                    alert('Failed to record pulse.');
+                                }
+                            }}
+                        >
+                            <Plus className="mr-2 h-3.5 w-3.5 text-teal-600" /> Pulse
+                        </Button>
+                        <p className="text-[9px] text-gray-400 font-medium leading-tight">
+                            Click to record a pulse in your operational sequence.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

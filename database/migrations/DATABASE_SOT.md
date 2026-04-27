@@ -1,12 +1,18 @@
 # CCBP DATABASE: SOURCE OF TRUTH (SOT)
 
-This document is the **Absolute Blueprint** for the CCBP Portal database architecture. It defines the "Tiers of People," the financial ledger, and the operational logs.
+This document is the **Absolute Blueprint** for the CCBP Portal database architecture. It defines the "Tiers of People," the center ownership model, the financial ledger, and the operational logs.
 
 ## 1. Entity-Relationship Diagram (ERD)
 
 ```mermaid
 erDiagram
     access_tiers ||--o{ users : "defines role"
+    users ||--o{ centers : "owns"
+    centers ||--o{ center_members : "contains"
+    users ||--o{ center_members : "belongs to"
+    application_types ||--o{ center_applications : "classifies"
+    centers ||--o{ center_applications : "owns"
+    users ||--o{ center_applications : "creates"
     users ||--o{ activities : "logs"
     users ||--o{ sales_ledger : "pays"
     users ||--o{ enrollments : "is on plan"
@@ -31,6 +37,47 @@ erDiagram
         int id PK
         string tier_type "Internal/Customer"
         string tier_name "Free/Admin/Launchpad"
+    }
+
+    centers {
+        int id PK
+        string owner_uid FK
+        string name
+        string slug
+        string status
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    center_members {
+        int id PK
+        int center_id FK
+        string uid FK
+        string member_role
+        string status
+        timestamp created_at
+    }
+
+    application_types {
+        int id PK
+        string slug
+        string name
+        text description
+        string status
+        timestamp created_at
+    }
+
+    center_applications {
+        int id PK
+        int center_id FK
+        int application_type_id FK
+        string created_by_uid FK
+        string name
+        string status
+        text application_data
+        timestamp submitted_at
+        timestamp created_at
+        timestamp updated_at
     }
 
     activities {
@@ -117,28 +164,42 @@ Access logic is governed by the `tier_id`.
 - **Internal (1-2)**: 1=Admin, 2=Employee. Gives access to the Admin CRM/Analytics.
 - **Customers (3-6)**: 3=Free, 4=Launchpad, 5=Director, 6=Ceo Circle. Governs the tools and business plans available.
 
-### B. Monetization & Access (`sales_ledger` & `enrollments`)
+### B. Centers (`centers` & `center_members`)
+The system is now designed around the **center as the primary business entity**.
+- A `center` is the daycare business, location, or operational entity.
+- A user can create a center and become its owner.
+- Additional users connect to that center through `center_members`.
+- Shared operational data should increasingly attach to `center_id`, not only `uid`.
+
+### C. Center Applications (`application_types` & `center_applications`)
+Centers can own multiple application workflows.
+- `application_types` defines the application classes available to centers.
+- `center_applications` stores center-scoped application records such as enrollment, waitlist, or employment workflows.
+- Application state is tracked independently of individual user accounts.
+
+### D. Monetization & Access (`sales_ledger` & `enrollments`)
 - Every transaction is recorded in the **Sales Ledger**.
 - Upon payment success, an **Enrollment** is created. 
 - The **Enrollment** table is the active check for plan status.
+- `sales_ledger`, `enrollments`, and `projects` now support an optional `center_id` ownership layer.
 
-### C. Operational Audit (`activities`)
+### E. Operational Audit (`activities`)
 - Every dashboard entry increments `users.logins`.
 - Significant actions are logged to `activities` for "Proof of Life" tracking.
 - Activity types: `Session` (auto on login), `Check` (manual test), `AdminAction` (tier/status changes by admin).
 
-### D. Admin CRM (`admin_notes`)
+### F. Admin CRM (`admin_notes`)
 - Internal-only annotations per user.
 - Written by admins (author_uid), attached to users (target_uid). 
 - Visible only in the Admin Dashboard detail panel.
 
-### E. Login Audit Trail (`login_history`)
+### G. Login Audit Trail (`login_history`)
 - One row per portal session.
 - Recorded automatically by `DashboardContent.tsx` `trackSession()` on each new session.
 - Fields: uid, user_agent, login_method (email/google), timestamp.
 - IP address column exists but is NULL from frontend — requires portal-api middleware to capture (future).
 
-### F. Database Explorer (Admin Only)
+### H. Database Explorer (Admin Only)
 - Full dynamic CRUD/DDL on any table in the MariaDB instance.
 - Uses `_tables`, `_schema`, and `_ddl` endpoints to discover and mutate schema.
 - Primary tool for ad-hoc data correction and table management.
@@ -203,7 +264,7 @@ When a user's role changes in MariaDB, the `claims-api` must be called to sync t
 
 ## 6. Global Auth Lifecycle: The Synchronization Chain
 
-This section explains how Identity (Firebase) and Access (MariaDB) work together in a multi-stage process.
+This section explains how Identity (Firebase), access (MariaDB), and center ownership work together in a multi-stage process.
 
 ### Stage 1: Identity & Establishment
 When a user signs up or logs in through `AuthModal.tsx` or `LoginForm.tsx`, the **Firebase Client SDK** establishes their basic Identity. This is strictly a "Who are you?" check.
@@ -212,6 +273,12 @@ When a user signs up or logs in through `AuthModal.tsx` or `LoginForm.tsx`, the 
 The portal reads the user's `tier_id` from the MariaDB `users` table via the `portal-api`. This is the **Source of Truth** for their actual permissions.
 - Tier 1-2 = Admin / Internal
 - Tier 3-6 = Customer Tiers
+
+### Stage 2B: Center Context
+After identity is established, the portal loads the user's connected centers through `center_members`.
+- A first-time user may create a new center.
+- A returning user may belong to one or more centers.
+- Shared portal workflows should operate in the context of the active `center_id`.
 
 ### Stage 3: The Custom Claim "Stamp" (`claims-api`)
 To prevent making a database request on every single page load, we use **Firebase Custom Claims**. 
@@ -283,4 +350,3 @@ When adding new tools, business plans, or tiers, follow this exact workflow:
 ### C. Extend the UI
 1. Add the new navigation link to `sidebarNavContent.tsx`, `UserNav.tsx`, and `MobileNav.tsx`.
 2. Wrap the new link in a tier check matching the database entry.
-

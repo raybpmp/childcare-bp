@@ -86,6 +86,10 @@ export const DashboardContent = () => {
                 <p className="pro-text-meta">Overview of your account and activities.</p>
             </div>
 
+            <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg mb-4 text-amber-800 text-sm font-medium">
+                New Dashboard under construction. Members please use your old dashboard access.
+            </div>
+
             <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
                 <div className="pro-card glass-panel shadow-sm">
                     <div className="flex flex-row items-center justify-between space-y-0 pb-1">

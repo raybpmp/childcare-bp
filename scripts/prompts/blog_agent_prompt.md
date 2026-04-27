@@ -16,8 +16,8 @@ This document is the Source of Truth (SOT) for all blog post creation on this si
 ---
 
 ## Frontmatter Standard
-Must match `src/content/config.ts`:
-```yaml
+Must match `src/content/config.ts`. Start your response directly with this block:
+
 ---
 title: "Primary Keyword H1"
 date: "YYYY-MM-DD"
@@ -28,7 +28,6 @@ tags: ["keyword1", "keyword2"]
 coverImage: "/images/blog/pillars/[pillar-slug].webp" # see Image Mapping below
 featured: false
 ---
-```
 
 ### Valid Category Pillars
 The `category` field for all new posts must be one of:
@@ -76,11 +75,13 @@ The site has an automated daily post system. See `scripts/auto_blog.py` for the 
 
 ## Content Rules
 1.  **Post Length: Every post must be at least 1,500 words.** Do not summarize.
-2.  **No Manual CTAs:** The `BlogCTA` component is automatically appended by the layout. Do not add `<div class="cta-box">` or manual buttons.
-2.  **MDX Syntax:**
+2.  **No Code Block Wrappers:** DO NOT wrap the output in a markdown code block (no ```mdx). Return ONLY the raw MDX content.
+3.  **No LaTeX Formatting:** DO NOT use LaTeX math blocks for numbers or currency (e.g., no $\text{\$100}$). Use plain text formatting like $100.
+4.  **No Manual CTAs:** The `BlogCTA` component is automatically appended by the layout. Do not add `<div class="cta-box">` or manual buttons.
+5.  **MDX Syntax:**
     *   Escape all `<` characters as `&lt;` or use text equivalents ("less than").
     *   Escape `{` and `}` if not being used for variables/expressions.
-3.  **Typography:**
+6.  **Typography:**
     *   Use standard Markdown (`#`, `##`, `*`).
     *   Do not use raw HTML like `<p class="...">`. The `GlassParagraph` wrapper handles styling automatically.
 

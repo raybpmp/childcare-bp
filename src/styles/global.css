@@ -37,22 +37,22 @@
   --animate-slide-up: slide-up 0.8s ease-out forwards;
 
   /* Mobile-First Typography Scale */
-  --text-base-mobile: 1.125rem;
-  /* 18px for readability on mobile */
+  --text-base-mobile: 0.875rem;
+  /* 14px for pro-utility readability */
   --text-base-desktop: 1rem;
   /* 16px for desktop */
-  --line-height-relaxed: 1.75;
-  /* Easier reading for non-tech-savvy users */
+  --line-height-relaxed: 1.625;
+  /* Optimized for density */
 
   /* Touch-Friendly Spacing */
-  --touch-target-min: 3rem;
-  /* 48px minimum touch target */
-  --spacing-section-mobile: 3rem;
-  /* 48px section spacing mobile */
-  --spacing-section-desktop: 5rem;
-  /* 80px section spacing desktop */
-  --spacing-component: 1.5rem;
-  /* 24px between components */
+  --touch-target-min: 2.5rem;
+  /* 40px minimum touch target */
+  --spacing-section-mobile: 0.75rem;
+  /* 12px section spacing mobile */
+  --spacing-section-desktop: 1.5rem;
+  /* 24px section spacing desktop */
+  --spacing-component: 0.75rem;
+  /* 12px between components */
 
   /* Glass Tokens for Warm Aesthetic */
   --color-glass-warm: rgba(255, 250, 245, 0.7);
@@ -212,7 +212,7 @@ body {
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: 0.375rem; /* Pro-Utility Sharp: 6px */
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);

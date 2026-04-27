@@ -1,0 +1,11 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { PortalWrapper } from '@/components/portal/PortalWrapper';
+import { CenterContent } from '@/components/portal/CenterContent';
+---
+
+<Layout title="Center | Portal">
+    <PortalWrapper>
+        <CenterContent client:load />
+    </PortalWrapper>
+</Layout>

@@ -187,6 +187,27 @@ def extract_slug_from_mdx(mdx_content: str, date_str: str) -> str:
     return f"{date_str}-childcare-blog-post"
 
 
+def sanitize_mdx(content: str) -> str:
+    """Remove AI-injected markdown code blocks and LaTeX math artifacts."""
+    # 1. Strip markdown code block wrappers if the AI ignored the prompt
+    # Handles ```mdx, ```markdown, ``` or any other variant
+    content = content.strip()
+    if content.startswith("```"):
+        # Find the first newline and remove everything before it
+        newline_idx = content.find("\n")
+        if newline_idx != -1:
+            content = content[newline_idx:].strip()
+            
+    if content.endswith("```"):
+        content = content[:-3].strip()
+
+    # 2. Convert LaTeX currency blocks (e.g., $\text{\$500}$) to plain text ($500)
+    # This specifically targets the common pattern seen in the logs.
+    content = re.sub(r"\$\\(?:text|mathrm)\{\\\$([\d,]+(?: to \\\$[\d,]+)?)\}\$", r"$\1", content)
+    
+    return content.strip()
+
+
 def validate_mdx(content: str) -> list[str]:
     """Basic validation checks. Returns a list of warnings."""
     warnings = []
@@ -278,6 +299,9 @@ def main():
             mdx_content, keyword = generate_evergreen_path(client, date_str)
             log_data["mode"] = "Path A (Evergreen Fallback)" if "Path B" in path_taken else "Path A (Evergreen)"
             log_data["target_keyword"] = keyword
+
+        # Sanitize content before further processing
+        mdx_content = sanitize_mdx(mdx_content)
 
         # Save Raw Output to logs
         with open(run_log_dir / "draft.mdx", "w") as f:

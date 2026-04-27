@@ -30,30 +30,34 @@ export const LoginForm = ({ initialMode = 'login' }: LoginFormProps) => {
         try {
             if (isLogin) {
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                await portalApi.query('UPDATE users SET logins = logins + 1 WHERE uid = ?', [userCredential.user.uid]);
-                await portalApi.post('/v1/login_history', { uid: userCredential.user.uid, user_agent: navigator.userAgent, login_method: 'email' });
+                
+                // NON-BLOCKING: Log session in background
+                portalApi.post('/v1/login_history', { 
+                    uid: userCredential.user.uid, 
+                    user_agent: navigator.userAgent, 
+                    login_method: 'email' 
+                }).catch(e => console.error('Silent log failure:', e));
+
                 // Force-refresh token to pick up latest Custom Claims
                 await userCredential.user.getIdToken(true);
             } else {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                // AUTHORITATIVE REGISTRATION: Create MariaDB record at sign-up
+                
+                // AUTHORITATIVE REGISTRATION
                 await portalApi.post('/v1/users', {
                     uid: userCredential.user.uid,
                     email: userCredential.user.email,
                     name: email.split('@')[0],
                     tier_id: 3 // Default to Free
                 });
-                // Set default Custom Claims via claims-api (non-blocking)
-                try {
-                    await fetch(`${CLAIMS_API_URL}/v1/set-claims`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ uid: userCredential.user.uid, role: 'Member', tierId: 3 })
-                    });
-                } catch (claimsErr) {
-                    console.error('Claims stamp failed (non-fatal):', claimsErr);
-                }
-                // Force-refresh token so claims are immediately available
+
+                // Set default Custom Claims (stamp)
+                fetch(`${CLAIMS_API_URL}/v1/set-claims`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ uid: userCredential.user.uid, role: 'Member', tierId: 3 })
+                }).catch(e => console.error('Claims stamp failed:', e));
+
                 await userCredential.user.getIdToken(true);
             }
             // SUCCESS: Redirect to dashboard
@@ -69,38 +73,46 @@ export const LoginForm = ({ initialMode = 'login' }: LoginFormProps) => {
         setLoading(true);
         try {
             const result = await signInWithPopup(auth, googleProvider);
-            // AUTHORITATIVE REGISTRATION: Check/Create on Google Login
-            const dbCheck = await portalApi.get('/v1/users', { uid: result.user.uid });
-            if (!dbCheck || dbCheck.length === 0) {
-                await portalApi.post('/v1/users', {
-                    uid: result.user.uid,
-                    email: result.user.email,
-                    name: result.user.displayName,
-                    tier_id: 3
-                });
-                // Set default Custom Claims for new Google user (non-blocking)
-                try {
-                    await fetch(`${CLAIMS_API_URL}/v1/set-claims`, {
+            
+            // NON-BLOCKING: Check/Create user and log history
+            // We don't await these to prevent handshake hangs
+            const handleSync = async () => {
+                const dbCheck = await portalApi.get('/v1/users', { uid: result.user.uid });
+                if (!dbCheck || dbCheck.length === 0) {
+                    await portalApi.post('/v1/users', {
+                        uid: result.user.uid,
+                        email: result.user.email,
+                        name: result.user.displayName,
+                        tier_id: 3
+                    });
+                    
+                    fetch(`${CLAIMS_API_URL}/v1/set-claims`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ uid: result.user.uid, role: 'Member', tierId: 3 })
-                    });
-                } catch (claimsErr) {
-                    console.error('Claims stamp failed (non-fatal):', claimsErr);
+                    }).catch(e => {});
                 }
-            } else {
-                await portalApi.query('UPDATE users SET logins = logins + 1 WHERE uid = ?', [result.user.uid]);
-                await portalApi.post('/v1/login_history', { uid: result.user.uid, user_agent: navigator.userAgent, login_method: 'google' });
-            }
+                
+                portalApi.post('/v1/login_history', { 
+                    uid: result.user.uid, 
+                    user_agent: navigator.userAgent, 
+                    login_method: 'google' 
+                }).catch(e => {});
+            };
+
+            handleSync().catch(e => console.error('Google account sync failed:', e));
+
             // Force-refresh token to pick up Custom Claims
             await result.user.getIdToken(true);
-            // SUCCESS: Redirect to dashboard
+            
+            // SUCCESS: Immediate redirect
             window.location.href = '/portal';
         } catch (err: any) {
             setError(err.message || 'Failed to authenticate with Google');
             setLoading(false);
         }
     };
+
 
     return (
         <Card className="w-full max-w-md mx-auto shadow-xl bg-white/80 backdrop-blur-md border-white/20">

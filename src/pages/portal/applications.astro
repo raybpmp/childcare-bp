@@ -1,0 +1,11 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { PortalWrapper } from '@/components/portal/PortalWrapper';
+import { ApplicationsContent } from '@/components/portal/ApplicationsContent';
+---
+
+<Layout title="Applications | Portal">
+    <PortalWrapper>
+        <ApplicationsContent client:load />
+    </PortalWrapper>
+</Layout>

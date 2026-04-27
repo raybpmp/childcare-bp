@@ -1,7 +1,7 @@
 import React from 'react';
 import { useStore } from '@nanostores/react';
 import { $authStore } from '@/store/authStore';
-import { LayoutDashboard, User as UserIcon, Settings, BarChart3, Shield } from 'lucide-react';
+import { LayoutDashboard, User as UserIcon, Settings, BarChart3, Shield, Building2, FileText } from 'lucide-react';
 
 const navItems = [
     {
@@ -18,6 +18,16 @@ const navItems = [
         name: "Analytics",
         href: "/portal/analytics",
         icon: BarChart3,
+    },
+    {
+        name: "Center",
+        href: "/portal/center",
+        icon: Building2,
+    },
+    {
+        name: "Applications",
+        href: "/portal/applications",
+        icon: FileText,
     },
     {
         name: "Settings",
@@ -74,4 +84,3 @@ export const DashboardNavContent = ({ className = "" }: { className?: string }) 
         </nav>
     );
 };
-
